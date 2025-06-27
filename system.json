@@ -7,9 +7,9 @@
 	"manifest": "https://github.com/Oliver-Akins/Text-Actors-Foundry/releases/latest/download/system.json",
 	"url": "https://github.com/Oliver-Akins/Text-Actors-Foundry",
 	"compatibility": {
-		"minimum": 12,
-		"verified": 12,
-		"maximum": 12
+		"minimum": 13,
+		"verified": 13,
+		"maximum": 13
 	},
 	"authors": [
 		{
@@ -18,10 +18,13 @@
 		}
 	],
 	"esmodules": [
-		"src/main.mjs"
+		"./module/main.mjs"
 	],
 	"styles": [
-		".styles/root.css"
+		{
+			"src": "./styles/main.css",
+			"layer": "system"
+		}
 	],
 	"packs": [],
 	"documentTypes": {

@@ -1,0 +1,31 @@
+// Apps
+import { PlayerSheet } from "../apps/PlayerSheet.mjs";
+
+// Data Models
+import { PlayerData } from "../data/Player.mjs";
+
+// Documents
+import { TAFActor } from "../documents/Actor.mjs";
+import { TAFTokenDocument } from "../documents/Token.mjs";
+
+// Utils
+import { __ID__ } from "../consts.mjs";
+import { Logger } from "../utils/Logger.mjs";
+
+Hooks.on(`init`, () => {
+	Logger.debug(`Initializing`);
+
+	CONFIG.Token.documentClass = TAFTokenDocument;
+	CONFIG.Actor.documentClass = TAFActor;
+
+	CONFIG.Actor.dataModels.player = PlayerData;
+
+	foundry.documents.collections.Actors.registerSheet(
+		__ID__,
+		PlayerSheet,
+		{
+			makeDefault: true,
+			label: `taf.sheet-names.PlayerSheet`,
+		},
+	);
+});

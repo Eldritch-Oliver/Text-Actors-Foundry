@@ -11,7 +11,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 				new fields.SchemaField({
 					name: new fields.StringField({ blank: false, trim: true }),
 					value: new fields.NumberField({ min: 0, initial: 0, integer: true, nullable: false }),
-					max: new fields.NumberField({ min: 0, initial: 0, integer: true, nullable: true }),
+					max: new fields.NumberField({ min: 0, initial: null, integer: true, nullable: true }),
 					isRange: new fields.BooleanField({ initial: false, nullable: false }),
 				}),
 				{

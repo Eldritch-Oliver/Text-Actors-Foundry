@@ -8,6 +8,9 @@ import { PlayerData } from "../data/Player.mjs";
 import { TAFActor } from "../documents/Actor.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
+// Settings
+import { registerWorldSettings } from "../settings/world.mjs";
+
 // Utils
 import { __ID__ } from "../consts.mjs";
 import { Logger } from "../utils/Logger.mjs";
@@ -28,4 +31,6 @@ Hooks.on(`init`, () => {
 			label: `taf.sheet-names.PlayerSheet`,
 		},
 	);
+
+	registerWorldSettings();
 });

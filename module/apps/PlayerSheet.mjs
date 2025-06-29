@@ -18,16 +18,6 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		},
 		window: {
 			resizable: true,
-			controls: [
-				{
-					icon: `fa-solid fa-at`,
-					label: `Manage Attributes`,
-					action: `manageAttributes`,
-					visible: () => {
-						return game.user.isGM;
-					},
-				},
-			],
 		},
 		form: {
 			submitOnChange: true,
@@ -46,6 +36,23 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Options
 
 	// #region Lifecycle
+	_getHeaderControls() {
+		const controls = super._getHeaderControls();
+
+		controls.push({
+			icon: `fa-solid fa-at`,
+			label: `Manage Attributes`,
+			action: `manageAttributes`,
+			visible: () => {
+				const isGM = game.user.isGM;
+				const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
+				const editable = this.isEditable;
+				return isGM || (allowPlayerEdits && editable);
+			},
+		});
+
+		return controls;
+	};
 	// #endregion Lifecycle
 
 	// #region Data Prep

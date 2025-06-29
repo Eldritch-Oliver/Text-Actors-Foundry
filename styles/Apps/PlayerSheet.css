@@ -1,17 +1,10 @@
 .taf.PlayerSheet {
-	> .window-content {
-		padding: 0.5rem;
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
 	.sheet-header, fieldset, .content {
 		border-radius: 8px;
 		border: 1px solid rebeccapurple;
 	}
 
-	.window-content > header {
+	.sheet-header {
 		display: flex;
 		flex-direction: row;
 		align-items: center;

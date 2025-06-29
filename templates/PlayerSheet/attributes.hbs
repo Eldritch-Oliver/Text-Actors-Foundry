@@ -1,7 +1,7 @@
 {{#if hasAttributes}}
 	<div class="attributes">
 		{{#each attrs as | attr |}}
-			<fieldset>
+			<fieldset data-attribute="{{ attr.id }}">
 				<legend>
 					{{ attr.name }}
 				</legend>

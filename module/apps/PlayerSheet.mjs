@@ -1,4 +1,5 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { AttributeManager } from "./AttributeManager.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -12,17 +13,29 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 			`PlayerSheet`,
 		],
 		position: {
-			width: 400,
-			height: 500,
+			width: 575,
+			height: 740,
 		},
 		window: {
 			resizable: true,
+			controls: [
+				{
+					icon: `fa-solid fa-at`,
+					label: `Manage Attributes`,
+					action: `manageAttributes`,
+					visible: () => {
+						return game.user.isGM;
+					},
+				},
+			],
 		},
 		form: {
 			submitOnChange: true,
 			closeOnSubmit: false,
 		},
-		actions: {},
+		actions: {
+			manageAttributes: this.#manageAttributes,
+		},
 	};
 
 	static PARTS = {
@@ -82,5 +95,10 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Data Prep
 
 	// #region Actions
+	/** @this {PlayerSheet} */
+	static async #manageAttributes() {
+		const app = new AttributeManager({ document: this.actor });
+		await app.render({ force: true });
+	};
 	// #endregion Actions
 };

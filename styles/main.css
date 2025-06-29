@@ -9,4 +9,6 @@
 @import url("./elements/prose-mirror.css") layer(elements);
 
 /* Apps */
+@import url("./Apps/common.css") layer(apps);
 @import url("./Apps/PlayerSheet.css") layer(apps);
+@import url("./Apps/AttributeManager.css") layer(apps);

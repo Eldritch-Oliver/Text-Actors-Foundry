@@ -1,0 +1,12 @@
+{
+	"TYPES": {
+		"Actor": {
+			"player": "Player"
+		}
+	},
+	"taf": {
+		"sheet-names": {
+			"PlayerSheet": "Player Sheet"
+		}
+	}
+}

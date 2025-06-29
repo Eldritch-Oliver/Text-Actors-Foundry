@@ -26,7 +26,13 @@
 			"layer": "system"
 		}
 	],
-	"packs": [],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English (Canadian)",
+			"path": "langs/en-ca.json"
+		}
+	],
 	"documentTypes": {
 		"Actor": {
 			"player": {

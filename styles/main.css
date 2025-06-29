@@ -1,6 +1,8 @@
-@layer resets, elements, components, partials, apps, exceptions;
+@layer resets, themes, elements, components, partials, apps, exceptions;
 
-/* Resets */
+/* Themes */
+@import url("./themes/dark.css") layer(themes);
+@import url("./themes/light.css") layer(themes);
 
 /* Elements */
 @import url("./elements/headers.css") layer(elements);

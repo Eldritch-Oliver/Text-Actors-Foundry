@@ -1,0 +1,60 @@
+.taf.PlayerSheet {
+	> .window-content {
+		padding: 0.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.sheet-header, fieldset, .content {
+		border-radius: 8px;
+		border: 1px solid rebeccapurple;
+	}
+
+	.window-content > header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 4px;
+	}
+
+	.attributes {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		gap: 0.5rem;
+	}
+
+	.attr-range {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 4px;
+		width: 100px;
+
+		> input {
+			text-align: center;
+		}
+	}
+
+	.content {
+		flex-grow: 1;
+		overflow: hidden;
+
+		&:not(:has(> prose-mirror)) {
+			padding: 0.5rem;
+		}
+	}
+
+	prose-mirror {
+		height: 100%;
+		background: var(--color-cool-5);
+
+		menu {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+}

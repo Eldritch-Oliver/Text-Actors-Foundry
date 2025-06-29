@@ -1,0 +1,6 @@
+.taf > .window-content input {
+	&.large {
+		--input-height: 2.5rem;
+		font-size: 1.75rem;
+	}
+}

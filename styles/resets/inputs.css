@@ -1,0 +1,5 @@
+.taf > .window-content {
+	button, input {
+		all: initial;
+	}
+}

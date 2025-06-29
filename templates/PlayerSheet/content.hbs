@@ -1,0 +1,16 @@
+<div class="content">
+	{{log this}}
+	{{#if editable}}
+		<prose-mirror
+			class="actor-text"
+			name="system.content"
+			value="{{system.content}}"
+			collaborate="true"
+			data-document-uuid="{{actor.uuid}}"
+		>
+			{{{ enriched.system.content }}}
+		</prose-mirror>
+	{{else}}
+		{{{ enriched.system.content }}}
+	{{/if}}
+</div>

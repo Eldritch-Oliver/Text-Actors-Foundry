@@ -29,10 +29,6 @@ jobs:
         if: ${{ steps.check-tag.outputs.exists == 'true' }}
         run: exit 1
 
-      - name: Ensure there are specific files to release
-        if: ${{ vars.files_to_release == '' }}
-        run: exit 1
-
       # Compile the stuff that needs to be compiled
       - run: npm run build
       - run: node scripts/buildCompendia.mjs
@@ -43,10 +39,10 @@ jobs:
 
       - name: Update the download property in the manifest
         id: manifest-update
-        run: cat system.temp.json | jq -r --tab '.download = "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.version }}/${{ vars.zip_name }}.zip"' > system.json
+        run: cat system.temp.json | jq -r --tab '.download = "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.version }}/release.zip"' > system.json
 
       - name: Create the zip
-        run: zip -r ${{ vars.zip_name || 'release' }}.zip ${{ vars.files_to_release }}
+        run: zip -r release.zip langs module styles templates system.json README.md
 
       - name: Create the draft release
         uses: ncipollo/release-action@v1

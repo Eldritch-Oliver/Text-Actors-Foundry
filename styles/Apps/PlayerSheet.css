@@ -10,6 +10,10 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 4px;
+
+		img {
+			border-radius: 4px;
+		}
 	}
 
 	.attributes {
@@ -35,6 +39,7 @@
 	.content {
 		flex-grow: 1;
 		overflow: hidden;
+		--table-row-color-odd: var(--table-header-bg-color);
 
 		&:not(:has(> prose-mirror)) {
 			padding: 0.5rem;

@@ -51,4 +51,4 @@ jobs:
           commit: ${{ github.ref }}
           draft: true
           generateReleaseNotes: true
-          artifacts: "${{vars.zip_name || 'release'}}.zip,system.json"
+          artifacts: "release.zip,system.json"

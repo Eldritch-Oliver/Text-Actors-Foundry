@@ -1,0 +1,12 @@
+.taf > .window-content prose-mirror {
+	background: var(--prosemirror-background);
+
+	.editor-content {
+		padding: 0 8px 8px;
+	}
+
+	.tableWrapper th,
+	.tableWrapper td {
+		border-color: rebeccapurple;
+	}
+}

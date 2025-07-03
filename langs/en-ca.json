@@ -1,0 +1,18 @@
+{
+	"TYPES": {
+		"Actor": {
+			"player": "Player"
+		}
+	},
+	"taf": {
+		"settings": {
+			"canPlayersManageAttributes": {
+				"name": "Players Can Manage Attributes",
+				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"
+			}
+		},
+		"sheet-names": {
+			"PlayerSheet": "Player Sheet"
+		}
+	}
+}

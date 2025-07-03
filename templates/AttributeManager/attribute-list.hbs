@@ -1,0 +1,35 @@
+<div class="attributes">
+	{{#each attrs as |attr|}}
+		<div
+			class="attribute"
+			data-attribute="{{ attr.id }}"
+		>
+			{{#if attr.isNew}}
+				<input
+					type="text"
+					data-bind="{{ attr.id }}.name"
+					value="{{ attr.name }}"
+					placeholder="Attribute Name..."
+				>
+			{{else}}
+				<span>{{ attr.name }}</span>
+			{{/if}}
+			<label>
+				Has Maximum?
+				<input
+					type="checkbox"
+					data-bind="{{ attr.id }}.isRange"
+					{{ checked attr.isRange }}
+				>
+			</label>
+			<button
+				type="button"
+				data-action="removeAttribute"
+			>
+				Delete
+			</button>
+		</div>
+	{{else}}
+		<p>No attributes yet</p>
+	{{/each}}
+</div>

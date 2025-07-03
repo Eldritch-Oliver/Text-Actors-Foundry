@@ -1,0 +1,32 @@
+{{#if hasAttributes}}
+	<div class="attributes">
+		{{#each attrs as | attr |}}
+			<fieldset data-attribute="{{ attr.id }}">
+				<legend>
+					{{ attr.name }}
+				</legend>
+				<div class="attr-range">
+					<input
+						type="number"
+						class="attr-range__value"
+						name="{{attr.path}}.value"
+						value="{{attr.value}}"
+						aria-label="Current value"
+					>
+					{{#if attr.isRange}}
+						<span aria-hidden="true">/</span>
+						<input
+							type="number"
+							class="attr-range__max"
+							name="{{attr.path}}.max"
+							value="{{attr.max}}"
+							aria-label="Maximum value"
+						>
+					{{/if}}
+				</div>
+			</fieldset>
+		{{/each}}
+	</div>
+{{else}}
+	<template />
+{{/if}}

@@ -1,5 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
+import { attributeSorter } from "../utils/attributeSort.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -88,7 +89,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 				path: `system.attr.${id}`,
 			});
 		};
-		ctx.attrs = attrs.toSorted((a, b) => a.name.localeCompare(b.name));
+		ctx.attrs = attrs.toSorted(attributeSorter);
 	};
 
 	async _prepareContent(ctx) {

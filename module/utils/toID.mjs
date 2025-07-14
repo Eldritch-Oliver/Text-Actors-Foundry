@@ -8,6 +8,6 @@
 export function toID(text) {
 	return text
 		.toLowerCase()
-		.replace(/\s/g, `_`)
+		.replace(/\s+/g, `_`)
 		.replace(/\W/g, ``);
 };

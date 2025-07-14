@@ -1,9 +1,11 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { attributeSorter } from "../utils/attributeSort.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { toID } from "../utils/toID.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
-const { deepClone, diffObject, randomID, setProperty } = foundry.utils;
+const { deepClone, diffObject, mergeObject, performIntegerSort, randomID, setProperty } = foundry.utils;
+const { DragDrop, TextEditor } = foundry.applications.ux;
 
 export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) {
 
@@ -16,7 +18,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		],
 		position: {
 			width: 400,
-			height: 350,
+			height: `auto`,
 		},
 		window: {
 			resizable: true,
@@ -68,6 +70,18 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		for (const input of elements) {
 			input.addEventListener(`change`, this.#bindListener.bind(this));
 		};
+
+		new DragDrop.implementation({
+			dragSelector: `[data-attribute]`,
+			permissions: {
+				dragstart: this._canDragStart.bind(this),
+				drop: this._canDragDrop.bind(this),
+			},
+			callbacks: {
+				dragstart: this._onDragStart.bind(this),
+				drop: this._onDrop.bind(this),
+			},
+		}).bind(this.element);
 	};
 	// #endregion Lifecycle
 
@@ -93,11 +107,13 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 			attrs.push({
 				id,
 				name: data.name,
+				displayName: data.isNew ? `New Attribute` : data.name,
+				sort: data.sort,
 				isRange: data.isRange,
 				isNew: data.isNew ?? false,
 			});
 		};
-		ctx.attrs = attrs;
+		ctx.attrs = attrs.sort(attributeSorter);
 	};
 	// #endregion Data Prep
 
@@ -119,7 +135,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 
 		Logger.debug(`Updating ${binding} value to ${value}`);
 		setProperty(this.#attributes, binding, value);
-		await this.render();
+		await this.render({ parts: [ `attributes` ]});
 	};
 
 	/** @this {AttributeManager} */
@@ -127,6 +143,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		const id = randomID();
 		this.#attributes[id] = {
 			name: ``,
+			sort: Number.POSITIVE_INFINITY,
 			isRange: false,
 			isNew: true,
 		};
@@ -168,4 +185,87 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		await this.#doc.update({ "system.attr": diff });
 	};
 	// #endregion Actions
+
+	// #region Drag & Drop
+	_canDragStart() {
+		return this.#doc.isOwner;
+	};
+
+	_canDragDrop() {
+		return this.#doc.isOwner;
+	};
+
+	_onDragStart(event) {
+		const target = event.currentTarget;
+		if (`link` in event.target.dataset) { return };
+		let dragData;
+
+		if (target.dataset.attribute) {
+			const attributeID = target.dataset.attribute;
+			const attribute = this.#attributes[attributeID];
+			dragData = {
+				_id: attributeID,
+				sort: attribute.sort,
+			};
+		};
+
+		if (!dragData) { return };
+		event.dataTransfer.setData(`text/plain`, JSON.stringify(dragData));
+	};
+
+	_onDrop(event) {
+		const dropped = TextEditor.implementation.getDragEventData(event);
+
+		const dropTarget = event.target.closest(`[data-attribute]`);
+		if (!dropTarget) { return };
+		const targetID = dropTarget.dataset.attribute;
+		let target;
+
+		// Not moving location, ignore drop event
+		if (targetID === dropped._id) { return };
+
+		// Determine all of the siblings and create sort data
+		const siblings = [];
+		for (const element of dropTarget.parentElement.children) {
+			const siblingID = element.dataset.attribute;
+			const attr = this.#attributes[siblingID];
+			const sibling = {
+				_id: siblingID,
+				sort: attr.sort,
+			};
+			if (siblingID && siblingID !== dropped._id) {
+				siblings.push(sibling);
+			};
+			if (siblingID === targetID) {
+				target = sibling;
+			}
+		};
+
+		const sortUpdates = performIntegerSort(
+			dropped,
+			{
+				target,
+				siblings,
+			},
+		);
+
+		const updateEntries = sortUpdates.map(({ target, update }) => {
+			return [ `${target._id}.sort`, update.sort ];
+		});
+		const update = Object.fromEntries(updateEntries);
+
+		mergeObject(
+			this.#attributes,
+			update,
+			{
+				insertKeys: false,
+				insertValues: false,
+				inplace: true,
+				performDeletions: false,
+			},
+		);
+
+		this.render({ parts: [ `attributes` ] });
+	};
+	// #endregion Drag & Drop
 };

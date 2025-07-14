@@ -4,6 +4,11 @@
 			class="attribute"
 			data-attribute="{{ attr.id }}"
 		>
+			<taf-icon
+				name="icons/drag-handle"
+				var:stroke="currentColor"
+				var:fill="currentColor"
+			></taf-icon>
 			{{#if attr.isNew}}
 				<input
 					type="text"

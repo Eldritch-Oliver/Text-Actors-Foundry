@@ -14,6 +14,7 @@ import { registerWorldSettings } from "../settings/world.mjs";
 // Utils
 import { __ID__ } from "../consts.mjs";
 import { Logger } from "../utils/Logger.mjs";
+import { registerCustomComponents } from "../apps/elements/_index.mjs";
 
 Hooks.on(`init`, () => {
 	Logger.debug(`Initializing`);
@@ -32,5 +33,6 @@ Hooks.on(`init`, () => {
 		},
 	);
 
+	registerCustomComponents();
 	registerWorldSettings();
 });

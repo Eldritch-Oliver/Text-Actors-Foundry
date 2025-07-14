@@ -24,5 +24,25 @@ export class TAFActor extends Actor {
 		const allowed = Hooks.call(`modifyTokenAttribute`, {attribute, value, isDelta, isBar}, updates, this);
 
 		return allowed !== false ? this.update(updates) : this;
-	}
+	};
+
+	getRollData() {
+		const data = {};
+
+		if (`attr` in this.system) {
+			for (const attrID in this.system.attr) {
+				const attr = this.system.attr[attrID];
+				if (attr.isRange) {
+					data[attrID] = {
+						value: attr.value,
+						max: attr.max,
+					};
+				} else {
+					data[attrID] = attr.value;
+				};
+			};
+		};
+
+		return data;
+	};
 };

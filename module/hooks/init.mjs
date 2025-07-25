@@ -13,6 +13,7 @@ import { registerWorldSettings } from "../settings/world.mjs";
 
 // Utils
 import { __ID__ } from "../consts.mjs";
+import helpers from "../handlebarsHelpers/_index.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { registerCustomComponents } from "../apps/elements/_index.mjs";
 
@@ -33,6 +34,8 @@ Hooks.on(`init`, () => {
 		},
 	);
 
-	registerCustomComponents();
 	registerWorldSettings();
+
+	registerCustomComponents();
+	Handlebars.registerHelper(helpers);
 });

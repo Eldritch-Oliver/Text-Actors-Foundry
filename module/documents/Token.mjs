@@ -1,5 +1,3 @@
-import { Logger } from "../utils/Logger.mjs";
-
 const { TokenDocument } = foundry.documents;
 const { getProperty, getType, hasProperty, isSubclass } = foundry.utils;
 
@@ -61,7 +59,7 @@ export class TAFTokenDocument extends TokenDocument {
 	 */
 	getBarAttribute(barName, {alternative} = {}) {
 		const attribute = alternative || this[barName]?.attribute;
-		Logger.log(barName, attribute);
+
 		if (!attribute || !this.actor) {
 			return null;
 		};

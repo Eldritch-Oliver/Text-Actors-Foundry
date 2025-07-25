@@ -1,10 +1,7 @@
-import { Logger } from "../utils/Logger.mjs";
-
 const { Actor } = foundry.documents;
 
 export class TAFActor extends Actor {
 	async modifyTokenAttribute(attribute, value, isDelta = false, isBar = true) {
-		Logger.table({ attribute, value, isDelta, isBar });
 		const attr = foundry.utils.getProperty(this.system, attribute);
 		const current = isBar ? attr.value : attr;
 		const update = isDelta ? current + value : value;

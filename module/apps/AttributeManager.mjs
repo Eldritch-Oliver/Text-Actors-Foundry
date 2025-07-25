@@ -1,6 +1,5 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
-import { Logger } from "../utils/Logger.mjs";
 import { toID } from "../utils/toID.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -133,7 +132,6 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 			};
 		};
 
-		Logger.debug(`Updating ${binding} value to ${value}`);
 		setProperty(this.#attributes, binding, value);
 		await this.render({ parts: [ `attributes` ]});
 	};

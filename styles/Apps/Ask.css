@@ -1,0 +1,40 @@
+.taf.Ask {
+	min-width: 330px;
+
+	.prompt {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.window-content {
+		gap: 1rem;
+		overflow: auto;
+	}
+
+	.dialog-content {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.control-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+
+		button {
+			flex-grow: 1;
+		}
+	}
+
+	label {
+		color: var(--color-form-label);
+		font-weight: bold;
+	}
+
+	p {
+		margin: 0;
+	}
+}

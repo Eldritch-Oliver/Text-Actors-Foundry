@@ -1,0 +1,12 @@
+<div class="dialog-content">
+	{{#if description}}
+		<p>
+			{{ description }}
+		</p>
+	{{/if}}
+	{{#each inputs as | i |}}
+		<div class="prompt">
+			{{> (concat (systemFilePath "templates/Ask/inputs/" ) i.type ".hbs") i}}
+		</div>
+	{{/each}}
+</div>

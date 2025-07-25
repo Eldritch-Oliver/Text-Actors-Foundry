@@ -2,7 +2,7 @@
 	"id": "taf",
 	"title": "Text-Based Actors",
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"download": "https://github.com/Oliver-Akins/Text-Actors-Foundry/releases/latest/download/release.zip",
 	"manifest": "https://github.com/Oliver-Akins/Text-Actors-Foundry/releases/latest/download/system.json",
 	"url": "https://github.com/Oliver-Akins/Text-Actors-Foundry",

@@ -37,4 +37,10 @@
 	p {
 		margin: 0;
 	}
+
+	input[type="checkbox"] {
+		align-self: center;
+		justify-self: right;
+		margin: 0;
+	}
 }

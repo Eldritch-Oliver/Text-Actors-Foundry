@@ -1,0 +1,12 @@
+<label
+	for="{{id}}"
+>
+	{{ label }}
+</label>
+<input
+	type="checkbox"
+	id="{{ id }}"
+	name="{{ key }}"
+	{{ checked defaultValue }}
+	{{#if autofocus}}autofocus{{/if}}
+>

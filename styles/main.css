@@ -1,11 +1,15 @@
 @layer resets, themes, elements, components, partials, apps, exceptions;
 
+/* Resets */
+@import url("./resets/hr.css") layer(resets);
+
 /* Themes */
 @import url("./themes/dark.css") layer(themes);
 @import url("./themes/light.css") layer(themes);
 
 /* Elements */
 @import url("./elements/headers.css") layer(elements);
+@import url("./elements/hr.css") layer(elements);
 @import url("./elements/input.css") layer(elements);
 @import url("./elements/p.css") layer(elements);
 @import url("./elements/prose-mirror.css") layer(elements);

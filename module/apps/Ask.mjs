@@ -5,6 +5,7 @@ const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 const validInputTypes = [
 	`checkbox`,
 	`details`,
+	`divider`,
 	`error`,
 	`input`,
 	`select`,

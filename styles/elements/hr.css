@@ -1,0 +1,7 @@
+.taf > .window-content hr {
+	height: 1px;
+	background: rebeccapurple;
+	border-radius: 0;
+	margin: 0;
+	padding: 0;
+}

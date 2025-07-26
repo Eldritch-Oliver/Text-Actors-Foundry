@@ -141,7 +141,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		const id = randomID();
 		this.#attributes[id] = {
 			name: ``,
-			sort: Number.POSITIVE_INFINITY,
+			sort: Number.MAX_SAFE_INTEGER,
 			isRange: false,
 			isNew: true,
 		};

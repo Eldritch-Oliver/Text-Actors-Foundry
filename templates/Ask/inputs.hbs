@@ -5,8 +5,6 @@
 		</p>
 	{{/if}}
 	{{#each inputs as | i |}}
-		<div class="prompt">
-			{{> (concat (systemFilePath "templates/Ask/inputs/" ) i.type ".hbs") i}}
-		</div>
+		{{> (concat (systemFilePath "templates/Ask/inputs/" ) i.type ".hbs") i}}
 	{{/each}}
 </div>

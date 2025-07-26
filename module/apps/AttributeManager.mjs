@@ -71,7 +71,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		};
 
 		new DragDrop.implementation({
-			dragSelector: `[data-attribute]`,
+			dragSelector: `.draggable`,
 			permissions: {
 				dragstart: this._canDragStart.bind(this),
 				drop: this._canDragDrop.bind(this),
@@ -194,7 +194,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	};
 
 	_onDragStart(event) {
-		const target = event.currentTarget;
+		const target = event.currentTarget.closest(`[data-attribute]`);
 		if (`link` in event.target.dataset) { return };
 		let dragData;
 
@@ -208,6 +208,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		};
 
 		if (!dragData) { return };
+		event.dataTransfer.setDragImage(target, 16, 23);
 		event.dataTransfer.setData(`text/plain`, JSON.stringify(dragData));
 	};
 

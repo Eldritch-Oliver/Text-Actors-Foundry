@@ -42,7 +42,7 @@ jobs:
         run: cat system.temp.json | jq -r --tab '.download = "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.version }}/release.zip"' > system.json
 
       - name: Create the zip
-        run: zip -r release.zip langs module styles templates system.json README.md
+        run: zip -r release.zip langs module styles templates system.json README.md assets
 
       - name: Create the draft release
         uses: ncipollo/release-action@v1
@@ -50,5 +50,6 @@ jobs:
           tag: "v${{ steps.version.outputs.version }}"
           commit: ${{ github.ref }}
           draft: true
+          body: <img aria-hidden="true" src="https://img.shields.io/github/downloads/${{ github.repository }}/v${{ steps.version.outputs.version }}/release.zip?style=flat-square&color=%2300aa00">
           generateReleaseNotes: true
           artifacts: "release.zip,system.json"

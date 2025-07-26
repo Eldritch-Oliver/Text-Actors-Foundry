@@ -33,8 +33,9 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 		inputs: {
 			template: filePath(`templates/Ask/inputs.hbs`),
 			templates: [
-				filePath(`templates/Ask/inputs/input.hbs`),
+				filePath(`templates/Ask/inputs/checkbox.hbs`),
 				filePath(`templates/Ask/inputs/details.hbs`),
+				filePath(`templates/Ask/inputs/input.hbs`),
 			],
 		},
 		controls: {

@@ -39,4 +39,10 @@
 		grid-column: 1 / -1;
 		text-indent: 1em;
 	}
+
+	input[type="checkbox"] {
+		align-self: center;
+		justify-self: right;
+		margin: 0;
+	}
 }

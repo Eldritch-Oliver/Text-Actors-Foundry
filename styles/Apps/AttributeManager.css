@@ -23,6 +23,11 @@
 				flex-direction: column;
 			}
 		}
+
+		/* Used to style the actual element as dragging */
+		&:has(taf-icon:active) {
+			background: var(--background);
+		}
 	}
 
 	taf-icon {

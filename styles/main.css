@@ -2,6 +2,7 @@
 
 /* Resets */
 @import url("./resets/hr.css") layer(resets);
+@import url("./resets/inputs.css") layer(resets);
 
 /* Themes */
 @import url("./themes/dark.css") layer(themes);

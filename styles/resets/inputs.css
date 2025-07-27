@@ -1,0 +1,8 @@
+.taf > .window-content {
+	input[type="checkbox"] {
+		all: initial;
+		&::after, &::before {
+			all: initial;
+		}
+	}
+}

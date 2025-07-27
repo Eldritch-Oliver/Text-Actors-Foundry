@@ -30,6 +30,7 @@
 		align-items: center;
 		gap: 4px;
 		width: 100px;
+		margin: 0 auto;
 
 		> input {
 			text-align: center;

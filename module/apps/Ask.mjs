@@ -2,6 +2,15 @@ import { __ID__, filePath } from "../consts.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
+const validInputTypes = [
+	`checkbox`,
+	`details`,
+	`divider`,
+	`error`,
+	`input`,
+	`select`,
+];
+
 export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 	static DEFAULT_OPTIONS = {
 		tag: `dialog`,
@@ -32,11 +41,7 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 	static PARTS = {
 		inputs: {
 			template: filePath(`templates/Ask/inputs.hbs`),
-			templates: [
-				filePath(`templates/Ask/inputs/checkbox.hbs`),
-				filePath(`templates/Ask/inputs/details.hbs`),
-				filePath(`templates/Ask/inputs/input.hbs`),
-			],
+			templates: validInputTypes.map(type => filePath(`templates/Ask/inputs/${type}.hbs`)),
 		},
 		controls: {
 			template: filePath(`templates/Ask/controls.hbs`),
@@ -69,6 +74,14 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 	} = {}) {
 		super(options);
 		this.alwaysUseAnswerObject = alwaysUseAnswerObject;
+
+		for (const input of inputs) {
+			if (!validInputTypes.includes(input.type)) {
+				input.details = `Invalid input type provided: ${input.type}`;
+				input.type = `error`;
+			};
+		};
+
 		this._inputs = inputs;
 		this._description = description;
 		this._userOnCancel = onCancel;

@@ -4,11 +4,10 @@
 	>
 		{{ label }}
 	</label>
-	<input
-		type="{{ inputType }}"
+	<select
 		id="{{ id }}"
 		name="{{ key }}"
-		{{ valueAttribute }}="{{ defaultValue }}"
-		{{#if autofocus}}autofocus{{/if}}
 	>
+		{{ taf-options defaultValue options }}
+	</select>
 </div>

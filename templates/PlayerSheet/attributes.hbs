@@ -12,6 +12,7 @@
 						name="{{attr.path}}.value"
 						value="{{attr.value}}"
 						aria-label="Current value"
+						data-tooltip="@{{ attr.id }}{{#if attr.isRange}}.value{{/if}}"
 					>
 					{{#if attr.isRange}}
 						<span aria-hidden="true">/</span>
@@ -21,6 +22,7 @@
 							name="{{attr.path}}.max"
 							value="{{attr.max}}"
 							aria-label="Maximum value"
+							data-tooltip="@{{ attr.id }}.max"
 						>
 					{{/if}}
 				</div>

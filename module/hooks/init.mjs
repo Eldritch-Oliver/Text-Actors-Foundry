@@ -6,6 +6,7 @@ import { PlayerData } from "../data/Player.mjs";
 
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";
+import { TAFItem } from "../documents/Item.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
@@ -24,6 +25,10 @@ Hooks.on(`init`, () => {
 	CONFIG.Actor.documentClass = TAFActor;
 
 	CONFIG.Actor.dataModels.player = PlayerData;
+
+	// We disable items in the system for now
+	CONFIG.Item.documentClass = TAFItem;
+	delete CONFIG.ui.sidebar.TABS.items;
 
 	foundry.documents.collections.Actors.registerSheet(
 		__ID__,

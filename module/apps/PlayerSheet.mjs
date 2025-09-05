@@ -54,6 +54,12 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
 		return controls;
 	};
+
+	async close() {
+		this.attributeManager?.close();
+		this.attributeManager = null;
+		return super.close();
+	};
 	// #endregion Lifecycle
 
 	// #region Data Prep
@@ -103,10 +109,16 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Data Prep
 
 	// #region Actions
+	attributeManager = null;
+
 	/** @this {PlayerSheet} */
 	static async #manageAttributes() {
-		const app = new AttributeManager({ document: this.actor });
-		await app.render({ force: true });
+		this.attributeManager ??= new AttributeManager({ document: this.actor });
+		if (this.attributeManager.rendered) {
+			await this.attributeManager.bringToFront();
+		} else {
+			await this.attributeManager.render({ force: true });
+		}
 	};
 	// #endregion Actions
 };

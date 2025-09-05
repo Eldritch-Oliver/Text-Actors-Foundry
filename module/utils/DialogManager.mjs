@@ -73,7 +73,9 @@ export class DialogManager {
 			if (!i.valueAttribute) {
 				switch (i.inputType) {
 					case `checkbox`:
-						i.valueAttribute = `checked`;
+						i.type = `checkbox`;
+						delete i.valueAttribute;
+						delete i.inputType;
 						break;
 					default:
 						i.valueAttribute = `value`;

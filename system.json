@@ -3,7 +3,7 @@
 	"title": "Text-Based Actors",
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
 	"version": "2.2.1",
-	"download": "https://github.com/Oliver-Akins/Text-Actors-Foundry/releases/latest/download/release.zip",
+	"download": "#{DOWNLOAD}#",
 	"manifest": "https://github.com/Oliver-Akins/Text-Actors-Foundry/releases/latest/download/system.json",
 	"url": "https://github.com/Oliver-Akins/Text-Actors-Foundry",
 	"compatibility": {

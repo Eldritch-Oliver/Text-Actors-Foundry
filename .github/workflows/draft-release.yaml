@@ -1,7 +1,7 @@
 name: Create Draft Release
 on: [workflow_dispatch]
 jobs:
-  everything:
+  draft:
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository
@@ -33,13 +33,13 @@ jobs:
       - run: npm run build
       - run: node scripts/buildCompendia.mjs
 
-      - name: Move system.json to a temp file
-        id: manifest-move
-        run: mv system.json system.temp.json
-
-      - name: Update the download property in the manifest
+      - name: Update the manifest with the relevant properties
         id: manifest-update
-        run: cat system.temp.json | jq -r --tab '.download = "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.version }}/release.zip"' > system.json
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: "system.json"
+        env:
+          download: "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.version }}/release.zip"
 
       - name: Create the zip
         run: zip -r release.zip langs module styles templates system.json README.md assets

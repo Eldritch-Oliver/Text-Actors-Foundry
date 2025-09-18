@@ -1,9 +1,11 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
+import { ResizeControlManager } from "./ResizeControlManager.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
+const { getProperty } = foundry.utils;
 
 export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
@@ -26,6 +28,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		},
 		actions: {
 			manageAttributes: this.#manageAttributes,
+			sizeSettings: this.#configureSizeSettings,
 		},
 	};
 
@@ -37,6 +40,30 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Options
 
 	// #region Lifecycle
+	_initializeApplicationOptions(options) {
+		const sizing = getProperty(options.document, `flags.${__ID__}.PlayerSheet.size`) ?? {};
+
+		options.window ??= {};
+		switch (sizing.resizable) {
+			case `false`:
+				options.window.resizable ??= false;
+				break;
+			case `true`:
+				options.window.resizable ??= true;
+				break;
+		};
+
+		options.position ??= {};
+		if (sizing.width) {
+			options.position.width ??= sizing.width;
+		};
+		if (sizing.height) {
+			options.position.height ??= sizing.height;
+		};
+
+		return super._initializeApplicationOptions(options);
+	};
+
 	_getHeaderControls() {
 		const controls = super._getHeaderControls();
 
@@ -51,13 +78,22 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 				return isGM || (allowPlayerEdits && editable);
 			},
 		});
+		controls.push({
+			icon: `fa-solid fa-crop-simple`,
+			label: `Configure Size`,
+			action: `sizeSettings`,
+			visible: () => {
+				const isGM = game.user.isGM;
+				return isGM;
+			},
+		});
 
 		return controls;
 	};
 
 	async close() {
-		this.attributeManager?.close();
-		this.attributeManager = null;
+		this.#attributeManager?.close();
+		this.#attributeManager = null;
 		return super.close();
 	};
 	// #endregion Lifecycle
@@ -109,16 +145,26 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Data Prep
 
 	// #region Actions
-	attributeManager = null;
-
+	#attributeManager = null;
 	/** @this {PlayerSheet} */
 	static async #manageAttributes() {
-		this.attributeManager ??= new AttributeManager({ document: this.actor });
-		if (this.attributeManager.rendered) {
-			await this.attributeManager.bringToFront();
+		this.#attributeManager ??= new AttributeManager({ document: this.actor });
+		if (this.#attributeManager.rendered) {
+			await this.#attributeManager.bringToFront();
 		} else {
-			await this.attributeManager.render({ force: true });
-		}
+			await this.#attributeManager.render({ force: true });
+		};
+	};
+
+	#sizeSettings = null;
+	/** @this {PlayerSheet} */
+	static async #configureSizeSettings() {
+		this.#sizeSettings ??= new ResizeControlManager({ document: this.actor });
+		if (this.#sizeSettings.rendered) {
+			await this.#sizeSettings.bringToFront();
+		} else {
+			await this.#sizeSettings.render({ force: true });
+		};
 	};
 	// #endregion Actions
 };

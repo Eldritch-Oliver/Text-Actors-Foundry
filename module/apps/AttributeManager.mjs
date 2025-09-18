@@ -34,12 +34,8 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	};
 
 	static PARTS = {
-		attributes: {
-			template: filePath(`templates/AttributeManager/attribute-list.hbs`),
-		},
-		controls: {
-			template: filePath(`templates/AttributeManager/controls.hbs`),
-		},
+		attributes: { template: filePath(`templates/AttributeManager/attribute-list.hbs`) },
+		controls: { template: filePath(`templates/AttributeManager/controls.hbs`) },
 	};
 	// #endregion Options
 

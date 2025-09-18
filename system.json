@@ -4,18 +4,15 @@
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
 	"version": "2.2.1",
 	"download": "#{DOWNLOAD}#",
-	"manifest": "https://github.com/Oliver-Akins/Text-Actors-Foundry/releases/latest/download/system.json",
-	"url": "https://github.com/Oliver-Akins/Text-Actors-Foundry",
+	"manifest": "https://github.com/Eldritch-Oliver/Text-Actors-Foundry/releases/latest/download/system.json",
+	"url": "https://github.com/Eldritch-Oliver/Text-Actors-Foundry",
 	"compatibility": {
 		"minimum": 13,
 		"verified": 13,
 		"maximum": 13
 	},
 	"authors": [
-		{
-			"name": "Oliver Akins",
-			"url": "https://oliver.akins.me"
-		}
+		{ "name": "Oliver" }
 	],
 	"esmodules": [
 		"./module/main.mjs"

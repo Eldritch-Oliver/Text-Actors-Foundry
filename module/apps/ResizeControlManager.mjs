@@ -37,12 +37,6 @@ export class ResizeControlManager extends HandlebarsApplicationMixin(DocumentShe
 	};
 	// #endregion Instance Data
 
-	// #region Lifecycle
-	async _onRender(context, options) {
-		await super._onRender(context, options);
-	};
-	// #endregion Lifecycle
-
 	// #region Data Prep
 	async _prepareContext() {
 		const sizing = getProperty(this.document, `flags.${__ID__}.PlayerSheet.size`) ?? {};

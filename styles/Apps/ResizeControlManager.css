@@ -7,4 +7,14 @@
 		border: 1px solid rebeccapurple;
 		border-radius: 4px;
 	}
+
+	.controls {
+		display: flex;
+		flex-direction: row;
+		gap: 8px;
+
+		button {
+			flex-grow: 1;
+		}
+	}
 }

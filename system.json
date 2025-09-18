@@ -2,7 +2,7 @@
 	"id": "taf",
 	"title": "Text-Based Actors",
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
-	"version": "2.2.1",
+	"version": "2.3.0",
 	"download": "#{DOWNLOAD}#",
 	"manifest": "https://github.com/Eldritch-Oliver/Text-Actors-Foundry/releases/latest/download/system.json",
 	"url": "https://github.com/Eldritch-Oliver/Text-Actors-Foundry",

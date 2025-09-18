@@ -40,29 +40,28 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Options
 
 	// #region Lifecycle
-	constructor(options) {
-		if (options.document) {
-			const sizing = getProperty(options.document, `flags.${__ID__}.PlayerSheet.size`) ?? {};
+	_initializeApplicationOptions(options) {
+		const sizing = getProperty(options.document, `flags.${__ID__}.PlayerSheet.size`) ?? {};
 
-			options.window ??= {};
-			switch (sizing.resizable) {
-				case `false`:
-					options.window.resizable ??= false;
-					break;
-				case `true`:
-					options.window.resizable ??= true;
-					break;
-			};
-
-			options.position ??= {};
-			if (sizing.width) {
-				options.position.width ??= sizing.width;
-			}
-			if (sizing.height) {
-				options.position.height ??= sizing.height;
-			}
+		options.window ??= {};
+		switch (sizing.resizable) {
+			case `false`:
+				options.window.resizable ??= false;
+				break;
+			case `true`:
+				options.window.resizable ??= true;
+				break;
 		};
-		super(options);
+
+		options.position ??= {};
+		if (sizing.width) {
+			options.position.width ??= sizing.width;
+		};
+		if (sizing.height) {
+			options.position.height ??= sizing.height;
+		};
+
+		return super._initializeApplicationOptions(options);
 	};
 
 	_getHeaderControls() {

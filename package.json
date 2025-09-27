@@ -4,13 +4,11 @@
     "@foundryvtt/foundryvtt-cli": "^1.0.3",
     "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
     "@stylistic/eslint-plugin": "^2.6.1",
+    "dotenv": "^17.2.2",
     "eslint": "^9.8.0",
-    "globals": "^15.9.0",
-    "sass": "^1.77.8"
+    "globals": "^15.9.0"
   },
   "scripts": {
-    "css": "sass --watch --embed-source-map --no-error-css styles/:.styles/",
-    "build": "sass --embed-source-map --no-error-css styles/:.styles/",
     "lint": "eslint --fix",
     "lint:nofix": "eslint"
   }

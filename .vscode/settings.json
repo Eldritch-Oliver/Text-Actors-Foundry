@@ -11,6 +11,7 @@
 		".styles": false,
 		"node_modules": true,
 		"packs": true,
+		"foundry": false
 	},
 	"html.customData": [
 		"./.vscode/components.html-data.json"

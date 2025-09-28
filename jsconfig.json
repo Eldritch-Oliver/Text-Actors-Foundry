@@ -1,7 +1,19 @@
 {
 	"compilerOptions": {
+		"module": "es2022",
+		"target": "es2022",
 		"types": [
 			"./augments.d.ts"
-		]
-	}
+		],
+		"paths": {
+			"@client/*": ["./foundry/client/*"],
+			"@common/*": ["./foundry/common/*"],
+		}
+	},
+	"include": [
+		"module/main.mjs",
+		"foundry/client/client.mjs",
+		"foundry/client/global.d.mts",
+		"foundry/common/primitives/global.d.mts"
+	]
 }

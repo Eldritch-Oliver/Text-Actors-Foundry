@@ -4,7 +4,7 @@ import stylistic from "@stylistic/eslint-plugin";
 
 export default [
 	// Tell eslint to ignore files that I don't mind being formatted slightly differently
-	{ ignores: [ `scripts/` ] },
+	{ ignores: [ `scripts/`, `foundry/*` ] },
 	{
 		languageOptions: {
 			globals: globals.browser,

@@ -9,6 +9,9 @@
     "globals": "^15.9.0"
   },
   "scripts": {
+    "build": "node scripts/buildCompendia.mjs",
+    "extract": "node scripts/extractCompendia.mjs",
+    "link": "node scripts/linkFoundry.mjs",
     "lint": "eslint --fix",
     "lint:nofix": "eslint"
   }

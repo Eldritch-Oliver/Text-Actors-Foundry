@@ -11,7 +11,7 @@
 		}
 	},
 	"include": [
-		"module/main.mjs",
+		"module/**/*",
 		"foundry/client/client.mjs",
 		"foundry/client/global.d.mts",
 		"foundry/common/primitives/global.d.mts"

@@ -1,0 +1,48 @@
+<div class="system tab {{tabs.system.cssClass}}" data-group="main" data-tab="system">
+	<fieldset>
+		<legend>
+			{{ localize "taf.Apps.TAFDocumentSheetConfig.Sizing" }}
+		</legend>
+		<div class="form-group">
+			<label for="{{meta.idp}}-width">
+				{{ localize "taf.Apps.TAFDocumentSheetConfig.Width.label" }}
+			</label>
+			<div class="form-fields">
+				<input
+					type="number"
+					name="FLAGS.taf.PlayerSheet.size.width"
+					id="{{meta.idp}}-width"
+					value="{{values.width}}"
+					placeholder="{{placeholders.width}}"
+				>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="{{meta.idp}}-height">
+				{{ localize "taf.Apps.TAFDocumentSheetConfig.Height.label" }}
+			</label>
+			<div class="form-fields">
+				<input
+					type="number"
+					name="FLAGS.taf.PlayerSheet.size.height"
+					id="{{meta.idp}}-height"
+					value="{{values.height}}"
+					placeholder="{{placeholders.height}}"
+				>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="{{meta.idp}}-resize">
+				{{ localize "taf.Apps.TAFDocumentSheetConfig.Resizable.label" }}
+			</label>
+			<div class="form-fields">
+				<select
+					name="FLAGS.taf.PlayerSheet.size.resizable"
+					id="{{meta.idp}}-resize"
+				>
+					{{ taf-options values.resizable resizeOptions }}
+				</select>
+			</div>
+		</div>
+	</fieldset>
+</div>

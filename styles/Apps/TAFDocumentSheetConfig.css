@@ -1,0 +1,15 @@
+.taf.sheet-config {
+
+	section {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.tab {
+		display: none;
+	}
+	.tab.active {
+		display: unset;
+	}
+}

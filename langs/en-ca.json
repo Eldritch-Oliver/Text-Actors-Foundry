@@ -13,6 +13,24 @@
 		},
 		"sheet-names": {
 			"PlayerSheet": "Player Sheet"
+		},
+		"Apps": {
+			"TAFDocumentSheetConfig": {
+				"Sizing": "Sizing",
+				"Width": {
+					"label": "Width"
+				},
+				"Height": {
+					"label": "Height"
+				},
+				"Resizable": {
+					"label": "Resizable"
+				},
+				"tabs": {
+					"foundry": "Foundry",
+					"system": "Text-Based Actors"
+				}
+			}
 		}
 	}
 }

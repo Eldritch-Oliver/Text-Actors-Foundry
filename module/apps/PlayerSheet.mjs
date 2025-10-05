@@ -1,7 +1,7 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
-import { ResizeControlManager } from "./ResizeControlManager.mjs";
+import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -28,7 +28,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		},
 		actions: {
 			manageAttributes: this.#manageAttributes,
-			sizeSettings: this.#configureSizeSettings,
+			configureSheet: this.#configureSheet,
 		},
 	};
 
@@ -76,15 +76,6 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 				const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
 				const editable = this.isEditable;
 				return isGM || (allowPlayerEdits && editable);
-			},
-		});
-		controls.push({
-			icon: `fa-solid fa-crop-simple`,
-			label: `Configure Size`,
-			action: `sizeSettings`,
-			visible: () => {
-				const isGM = game.user.isGM;
-				return isGM;
 			},
 		});
 
@@ -156,15 +147,18 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		};
 	};
 
-	#sizeSettings = null;
-	/** @this {PlayerSheet} */
-	static async #configureSizeSettings() {
-		this.#sizeSettings ??= new ResizeControlManager({ document: this.actor });
-		if (this.#sizeSettings.rendered) {
-			await this.#sizeSettings.bringToFront();
-		} else {
-			await this.#sizeSettings.render({ force: true });
-		};
+	static async #configureSheet(event) {
+		event.stopPropagation();
+		if ( event.detail > 1 ) { return }
+
+		// const docSheetConfigWidth = TAFDocumentSheetConfig.DEFAULT_OPTIONS.position.width;
+		new TAFDocumentSheetConfig({
+			document: this.document,
+			position: {
+				top: this.position.top + 40,
+				left: this.position.left + ((this.position.width - 60) / 2),
+			},
+		}).render({ force: true });
 	};
 	// #endregion Actions
 };

@@ -78,15 +78,6 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 				return isGM || (allowPlayerEdits && editable);
 			},
 		});
-		controls.push({
-			icon: `fa-solid fa-crop-simple`,
-			label: `Configure Size`,
-			action: `sizeSettings`,
-			visible: () => {
-				const isGM = game.user.isGM;
-				return isGM;
-			},
-		});
 
 		return controls;
 	};

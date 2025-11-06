@@ -31,6 +31,13 @@
 					"system": "Text-Based Actors"
 				}
 			}
+		},
+		"notifs": {
+			"error": {
+				"invalid-socket": "Invalid socket data received, this means a module or system bug is present.",
+				"unknown-socket-event": "An unknown socket event was received: {event}",
+				"malformed-socket-payload": "Socket event \"{event}\" received with malformed payload. Details: {details}"
+			}
 		}
 	}
 }

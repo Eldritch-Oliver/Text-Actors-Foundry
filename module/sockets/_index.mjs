@@ -1,16 +1,15 @@
 import { cancelRequest } from "./cancelRequest.mjs";
 import { createNotif } from "./createNotif.mjs";
 import { dataRequest } from "./dataRequest.mjs";
-import { localizer } from "../utils/Localizer.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { submitRequest } from "./submitRequest.mjs";
 
 const events = {
 	// Data Request sockets
-	cancelRequest,
 	createNotif,
-	dataRequest,
-	submitRequest,
+	"query.cancel": cancelRequest,
+	"query.prompt": dataRequest,
+	"query.submit": submitRequest,
 };
 
 export function registerSockets() {
@@ -19,12 +18,12 @@ export function registerSockets() {
 	game.socket.on(`system.taf`, (data, userID) => {
 		const { event, payload } = data ?? {};
 		if (event == null || payload === undefined) {
-			ui.notifications.error(localizer(`taf.notifs.error.invalid-socket`));
+			ui.notifications.error(game.i18n.format(`taf.notifs.error.invalid-socket`));
 			return;
 		};
 
 		if (events[event] == null) {
-			ui.notifications.error(localizer(`taf.notifs.error.unknown-socket-event`, { event }));
+			ui.notifications.error(game.i18n.format(`taf.notifs.error.unknown-socket-event`, { event }));
 			return;
 		};
 

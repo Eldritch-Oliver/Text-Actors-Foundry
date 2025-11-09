@@ -1,13 +1,24 @@
 /**
- * @typedef Apple
+ * @typedef QueryData
  * @property {string[]} users
  * @property {Function} resolve
  * @property {Record<string, object>} responses
+ * @property {(() => Promise<void>)|null} onSubmit
  */
 
-const { randomID } = foundry.utils;
+import { filePath } from "../consts.mjs";
+
+async function sendBasicNotification(userID, answers) {
+	const content = await foundry.applications.handlebars.renderTemplate(
+		filePath(`templates/query-response.hbs`),
+		{ answers },
+	);
+
+	QueryManager.notify(userID, content, { includeGM: false });
+};
 
 export class QueryManager {
+	/** @type {Map<string, QueryData>} */
 	static #queries = new Map();
 	static #promises = new Map();
 
@@ -15,8 +26,18 @@ export class QueryManager {
 		return this.#queries.has(requestID);
 	};
 
-	static async query(request, users = null, config = undefined) {
-		request.id ??= randomID();
+	static async query(
+		request,
+		{
+			onSubmit = sendBasicNotification,
+			users = null,
+			config = undefined,
+		} = {},
+	) {
+		if (!request.id) {
+			ui.notifications.error(game.i18n.localize(`taf.notifs.error.missing-id`));
+			return;
+		};
 
 		game.socket.emit(`system.taf`, {
 			event: `query.prompt`,
@@ -39,31 +60,35 @@ export class QueryManager {
 					users: users ?? game.users.filter(u => u.id !== game.user.id),
 					resolve,
 					responses: {},
+					onSubmit,
 				},
 			);
 		});
 		return promise;
 	};
 
-	static async submit(requestID, answers) {
-		game.socket.emit(`system.taf`, {
-			event: `query.submit`,
-			payload: {
-				id: requestID,
-				answers,
-			},
-		});
-	};
-
 	static async addResponse(requestID, userID, answers) {
 		const data = this.#queries.get(requestID);
 		data.responses[userID] = answers;
+
+		await data.onSubmit?.(userID, answers);
 
 		// Validate for responses from everyone
 		if (data.users.length === Object.keys(data.responses).length) {
 			data.resolve(data.responses);
 		};
 	};
+
+	static async notify(userID, content, { includeGM = false } = {}) {
+		game.socket.emit(`system.taf`, {
+			event: `query.notify`,
+			payload: {
+				userID,
+				content,
+				includeGM,
+			},
+		});
+	}
 
 	static async cancel(requestID) {
 		// prevent cancelling other people's queries

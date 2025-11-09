@@ -16,6 +16,7 @@ export default [
 		languageOptions: {
 			globals: {
 				CONFIG: `writable`,
+				CONST: `readonly`,
 				game: `readonly`,
 				Handlebars: `readonly`,
 				Hooks: `readonly`,

@@ -26,6 +26,17 @@ export class QueryManager {
 		return this.#queries.has(requestID);
 	};
 
+	static get(requestID) {
+		if (!this.#queries.has(requestID)) { return null };
+		const query = this.#queries.get(requestID);
+		const cloned = foundry.utils.deepClone(query);
+
+		delete cloned.onSubmit;
+		delete cloned.resolve;
+
+		return cloned;
+	};
+
 	static async query(
 		request,
 		{

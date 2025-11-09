@@ -2,6 +2,7 @@
 import { Ask } from "./apps/Ask.mjs";
 import { AttributeManager } from "./apps/AttributeManager.mjs";
 import { PlayerSheet } from "./apps/PlayerSheet.mjs";
+import { QueryStatus } from "./apps/QueryStatus.mjs";
 
 // Utils
 import { attributeSorter } from "./utils/attributeSort.mjs";
@@ -22,6 +23,7 @@ Object.defineProperty(
 				Ask,
 				AttributeManager,
 				PlayerSheet,
+				QueryStatus,
 			},
 			utils: {
 				attributeSorter,

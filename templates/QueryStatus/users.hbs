@@ -1,0 +1,21 @@
+<ul>
+	{{#each users as | user |}}
+		<li>
+			{{ user.name }}
+			{{#if user.answers}}
+				<div class="chip-list">
+					{{#each user.answers as | answer |}}
+						<span class="chip">
+							{{ @key }}
+							<span class="value">
+								{{ answer }}
+							</span>
+						</span>
+					{{/each}}
+				</div>
+			{{else}}
+				<span class="loader"></span>
+			{{/if}}
+		</li>
+	{{/each}}
+</ul>

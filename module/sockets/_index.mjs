@@ -6,8 +6,8 @@ import { submitRequest } from "./submitRequest.mjs";
 
 const events = {
 	// Data Request sockets
-	createNotif,
 	"query.cancel": cancelRequest,
+	"query.notify": createNotif,
 	"query.prompt": dataRequest,
 	"query.submit": submitRequest,
 };

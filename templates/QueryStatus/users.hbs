@@ -1,7 +1,9 @@
-<ul>
+<ul class="user-list">
 	{{#each users as | user |}}
-		<li>
-			{{ user.name }}
+		<li style="--spinner-inner-colour: var(--user-color-{{user.id}})">
+			<div class="grow">
+				{{ user.name }}
+			</div>
 			{{#if user.answers}}
 				<div class="chip-list">
 					{{#each user.answers as | answer |}}
@@ -13,8 +15,16 @@
 						</span>
 					{{/each}}
 				</div>
-			{{else}}
+			{{else if user.active}}
 				<span class="loader"></span>
+			{{else}}
+				<taf-icon
+					data-tooltip="taf.Apps.QueryStatus.user-disconnected-tooltip"
+					name="icons/disconnected"
+					var:size="40px"
+					var:stroke="currentColor"
+					var:fill="currentColor"
+				></taf-icon>
 			{{/if}}
 		</li>
 	{{/each}}

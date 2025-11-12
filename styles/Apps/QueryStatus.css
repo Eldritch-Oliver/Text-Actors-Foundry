@@ -1,0 +1,20 @@
+.taf.QueryStatus {
+	.user-list {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			margin: 0;
+			border: 1px solid yellowgreen;
+			border-radius: 4px;
+			padding: 4px 8px;
+		}
+	}
+}

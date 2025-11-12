@@ -1,0 +1,3 @@
+.taf > .window-content {
+	.grow { flex-grow: 1; }
+}

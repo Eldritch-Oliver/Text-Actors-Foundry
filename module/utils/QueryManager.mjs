@@ -4,9 +4,12 @@
  * @property {Function} resolve
  * @property {Record<string, object>} responses
  * @property {(() => Promise<void>)|null} onSubmit
+ * @property {QueryStatus|null} app
  */
 
 import { filePath } from "../consts.mjs";
+import { Logger } from "./Logger.mjs";
+import { QueryStatus } from "../apps/QueryStatus.mjs";
 
 async function sendBasicNotification(userID, answers) {
 	const content = await foundry.applications.handlebars.renderTemplate(
@@ -34,7 +37,7 @@ export class QueryManager {
 		delete cloned.onSubmit;
 		delete cloned.resolve;
 
-		return cloned;
+		return foundry.utils.deepFreeze(cloned);
 	};
 
 	static async query(
@@ -42,7 +45,8 @@ export class QueryManager {
 		{
 			onSubmit = sendBasicNotification,
 			users = null,
-			config = undefined,
+			showStatusApp = true,
+			...config
 		} = {},
 	) {
 		if (!request.id) {
@@ -68,13 +72,21 @@ export class QueryManager {
 			this.#queries.set(
 				request.id,
 				{
-					users: users ?? game.users.filter(u => u.id !== game.user.id),
+					users: users ?? game.users.filter(u => u.id !== game.user.id).map(u => u.id),
 					resolve,
 					responses: {},
 					onSubmit,
+					app: null,
 				},
 			);
 		});
+
+		if (showStatusApp) {
+			const app = new QueryStatus({ requestID: request.id });
+			app.render({ force: true });
+			this.#queries.get(request.id).app = app;
+		};
+
 		return promise;
 	};
 
@@ -86,7 +98,10 @@ export class QueryManager {
 
 		// Validate for responses from everyone
 		if (data.users.length === Object.keys(data.responses).length) {
+			data.app.close();
 			data.resolve(data.responses);
+		} else {
+			data.app?.render({ parts: [ `users` ] });
 		};
 	};
 
@@ -109,5 +124,28 @@ export class QueryManager {
 			event: `query.cancel`,
 			payload: { id: requestID },
 		});
+	};
+
+	static async setApplication(requestID, app) {
+		if (!this.#queries.has(requestID)) { return };
+		if (!(app instanceof QueryStatus)) { return };
+		const query = this.#queries.get(requestID);
+		if (query.app) {
+			Logger.error(`Cannot set an application for a query that has one already`);
+			return;
+		};
+		query.app = app;
+	};
+
+	static async userActivity(userID) {
+		for (const query of this.#queries.values()) {
+			if (query.users.includes(userID)) {
+				query.app.render({ parts: [ `users` ] });
+
+				// TODO: if the user is connecting, we want to open
+				// the ask modal on their browser so that they can
+				// actually fill in the data
+			};
+		};
 	};
 };

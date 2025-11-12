@@ -15,6 +15,9 @@
 			"PlayerSheet": "Player Sheet"
 		},
 		"Apps": {
+			"QueryStatus": {
+				"user-disconnected-tooltip": "This user is not logged in to Foundry"
+			},
 			"TAFDocumentSheetConfig": {
 				"Sizing": "Sizing",
 				"Width": {

@@ -3,25 +3,28 @@ jobs:
   create-artifacts:
     runs-on: act
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: extract version from manifest
+      - name: Extract version from manifest
         id: version
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
 
-      - name: assert that the tag doesn't exist
+      - name: Assert that the tag doesn't exist
         run: node scripts/tagExists.mjs
         env:
           TAG_NAME: ${{steps.version.output.version}}
 
-      - name: build compendia
-        run: node scripts/buildCompendia.mjs
+      - name: Build compendia
+        run: "npm run data:build"
 
-      - name: compress files
+      - name: Remove compendia source
+        run: "rm -rf packs/**/_source"
+
+      - name: Compress files
         run: zip -r release.zip langs module styles templates README.md assets
 
-      - name: upload artifacts
+      - name: Upload artifacts
         uses: https://data.forgejo.org/forgejo/upload-artifact@v4
         with:
           path: |

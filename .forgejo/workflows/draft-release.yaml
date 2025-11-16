@@ -14,7 +14,7 @@ jobs:
 
       - name: Extract version from manifest
         id: version
-        run: cat system.json | echo version=`jq -r ".version"`
+        run: cat system.json | echo version=`jq -r ".version"` >> "${{env.FORGEJO_OUTPUT}}"
 
       - name: Assert that the tag doesn't exist
         run: node scripts/tagExists.mjs

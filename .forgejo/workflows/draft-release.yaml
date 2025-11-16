@@ -40,14 +40,19 @@ jobs:
       - create-artifacts
     if: var.RELEASE_TO_FORGEJO
     steps:
-      - name: download artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
 
-      - name: update manifest
+      - name: Update manifest
+        run: node scripts/updateManifest.mjs
+        env:
+          # TODO: determine fully qualified URLs
+          DOWNLOAD_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/"
+          LATEST_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/"
 
-      - name: create draft release
+      - name: Create draft release
 
 
   github-release:
@@ -56,11 +61,16 @@ jobs:
       - create-artifacts
     if: var.RELEASE_TO_GITHUB
     steps:
-      - name: download artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
 
-      - name: update manifest
+      - name: Update manifest
+        run: node scripts/updateManifest.mjs
+        env:
+          # TODO: determine fully qualified URLs
+          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases"
+          LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases"
 
-      - name: create draft release
+      - name: Create draft release

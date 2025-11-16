@@ -21,7 +21,8 @@ jobs:
       # Compendia steps
       - name: Build compendia
         run: "npm run data:build"
-      - run: "rm -rf packs/**/_source"
+      - name: Remove compendia source
+        run: "rm -rf packs/**/_source"
 
       - name: Compress files
         run: zip -r release.zip langs module styles templates README.md assets
@@ -37,7 +38,7 @@ jobs:
 
 
   forgejo-release:
-    runs-on: docker
+    runs-on: act
     needs:
       - create-artifacts
     if: var.RELEASE_TO_FORGEJO == true
@@ -53,7 +54,7 @@ jobs:
       - name: Update manifest
         run: node scripts/updateManifest.mjs
         env:
-          DOWNLOAD_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/download/${{steps.version.output.version}}/release.zip"
+          DOWNLOAD_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/download/v${{steps.version.output.version}}/release.zip"
           LATEST_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}releases/download/latest/system.json"
 
       - name: Create draft release
@@ -61,7 +62,7 @@ jobs:
 
 
   github-release:
-    runs-on: docker
+    runs-on: act
     needs:
       - create-artifacts
     if: var.RELEASE_TO_GITHUB == true
@@ -77,7 +78,7 @@ jobs:
       - name: Update manifest
         run: node scripts/updateManifest.mjs
         env:
-          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/${{steps.version.output.version}}/release.zip"
+          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/v${{steps.version.output.version}}/release.zip"
           LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/latest/download/system.json"
 
       - name: Sync Github mirror

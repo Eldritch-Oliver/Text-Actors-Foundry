@@ -14,12 +14,12 @@ jobs:
 
       - name: Extract version from manifest
         id: version
-        run: cat system.json | echo version=`jq -r ".version"` >> "${{env.FORGEJO_OUTPUT}}"
+        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
 
       - name: Assert that the tag doesn't exist
         run: node scripts/tagExists.mjs
         env:
-          TAG_NAME: "v${{steps.version.output.version}}"
+          TAG_NAME: "v${{steps.version.outputs.version}}"
 
       # - name: Build compendia
       #   run: "npm run data:build"
@@ -44,7 +44,7 @@ jobs:
     runs-on: docker
     needs:
       - create-artifacts
-    if: var.RELEASE_TO_FORGEJO
+    if: var.RELEASE_TO_FORGEJO == true
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -68,7 +68,7 @@ jobs:
     runs-on: docker
     needs:
       - create-artifacts
-    if: var.RELEASE_TO_GITHUB
+    if: var.RELEASE_TO_GITHUB == true
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4

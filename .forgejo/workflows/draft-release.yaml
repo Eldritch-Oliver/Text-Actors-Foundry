@@ -9,32 +9,35 @@ jobs:
       - name: Install dependencies
         run: npm clean-install
 
+      - name: List files
+        run: ls -al
+
       - name: Extract version from manifest
         id: version
-        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+        run: cat system.json | echo version=`jq -r ".version"`
 
-      - name: Assert that the tag doesn't exist
-        run: node scripts/tagExists.mjs
-        env:
-          TAG_NAME: ${{steps.version.output.version}}
+      # - name: Assert that the tag doesn't exist
+      #   run: node scripts/tagExists.mjs
+      #   env:
+      #     TAG_NAME: ${{steps.version.output.version}}
 
-      - name: Build compendia
-        run: "npm run data:build"
+      # - name: Build compendia
+      #   run: "npm run data:build"
 
-      - name: Remove compendia source
-        run: "rm -rf packs/**/_source"
+      # - name: Remove compendia source
+      #   run: "rm -rf packs/**/_source"
 
-      - name: Compress files
-        run: zip -r release.zip langs module styles templates README.md assets
+      # - name: Compress files
+      #   run: zip -r release.zip langs module styles templates README.md assets
 
-      - name: Upload artifacts
-        uses: https://data.forgejo.org/forgejo/upload-artifact@v4
-        with:
-          path: |
-            system.json
-            release.zip
-          retention-days: 7
-          if-no-files-found: error
+      # - name: Upload artifacts
+      #   uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+      #   with:
+      #     path: |
+      #       system.json
+      #       release.zip
+      #     retention-days: 7
+      #     if-no-files-found: error
 
 
   forgejo-release:

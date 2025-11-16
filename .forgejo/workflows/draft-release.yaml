@@ -68,18 +68,33 @@ jobs:
       - name: Add manifest into release archive
         run: zip release.zip --update system.json
 
-      - name: Create draft release
-        run: cat system.json
+      - name: Move files into release dir
+        run: mv release.zip release/release.zip; mv system.json release/system.json
 
-      - name: Upload artifacts
-        uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+      - name: Create draft release
+        uses: https://code.forgejo.org/actions/forgejo-release@v2.5.0
         with:
-          name: "forgejo-final"
-          path: |
-            system.json
-            release.zip
-          retention-days: 7
-          if-no-files-found: error
+          direction: "upload"
+          tag: "v${{steps.version.outputs.version}}"
+          hide-archive-link: true
+          draft: true
+          release-dir: release
+
+      #   env:
+      #     TAG: "v${{steps.version.outputs.version}}"
+      #     AUTH: "token ${{forgejo.token}}"
+      #     API_URL: ${{forgejo.api_url}}
+      #     REPO: ${{forgejo.repository}}
+
+      # - name: Upload artifacts
+      #   uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+      #   with:
+      #     name: "forgejo-final"
+      #     path: |
+      #       system.json
+      #       release.zip
+      #     retention-days: 7
+      #     if-no-files-found: error
 
 
   github-release:

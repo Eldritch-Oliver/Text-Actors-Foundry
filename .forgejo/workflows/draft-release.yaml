@@ -74,10 +74,11 @@ jobs:
         uses: https://code.forgejo.org/actions/forgejo-release@v2.5.0
         with:
           direction: "upload"
-          tag: "v${{steps.version.outputs.version}}"
+          tag: "v${{ steps.version.outputs.version }}"
           hide-archive-link: true
           draft: true
           release-dir: release
+          token: ${{ forgejo.token }}
 
       #   env:
       #     TAG: "v${{steps.version.outputs.version}}"

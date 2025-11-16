@@ -46,7 +46,7 @@ jobs:
     if: vars.RELEASE_TO_FORGEJO == 'yes'
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: https://data.forgejo.org/forgejo/download-artifact@v4
         with:
           merge-multiple: true
 
@@ -71,7 +71,7 @@ jobs:
     if: vars.RELEASE_TO_GITHUB == 'yes'
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: https://data.forgejo.org/forgejo/download-artifact@v4
         with:
           merge-multiple: true
 

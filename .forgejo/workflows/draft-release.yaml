@@ -71,7 +71,7 @@ jobs:
       - name: Create draft release
         run: cat system.json
 
-        - name: Upload artifacts
+      - name: Upload artifacts
         uses: https://data.forgejo.org/forgejo/upload-artifact@v4
         with:
           name: "forgejo-final"

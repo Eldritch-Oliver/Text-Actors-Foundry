@@ -9,22 +9,23 @@ const {
 
 console.log(process.env);
 
-// async function main() {
-// 	const requestURL = `${API_URL}/repos/${REPO}/tags/${TAG_NAME}`;
+async function main() {
+	const requestURL = `${API_URL}/repos/${REPO}/tags/${TAG_NAME}`;
 
-// 	const response = await axios.get(
-// 		requestURL,
-// 		{
-// 			headers: { Authorization: `token ${TOKEN}` },
-// 			validateStatus: () => true,
-// 		},
-// 	);
+	const response = await axios.get(
+		requestURL,
+		{
+			headers: { Authorization: `token ${TOKEN}` },
+			validateStatus: () => true,
+		},
+	);
 
-// 	// We actually *want* an error when the tag exists, instead of when
-// 	// it doesn't
-// 	if (response.status === 200) {
-// 		process.exit(1);
-// 	};
-// };
+	// We actually *want* an error when the tag exists, instead of when
+	// it doesn't
+	if (response.status === 200) {
+		console.log(`Tag with name "${TAG_NAME}" already exists`);
+		process.exit(1);
+	};
+};
 
-// main();
+main();

@@ -45,14 +45,17 @@ jobs:
         with:
           merge-multiple: true
 
+      - id: version
+        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+
       - name: Update manifest
         run: node scripts/updateManifest.mjs
         env:
-          # TODO: determine fully qualified URLs
-          DOWNLOAD_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/"
-          LATEST_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/"
+          DOWNLOAD_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}/releases/download/${{steps.version.output.version}}/release.zip"
+          LATEST_URL: "${{FORGEJO_SERVER_URL}}/${{FORGEJO_REPOSITORY}}releases/download/latest/system.json"
 
       - name: Create draft release
+        run: cat system.json
 
 
   github-release:
@@ -66,11 +69,17 @@ jobs:
         with:
           merge-multiple: true
 
+      - id: version
+        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+
       - name: Update manifest
         run: node scripts/updateManifest.mjs
         env:
-          # TODO: determine fully qualified URLs
-          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases"
-          LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases"
+          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/${{steps.version.output.version}}/release.zip"
+          LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/latest/download/system.json"
+
+      - name: Sync Github mirror
+        run: echo Syncing mirror
 
       - name: Create draft release
+        run: cat system.json

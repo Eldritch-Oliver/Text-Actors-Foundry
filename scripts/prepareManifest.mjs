@@ -21,6 +21,9 @@ try {
 	process.exit(1);
 };
 
+// Update download / manifest URLs
+manifest.download = DOWNLOAD_URL;
+manifest.manifest = LATEST_URL;
 
 // Filter out dev-only resources
 if (manifest.esmodules) {
@@ -31,7 +34,6 @@ if (manifest.esmodules) {
 
 // Remove dev flags
 delete manifest.flags?.hotReload;
-
 if (Object.keys(manifest.flags).length === 0) {
 	delete manifest.flags;
 };

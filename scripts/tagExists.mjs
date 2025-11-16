@@ -31,6 +31,8 @@ async function main() {
 		console.log(`Tag with name "${TAG_NAME}" already exists`);
 		process.exit(1);
 	};
+
+	console.log(`Tag with name "${TAG_NAME}" not found, proceeding`);
 };
 
 main();

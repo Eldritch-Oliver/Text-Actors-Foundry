@@ -6,6 +6,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: npm clean-install
+
       - name: Extract version from manifest
         id: version
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"

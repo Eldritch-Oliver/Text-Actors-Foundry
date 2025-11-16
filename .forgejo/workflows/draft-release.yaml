@@ -69,7 +69,7 @@ jobs:
         run: zip release.zip --update system.json
 
       - name: Move files into release dir
-        run: mv release.zip release/release.zip; mv system.json release/system.json
+        run: mkdir release; mv release.zip release/release.zip; mv system.json release/system.json
 
       - name: Create draft release
         uses: https://code.forgejo.org/actions/forgejo-release@v2.5.0
@@ -129,3 +129,8 @@ jobs:
 
       - name: Create draft release
         run: cat system.json
+        env:
+          TAG: "v${{steps.version.outputs.version}}"
+          TOKEN: "Bearer ${{secrets.GH_TOKEN}}"
+          API_URL: "https://api.github.com"
+          REPO: "${{vars.GH_USER}}/${{vars.GH_REPO}}"

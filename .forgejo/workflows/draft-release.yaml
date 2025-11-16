@@ -68,7 +68,6 @@ jobs:
         run: zip release.zip --update system.json
 
       - name: Create draft release
-        uses: https://code.forgejo.org/actions/forgejo-release@v2.5.0
         run: node scripts/createForgejoRelease.mjs
         env:
           TAG: "v${{steps.version.outputs.version}}"

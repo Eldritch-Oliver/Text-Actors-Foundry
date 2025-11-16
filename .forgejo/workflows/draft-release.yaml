@@ -54,7 +54,7 @@ jobs:
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
 
       - name: Update manifest
-        run: node scripts/updateManifest.mjs
+        run: node scripts/prepareManifest.mjs
         env:
           DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
           LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}releases/download/latest/system.json"
@@ -79,7 +79,7 @@ jobs:
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
 
       - name: Update manifest
-        run: node scripts/updateManifest.mjs
+        run: node scripts/prepareManifest.mjs
         env:
           DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
           LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/latest/download/system.json"

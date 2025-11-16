@@ -43,7 +43,7 @@ jobs:
     runs-on: act
     needs:
       - create-artifacts
-    if: vars.RELEASE_TO_FORGEJO == true
+    if: vars.RELEASE_TO_FORGEJO == "yes"
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -68,7 +68,7 @@ jobs:
     name: "Create Github release"
     needs:
       - create-artifacts
-    if: vars.RELEASE_TO_GITHUB == true
+    if: vars.RELEASE_TO_GITHUB == "yes"
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4

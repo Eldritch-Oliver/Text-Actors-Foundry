@@ -1,6 +1,7 @@
 on: [ workflow_dispatch ]
 jobs:
   create-artifacts:
+    name: "Create artifacts"
     runs-on: act
     steps:
       - name: Checkout code
@@ -38,10 +39,11 @@ jobs:
 
 
   forgejo-release:
+    name: "Create Forgejo release"
     runs-on: act
     needs:
       - create-artifacts
-    if: var.RELEASE_TO_FORGEJO == true
+    if: vars.RELEASE_TO_FORGEJO == true
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -63,9 +65,10 @@ jobs:
 
   github-release:
     runs-on: act
+    name: "Create Github release"
     needs:
       - create-artifacts
-    if: var.RELEASE_TO_GITHUB == true
+    if: vars.RELEASE_TO_GITHUB == true
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4

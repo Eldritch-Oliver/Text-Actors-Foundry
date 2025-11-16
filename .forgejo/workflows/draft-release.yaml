@@ -34,6 +34,9 @@ jobs:
           path: |
             system.json
             release.zip
+            scripts/*.mjs
+            package-lock.json
+            package.json
           retention-days: 7
           if-no-files-found: error
 
@@ -49,6 +52,9 @@ jobs:
         uses: https://data.forgejo.org/forgejo/download-artifact@v4
         with:
           merge-multiple: true
+
+      - name: Install dependencies
+        run: npm i
 
       - id: version
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
@@ -74,6 +80,9 @@ jobs:
         uses: https://data.forgejo.org/forgejo/download-artifact@v4
         with:
           merge-multiple: true
+
+      - name: Install dependencies
+        run: npm i
 
       - id: version
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"

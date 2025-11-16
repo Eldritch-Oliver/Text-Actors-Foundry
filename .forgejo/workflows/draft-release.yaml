@@ -56,7 +56,7 @@ jobs:
       - name: Update manifest
         run: node scripts/updateManifest.mjs
         env:
-          DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.output.version}}/release.zip"
+          DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
           LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}releases/download/latest/system.json"
 
       - name: Create draft release
@@ -81,7 +81,7 @@ jobs:
       - name: Update manifest
         run: node scripts/updateManifest.mjs
         env:
-          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/v${{steps.version.output.version}}/release.zip"
+          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
           LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/latest/download/system.json"
 
       - name: Sync Github mirror

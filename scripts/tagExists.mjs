@@ -8,6 +8,7 @@ const {
 } = process.env;
 
 console.log(process.env);
+console.log({ TAG_NAME, API_URL, REPO, });
 
 async function main() {
 	const requestURL = `${API_URL}/repos/${REPO}/tags/${TAG_NAME}`;

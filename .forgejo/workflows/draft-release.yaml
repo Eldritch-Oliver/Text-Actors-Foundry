@@ -16,10 +16,10 @@ jobs:
         id: version
         run: cat system.json | echo version=`jq -r ".version"`
 
-      # - name: Assert that the tag doesn't exist
-      #   run: node scripts/tagExists.mjs
-      #   env:
-      #     TAG_NAME: ${{steps.version.output.version}}
+      - name: Assert that the tag doesn't exist
+        run: node scripts/tagExists.mjs
+        env:
+          TAG_NAME: "v${{steps.version.output.version}}"
 
       # - name: Build compendia
       #   run: "npm run data:build"

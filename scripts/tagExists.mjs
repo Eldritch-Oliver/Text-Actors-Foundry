@@ -7,22 +7,24 @@ const {
 	FORGEJO_TOKEN: TOKEN,
 } = process.env;
 
-async function main() {
-	const requestURL = `${API_URL}/repos/${REPO}/tags/${TAG_NAME}`;
+console.log(process.env);
 
-	const response = await axios.get(
-		requestURL,
-		{
-			headers: { Authorization: `token ${TOKEN}` },
-			validateStatus: () => true,
-		},
-	);
+// async function main() {
+// 	const requestURL = `${API_URL}/repos/${REPO}/tags/${TAG_NAME}`;
 
-	// We actually *want* an error when the tag exists, instead of when
-	// it doesn't
-	if (response.status === 200) {
-		process.exit(1);
-	};
-};
+// 	const response = await axios.get(
+// 		requestURL,
+// 		{
+// 			headers: { Authorization: `token ${TOKEN}` },
+// 			validateStatus: () => true,
+// 		},
+// 	);
 
-main();
+// 	// We actually *want* an error when the tag exists, instead of when
+// 	// it doesn't
+// 	if (response.status === 200) {
+// 		process.exit(1);
+// 	};
+// };
+
+// main();

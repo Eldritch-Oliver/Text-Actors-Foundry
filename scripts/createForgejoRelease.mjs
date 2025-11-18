@@ -15,7 +15,10 @@ async function uploadFile(releaseID, localPath, remoteName = undefined) {
 		`${API}/repos/${REPO}/releases/${releaseID}/assets`,
 		stream,
 		{
-			headers: { Authorization: `token ${TOKEN}` },
+			headers: {
+				Authorization: `token ${TOKEN}`,
+				"Content-Type": `multipart/form-data`,
+			},
 			params: { name: remoteName },
 		}
 	)

@@ -14,6 +14,7 @@ async function main() {
 	const release = await axios.post(
 		`${API}/repos/${REPO}/releases`,
 		{
+			name: TAG,
 			tag_name: TAG,
 			draft: true,
 			hide_archive_links: true,

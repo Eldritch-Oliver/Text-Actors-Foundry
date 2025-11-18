@@ -62,6 +62,8 @@ async function main() {
 
 		process.exit(1);
 	};
+
+	console.log(`Release created, and files uploaded successfully!`);
 };
 
 main();

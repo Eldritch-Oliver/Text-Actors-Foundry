@@ -26,7 +26,7 @@ async function main() {
 	// Upload the release archive
 	const archiveFormData = new FormData();
 	const archive = createReadStream(`release.zip`);
-	archiveFormData.append(`release`, archive, `release.zip`);
+	archiveFormData.set(`release`, archive, `release.zip`);
 	await axios.post(
 		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
 		archiveFormData,
@@ -38,7 +38,7 @@ async function main() {
 	// Upload the manifest file
 	const formData = new FormData();
 	const manifest = createReadStream(`system.json`);
-	formData.append(`manifest`, manifest, `system.json`);
+	formData.set(`manifest`, manifest, `system.json`);
 	await axios.post(
 		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
 		formData,

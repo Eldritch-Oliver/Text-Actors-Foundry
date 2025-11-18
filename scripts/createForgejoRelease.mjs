@@ -1,4 +1,4 @@
-import fs from "fs";
+import { openAsBlob } from "node:fs";
 import axios from "axios";
 
 const {
@@ -25,7 +25,7 @@ async function main() {
 
 	// Upload the release archive
 	const archiveFormData = new FormData();
-	const archive = await fs.openAsBlob(`release.zip`);
+	const archive = await openAsBlob(`release.zip`);
 	archiveFormData.set(`release`, archive, `release.zip`)
 	await axios.post(
 		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
@@ -37,7 +37,7 @@ async function main() {
 
 	// Upload the manifest file
 	const formData = new FormData();
-	const manifest = await fs.openAsBlob(`system.json`);
+	const manifest = await openAsBlob(`system.json`);
 	formData.set(`manifest`, manifest, `system.json`)
 	await axios.post(
 		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,

@@ -13,7 +13,9 @@ async function uploadFile(releaseID, localPath, remoteName = undefined) {
 	const stream = createReadStream(localPath);
 	return axios.post(
 		`${API}/repos/${REPO}/releases/${releaseID}/assets`,
-		stream,
+		{
+			attachment: stream,
+		},
 		{
 			headers: {
 				Authorization: `token ${TOKEN}`,
@@ -57,6 +59,8 @@ async function main() {
 		} catch {
 			console.error(`Failed to delete draft release`);
 		};
+
+		process.exit(1);
 	};
 };
 

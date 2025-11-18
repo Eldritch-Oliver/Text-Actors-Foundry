@@ -43,7 +43,7 @@ async function main() {
 			tag_name: TAG,
 			draft: true,
 			generate_release_notes: false,
-			make_latest: false,
+			make_latest: "false",
 		},
 		{
 			headers: {

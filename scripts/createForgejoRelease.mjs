@@ -23,7 +23,7 @@ async function uploadFile(releaseID, localPath, remoteName = undefined) {
 			},
 			params: { name: remoteName },
 		}
-	)
+	);
 };
 
 async function main() {

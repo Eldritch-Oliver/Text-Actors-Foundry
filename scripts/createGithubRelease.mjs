@@ -14,11 +14,11 @@ const {
 	API_URL: API,
 } = process.env;
 
-async function uploadFile(releaseID, localPath, remoteName = undefined) {
+async function uploadFile(uploadsURL, localPath, remoteName = undefined) {
 	remoteName ??= localPath.split(`/`).at(-1);
 	const stream = createReadStream(localPath);
 	return axios.post(
-		`${API}/repos/${REPO}/releases/${releaseID}/assets`,
+		uploadsURL,
 		{
 			attachment: stream,
 		},
@@ -54,8 +54,8 @@ async function main() {
 	);
 
 	try {
-		await uploadFile(release.data.id, `release.zip`);
-		await uploadFile(release.data.id, `system.json`);
+		await uploadFile(release.data.upload_url, `release.zip`);
+		await uploadFile(release.data.upload_url, `system.json`);
 	} catch (e) {
 		console.error(`Failed to upload files, deleting draft release`);
 		console.error(e);

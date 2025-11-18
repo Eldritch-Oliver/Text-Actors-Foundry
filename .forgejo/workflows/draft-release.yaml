@@ -72,16 +72,6 @@ jobs:
         env:
           TAG: "v${{steps.version.outputs.version}}"
 
-      # - name: Upload artifacts
-      #   uses: https://data.forgejo.org/forgejo/upload-artifact@v4
-      #   with:
-      #     name: "forgejo-final"
-      #     path: |
-      #       system.json
-      #       release.zip
-      #     retention-days: 7
-      #     if-no-files-found: error
-
 
   github-release:
     runs-on: act
@@ -114,9 +104,9 @@ jobs:
         run: echo Syncing mirror
 
       - name: Create draft release
-        run: cat system.json
+        run: node scripts/createGithubRelease.mjs
         env:
           TAG: "v${{steps.version.outputs.version}}"
-          TOKEN: "Bearer ${{secrets.GH_TOKEN}}"
+          TOKEN: ${{secrets.GH_TOKEN}}
           API_URL: "https://api.github.com"
           REPO: "${{vars.GH_USER}}/${{vars.GH_REPO}}"

@@ -16,26 +16,30 @@ const {
 let manifest;
 try {
 	manifest = JSON.parse(await readFile(MANIFEST_PATH, `utf-8`));
+	console.log(`Manifest loaded from disk`);
 } catch {
 	console.error(`Failed to parse manifest file.`);
 	process.exit(1);
 };
 
-// Update download / manifest URLs
+console.log(`Updating download/manifest URLs`)
 manifest.download = DOWNLOAD_URL;
 manifest.manifest = LATEST_URL;
 
 // Filter out dev-only resources
 if (manifest.esmodules) {
+	console.log(`Removing dev-only esmodules`);
 	manifest.esmodules = manifest.esmodules.filter(
 		filepath => !filepath.startsWith(`dev/`)
 	);
 };
 
 // Remove dev flags
+console.log(`Cleaning up flags`);
 delete manifest.flags?.hotReload;
 if (Object.keys(manifest.flags).length === 0) {
 	delete manifest.flags;
 };
 
 await writeFile(MANIFEST_PATH, JSON.stringify(manifest, undefined, `\t`));
+console.log(`Manifest written back to disk`);

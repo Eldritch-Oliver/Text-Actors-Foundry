@@ -24,26 +24,22 @@ async function main() {
 	);
 
 	// Upload the release archive
-	const archiveFormData = new FormData();
 	const archive = createReadStream(`release.zip`);
-	archiveFormData.set(`release`, archive, `release.zip`);
 	await axios.post(
 		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
-		archiveFormData,
+		archive,
 		{
 			headers: { Authorization: `token ${TOKEN}` },
 		}
 	);
 
 	// Upload the manifest file
-	const formData = new FormData();
 	const manifest = createReadStream(`system.json`);
-	formData.set(`manifest`, manifest, `system.json`);
 	await axios.post(
 		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
-		formData,
+		manifest,
 		{
-			headers: { Authorization: `token ${TOKEN}` },
+			headers: { Authorization: `token ${TOKEN}`, },
 		}
 	);
 };

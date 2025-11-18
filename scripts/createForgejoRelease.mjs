@@ -8,6 +8,19 @@ const {
 	FORGEJO_TOKEN: TOKEN,
 } = process.env;
 
+async function uploadFile(releaseID, localPath, remoteName = undefined) {
+	remoteName ??= localPath.split(`/`).at(-1);
+	const stream = createReadStream(localPath);
+	return axios.post(
+		`${API}/repos/${REPO}/releases/${releaseID}/assets`,
+		stream,
+		{
+			headers: { Authorization: `token ${TOKEN}` },
+			params: { name: remoteName },
+		}
+	)
+};
+
 async function main() {
 
 	// Initial Release Data
@@ -24,25 +37,24 @@ async function main() {
 		}
 	);
 
-	// Upload the release archive
-	const archive = createReadStream(`release.zip`);
-	await axios.post(
-		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
-		archive,
-		{
-			headers: { Authorization: `token ${TOKEN}` },
-		}
-	);
+	try {
+		await uploadFile(release.data.id, `release.zip`);
+		await uploadFile(release.data.id, `system.json`);
+	} catch (e) {
+		console.error(`Failed to upload files, deleting draft release`);
+		console.error(e);
 
-	// Upload the manifest file
-	const manifest = createReadStream(`system.json`);
-	await axios.post(
-		`${API}/repos/${REPO}/releases/${release.data.id}/assets`,
-		manifest,
-		{
-			headers: { Authorization: `token ${TOKEN}`, },
-		}
-	);
+		try {
+			await axios.delete(
+				`${API}/repos/${REPO}/releases/${release.data.id}`,
+				{
+					headers: { Authorization: `token ${TOKEN}` },
+				}
+			)
+		} catch {
+			console.error(`Failed to delete draft release`);
+		};
+	};
 };
 
 main();

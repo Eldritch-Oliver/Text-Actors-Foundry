@@ -67,46 +67,19 @@ jobs:
       - name: Add manifest into release archive
         run: zip release.zip --update system.json
 
+      - name: Upload archive to s3
+        run: node scripts/uploadToS3.mjs
+        env:
+          TAG: "v${{steps.version.outputs.version}}"
+          FILE: "release.zip"
+
+      - name: Upload manifest to s3
+        run: node scripts/uploadToS3.mjs
+        env:
+          TAG: "v${{steps.version.outputs.version}}"
+          FILE: "system.json"
+
       - name: Create draft release
         run: node scripts/createForgejoRelease.mjs
         env:
           TAG: "v${{steps.version.outputs.version}}"
-
-
-  github-release:
-    runs-on: act
-    name: "Create Github release"
-    needs:
-      - create-artifacts
-    if: vars.RELEASE_TO_GITHUB == 'yes'
-    steps:
-      - name: Download artifacts
-        uses: https://data.forgejo.org/forgejo/download-artifact@v4
-        with:
-          merge-multiple: true
-
-      - name: Install dependencies
-        run: npm i
-
-      - id: version
-        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
-
-      - name: Update manifest
-        run: node scripts/prepareManifest.mjs
-        env:
-          DOWNLOAD_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
-          LATEST_URL: "https://github.com/${{vars.GH_USER}}/${{vars.GH_REPO}}/releases/latest/download/system.json"
-
-      - name: Add manifest into release archive
-        run: zip release.zip --update system.json
-
-      - name: Sync Github mirror
-        run: echo Syncing mirror
-
-      - name: Create draft release
-        run: node scripts/createGithubRelease.mjs
-        env:
-          TAG: "v${{steps.version.outputs.version}}"
-          TOKEN: ${{secrets.GH_TOKEN}}
-          API_URL: "https://api.github.com"
-          REPO: "${{vars.GH_USER}}/${{vars.GH_REPO}}"

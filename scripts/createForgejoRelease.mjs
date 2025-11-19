@@ -1,4 +1,3 @@
-import { createReadStream } from "fs";
 import axios from "axios";
 
 const {
@@ -6,22 +5,19 @@ const {
 	FORGEJO_API_URL: API,
 	FORGEJO_REPOSITORY: REPO,
 	FORGEJO_TOKEN: TOKEN,
+	CDN_URL,
 } = process.env;
 
-async function uploadFile(releaseID, localPath, remoteName = undefined) {
-	remoteName ??= localPath.split(`/`).at(-1);
-	const stream = createReadStream(localPath);
+async function addReleaseAsset(releaseID, name) {
 	return axios.post(
 		`${API}/repos/${REPO}/releases/${releaseID}/assets`,
-		{
-			attachment: stream,
-		},
+		{ external_url: `${CDN_URL}/${REPO}/${TAG}/${name}`, },
 		{
 			headers: {
 				Authorization: `token ${TOKEN}`,
 				"Content-Type": `multipart/form-data`,
 			},
-			params: { name: remoteName },
+			params: { name },
 		}
 	);
 };
@@ -43,8 +39,8 @@ async function main() {
 	);
 
 	try {
-		await uploadFile(release.data.id, `release.zip`);
-		await uploadFile(release.data.id, `system.json`);
+		await addReleaseAsset(release.data.id, `release.zip`);
+		await addReleaseAsset(release.data.id, `system.json`);
 	} catch (e) {
 		console.error(`Failed to upload files, deleting draft release`);
 		console.error(e);

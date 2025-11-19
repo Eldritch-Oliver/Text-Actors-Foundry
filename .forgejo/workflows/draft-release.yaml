@@ -72,7 +72,6 @@ jobs:
         env:
           TAG: "v${{steps.version.outputs.version}}"
           FILE: "release.zip"
-          CDN_URL: "${{vars.CDN_URL}}"
           S3_BUCKET: "${{vars.S3_BUCKET}}"
           S3_REGION: "${{vars.S3_REGION}}"
           S3_KEY: "${{secrets.S3_KEY}}"
@@ -84,7 +83,6 @@ jobs:
         env:
           TAG: "v${{steps.version.outputs.version}}"
           FILE: "system.json"
-          CDN_URL: "${{vars.CDN_URL}}"
           S3_BUCKET: "${{vars.S3_BUCKET}}"
           S3_REGION: "${{vars.S3_REGION}}"
           S3_KEY: "${{secrets.S3_KEY}}"
@@ -95,3 +93,4 @@ jobs:
         run: node scripts/createForgejoRelease.mjs
         env:
           TAG: "v${{steps.version.outputs.version}}"
+          CDN_URL: "${{vars.CDN_URL}}"

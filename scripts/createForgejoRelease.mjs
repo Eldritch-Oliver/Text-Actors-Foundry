@@ -43,6 +43,8 @@ async function main() {
 		await addReleaseAsset(release.data.id, `system.json`);
 	} catch (e) {
 		console.error(`Failed to add assets to the release`);
+		console.error(e);
+		process.exit(1);
 	};
 
 	console.log(`Release created, and files uploaded successfully!`);

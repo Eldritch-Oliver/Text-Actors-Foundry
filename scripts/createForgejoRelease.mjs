@@ -42,8 +42,7 @@ async function main() {
 		await addReleaseAsset(release.data.id, `release.zip`);
 		await addReleaseAsset(release.data.id, `system.json`);
 	} catch (e) {
-		console.error(`Failed to add assets to the release`);
-		console.error(e);
+		console.error(`Failed to add assets to the release with message:`, e.data.message);
 		process.exit(1);
 	};
 

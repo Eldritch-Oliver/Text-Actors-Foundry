@@ -19,9 +19,7 @@ async function uploadFile(uploadsURL, localPath, remoteName = undefined) {
 	const stream = createReadStream(localPath);
 	return axios.post(
 		uploadsURL,
-		{
-			attachment: stream,
-		},
+		stream,
 		{
 			headers: {
 				Authorization: `Bearer ${TOKEN}`,

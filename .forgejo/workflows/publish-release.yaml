@@ -1,0 +1,14 @@
+on:
+  release:
+    types: [published]
+jobs:
+  undraft-on-github:
+    runs-on: docker
+    steps:
+      - name: copy release description to github
+      - name: publish github release
+  release-to-foundry:
+    runs-on: docker
+    steps:
+      - name: retrieve release URLS
+      - name: publish to Foundry

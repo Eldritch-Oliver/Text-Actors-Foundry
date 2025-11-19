@@ -42,21 +42,7 @@ async function main() {
 		await addReleaseAsset(release.data.id, `release.zip`);
 		await addReleaseAsset(release.data.id, `system.json`);
 	} catch (e) {
-		console.error(`Failed to upload files, deleting draft release`);
-		console.error(e);
-
-		try {
-			await axios.delete(
-				`${API}/repos/${REPO}/releases/${release.data.id}`,
-				{
-					headers: { Authorization: `token ${TOKEN}` },
-				}
-			)
-		} catch {
-			console.error(`Failed to delete draft release`);
-		};
-
-		process.exit(1);
+		console.error(`Failed to add assets to the release`);
 	};
 
 	console.log(`Release created, and files uploaded successfully!`);

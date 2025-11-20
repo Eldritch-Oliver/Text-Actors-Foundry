@@ -1,6 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { get as getQuery, requery } from "../utils/QueryManager.mjs";
 import { Logger } from "../utils/Logger.mjs";
-import { QueryManager } from "../utils/QueryManager.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -62,7 +62,7 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	};
 
 	async _prepareUsers(ctx) {
-		const query = QueryManager.get(this.requestID);
+		const query = getQuery(this.requestID);
 		if (!query) { return };
 
 		const users = [];
@@ -85,7 +85,7 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	static async promptUser($e, element) {
 		const userID = element.closest(`[data-user-id]`)?.dataset.userId;
 		if (!userID) { return };
-		QueryManager.requery(this.requestID, [ userID ]);
+		requery(this.requestID, [ userID ]);
 	};
 
 	/** @this {QueryStatus} */

@@ -1,4 +1,4 @@
-import { QueryManager } from "../utils/QueryManager.mjs";
+import { addResponse, has as hasQuery } from "../utils/QueryManager.mjs";
 
 export function submitRequest(payload, user) {
 	const {
@@ -17,6 +17,6 @@ export function submitRequest(payload, user) {
 		return;
 	};
 
-	if (!QueryManager.has(id)) { return };
-	QueryManager.addResponse(id, user.id, answers);
+	if (!hasQuery(id)) { return };
+	addResponse(id, user.id, answers);
 };

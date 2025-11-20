@@ -18,6 +18,9 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 		window: {
 			resizable: true,
 		},
+		actions: {
+			promptUser: this.promptUser,
+		},
 	};
 
 	static PARTS = {
@@ -53,10 +56,6 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 				this._prepareUsers(ctx);
 				break;
 			};
-			case `controls`: {
-				this._prepareControls(ctx);
-				break;
-			};
 		};
 
 		return ctx;
@@ -74,14 +73,25 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 				name: user.name,
 				active: user.active,
 				answers: query.responses[userID] ?? null,
+				status: query.status[userID],
 			});
 		};
 		ctx.users = users;
 	};
-
-	async _prepareControls(ctx) {};
 	// #endregion Lifecycle
 
 	// #region Actions
+	/** @this {QueryStatus} */
+	static async promptUser($e, element) {
+		const userID = element.closest(`[data-user-id]`)?.dataset.userId;
+		if (!userID) { return };
+		QueryManager.requery(this.requestID, [ userID ]);
+	};
+
+	/** @this {QueryStatus} */
+	static async cancelRequest() {};
+
+	/** @this {QueryStatus} */
+	static async finishEarly() {};
 	// #endregion Actions
 };

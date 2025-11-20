@@ -9,12 +9,17 @@
 
 		li {
 			display: flex;
-			flex-direction: row;
-			align-items: center;
+			flex-direction: column;
 			margin: 0;
 			border: 1px solid yellowgreen;
 			border-radius: 4px;
 			padding: 4px 8px;
+
+			> .user-summary {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
 		}
 	}
 }

@@ -1,5 +1,5 @@
 import { __ID__, filePath } from "../consts.mjs";
-import { get as getQuery, requery } from "../utils/QueryManager.mjs";
+import { cancel, finish, get as getQuery, requery } from "../utils/QueryManager.mjs";
 import { Logger } from "../utils/Logger.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -20,6 +20,8 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 		},
 		actions: {
 			promptUser: this.promptUser,
+			finishEarly: this.finishEarly,
+			cancelRequest: this.cancelRequest,
 		},
 	};
 
@@ -96,9 +98,13 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	};
 
 	/** @this {QueryStatus} */
-	static async cancelRequest() {};
+	static async cancelRequest() {
+		cancel(this.#requestID);
+	};
 
 	/** @this {QueryStatus} */
-	static async finishEarly() {};
+	static async finishEarly() {
+		finish(this.#requestID);
+	};
 	// #endregion Actions
 };

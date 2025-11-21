@@ -1,6 +1,6 @@
-import { addResponse, has as hasQuery } from "../utils/QueryManager.mjs";
+import { addResponse, has as hasQuery } from "../../utils/QueryManager.mjs";
 
-export function submitRequest(payload, user) {
+export function querySubmit(payload, user) {
 	const {
 		id,
 		answers,

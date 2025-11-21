@@ -1,15 +1,15 @@
-import { cancelRequest } from "./cancelRequest.mjs";
-import { createNotif } from "./createNotif.mjs";
-import { dataRequest } from "./dataRequest.mjs";
 import { Logger } from "../utils/Logger.mjs";
-import { submitRequest } from "./submitRequest.mjs";
+import { queryCancel } from "./query/cancel.mjs";
+import { queryNotify } from "./query/notify.mjs";
+import { queryPrompt } from "./query/prompt.mjs";
+import { querySubmit } from "./query/submit.mjs";
 
 const events = {
 	// Data Request sockets
-	"query.cancel": cancelRequest,
-	"query.notify": createNotif,
-	"query.prompt": dataRequest,
-	"query.submit": submitRequest,
+	"query.cancel": queryCancel,
+	"query.notify": queryNotify,
+	"query.prompt": queryPrompt,
+	"query.submit": querySubmit,
 };
 
 export function registerSockets() {

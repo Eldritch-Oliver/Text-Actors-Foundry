@@ -1,6 +1,7 @@
-import { DialogManager } from "../utils/DialogManager.mjs";
+import { DialogManager } from "../../utils/DialogManager.mjs";
+import { respondedToQueries } from "../../utils/QueryManager.mjs";
 
-export async function dataRequest(payload) {
+export async function queryPrompt(payload) {
 	const {
 		id,
 		users,
@@ -40,6 +41,7 @@ export async function dataRequest(payload) {
 	} else if (result.state === `errored`) {
 		ui.notifications.error(result.error);
 	} else if (result.state === `prompted`) {
+		respondedToQueries.add(request.id);
 		game.socket.emit(`system.taf`, {
 			event: `query.submit`,
 			payload: {

@@ -16,7 +16,7 @@
 					<taf-icon
 						data-tooltip="taf.Apps.QueryStatus.user-disconnected-tooltip"
 						name="icons/disconnected"
-						var:size="40px"
+						var:size="35px"
 						var:stroke="currentColor"
 						var:fill="currentColor"
 					></taf-icon>
@@ -32,14 +32,14 @@
 			{{#if (eq user.status "finished")}}
 				<div class="chip-list">
 					{{#each user.answers as | answer |}}
-						<span class="chip">
+						<div class="chip">
 							<span class="key">
 								{{ @key }}
 							</span>
 							<span class="value">
 								{{ answer }}
 							</span>
-						</span>
+						</div>
 					{{/each}}
 				</div>
 			{{/if}}

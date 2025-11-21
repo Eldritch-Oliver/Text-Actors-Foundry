@@ -3,6 +3,7 @@
 /* Resets */
 @import url("./resets/hr.css") layer(resets);
 @import url("./resets/inputs.css") layer(resets);
+@import url("./resets/button.css") layer(resets);
 
 /* Themes */
 @import url("./themes/dark.css") layer(themes);
@@ -10,6 +11,7 @@
 
 /* Elements */
 @import url("./elements/utils.css") layer(elements);
+@import url("./elements/div.css") layer(elements);
 @import url("./elements/headers.css") layer(elements);
 @import url("./elements/hr.css") layer(elements);
 @import url("./elements/input.css") layer(elements);

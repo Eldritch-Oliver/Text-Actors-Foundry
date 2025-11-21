@@ -18,7 +18,7 @@
 
 .taf > .window-content span {
 	&.loader {
-		--size: 40px;
+		--size: 35px;
 		width: var(--size);
 		height: var(--size);
 		border-radius: 50%;

@@ -173,6 +173,8 @@ async function maybeResolve(requestID) {
 	if (query.users.length === finishedUserCount) {
 		query.app?.close();
 		query.resolve(query.responses);
+		queries.delete(requestID);
+		promises.delete(requestID);
 	} else {
 		query.app?.render({ parts: [ `users` ] });
 	};
@@ -189,9 +191,29 @@ export async function notify(userID, content, { includeGM = false } = {}) {
 	});
 };
 
+export async function finish(requestID) {
+	// prevent finishing other people's queries
+	if (!queries.has(requestID)) { return };
+
+	const query = queries.get(requestID);
+	query.resolve(query.responses);
+	queries.delete(requestID);
+	promises.delete(requestID);
+
+	game.socket.emit(`system.taf`, {
+		event: `query.cancel`,
+		payload: { id: requestID },
+	});
+};
+
 export async function cancel(requestID) {
 	// prevent cancelling other people's queries
 	if (!queries.has(requestID)) { return };
+
+	const query = queries.get(requestID);
+	query.resolve(null);
+	queries.delete(requestID);
+	promises.delete(requestID);
 
 	game.socket.emit(`system.taf`, {
 		event: `query.cancel`,
@@ -234,7 +256,7 @@ export const QueryManager = {
 	query, requery,
 	addResponse,
 	notify,
-	cancel,
+	finish, cancel,
 	setApplication,
 	userActivity,
 };

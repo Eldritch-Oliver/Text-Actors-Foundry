@@ -34,6 +34,9 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	// #endregion Options
 
 	// #region Instance
+	/** @type {string} */
+	#requestID;
+
 	constructor({
 		requestID,
 		...opts
@@ -43,7 +46,11 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 			return null;
 		};
 		super(opts);
-		this.requestID = requestID;
+		this.#requestID = requestID;
+	};
+
+	get requestID() {
+		return this.#requestID;
 	};
 	// #endregion Instance
 
@@ -62,7 +69,7 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	};
 
 	async _prepareUsers(ctx) {
-		const query = getQuery(this.requestID);
+		const query = getQuery(this.#requestID);
 		if (!query) { return };
 
 		const users = [];
@@ -85,7 +92,7 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	static async promptUser($e, element) {
 		const userID = element.closest(`[data-user-id]`)?.dataset.userId;
 		if (!userID) { return };
-		requery(this.requestID, [ userID ]);
+		requery(this.#requestID, [ userID ]);
 	};
 
 	/** @this {QueryStatus} */

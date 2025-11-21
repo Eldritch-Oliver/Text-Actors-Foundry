@@ -1,7 +1,14 @@
+import { filePath } from "../consts.mjs";
+import { Logger } from "./Logger.mjs";
+import { QueryStatus } from "../apps/QueryStatus.mjs";
+
 /**
- * An object containing information about the current status for all users involved
- * with the data request.
- * @typedef {Record<string, "finished"|"waiting"|"cancelled"|"disconnected"|"unprompted">} UserStatus
+ * An object containing information about the current status for all
+ * users involved with the data request.
+ * @typedef {Record<
+ * string,
+ * "finished" | "waiting" | "cancelled" | "disconnected" | "unprompted"
+ * >} UserStatus
  */
 
 /**
@@ -16,9 +23,13 @@
  * @property {object} config The data used to create the initial config
  */
 
-import { filePath } from "../consts.mjs";
-import { Logger } from "./Logger.mjs";
-import { QueryStatus } from "../apps/QueryStatus.mjs";
+/**
+ * This internal API is used in order to prevent the query.notify event
+ * from being fired off in situations where the user hasn't responded,
+ * wasn't part of the query, or has already been notified.
+ * @type {Set<string>}
+ */
+export const respondedToQueries = new Set();
 
 /** @type {Map<string, QueryData>} */
 const queries = new Map();
@@ -26,13 +37,13 @@ const queries = new Map();
 /** @type {Map<string, Promise>} */
 const promises = new Map();
 
-async function sendBasicNotification(userID, answers) {
+async function sendBasicNotification(requestID, userID, answers) {
 	const content = await foundry.applications.handlebars.renderTemplate(
 		filePath(`templates/query-response.hbs`),
 		{ answers },
 	);
 
-	await notify(userID, content, { includeGM: false });
+	await notify(requestID, userID, content, { includeGM: false });
 };
 
 export function has(requestID) {
@@ -138,10 +149,19 @@ export async function requery(requestID, users) {
 
 export async function addResponse(requestID, userID, answers) {
 	const data = queries.get(requestID);
-	data.responses[userID] = answers;
-	data.status[userID] = `finished`;
 
-	await data.onSubmit?.(userID, answers);
+	// User closed the popup manually
+	if (answers == null) {
+		data.status[userID] = `unprompted`;
+	}
+
+	// User submitted the answers as expected
+	else {
+		data.responses[userID] = answers;
+		data.status[userID] = `finished`;
+		await data.onSubmit?.(requestID, userID, answers);
+	};
+
 	await maybeResolve(requestID);
 };
 
@@ -180,10 +200,14 @@ async function maybeResolve(requestID) {
 	};
 };
 
-export async function notify(userID, content, { includeGM = false } = {}) {
+export async function notify(requestID, userID, content, { includeGM = false } = {}) {
+	// Prevent sending notifications for not-your queries
+	if (!queries.has(requestID)) { return };
+
 	game.socket.emit(`system.taf`, {
 		event: `query.notify`,
 		payload: {
+			id: requestID,
 			userID,
 			content,
 			includeGM,
@@ -196,6 +220,7 @@ export async function finish(requestID) {
 	if (!queries.has(requestID)) { return };
 
 	const query = queries.get(requestID);
+	query.app?.close();
 	query.resolve(query.responses);
 	queries.delete(requestID);
 	promises.delete(requestID);
@@ -211,6 +236,7 @@ export async function cancel(requestID) {
 	if (!queries.has(requestID)) { return };
 
 	const query = queries.get(requestID);
+	query.app?.close();
 	query.resolve(null);
 	queries.delete(requestID);
 	promises.delete(requestID);

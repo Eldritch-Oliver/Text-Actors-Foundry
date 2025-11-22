@@ -1,4 +1,5 @@
 import { addResponse, has as hasQuery } from "../../utils/QueryManager.mjs";
+import { localizer } from "../../utils/localizer.mjs";
 
 export function querySubmit(payload, user) {
 	const {
@@ -7,13 +8,13 @@ export function querySubmit(payload, user) {
 	} = payload;
 
 	if (!id) {
-		ui.notifications.error(game.i18n.format(
+		ui.notifications.error(localizer(
 			`taf.notifs.error.malformed-socket-payload`,
 			{
-				event: `query.submit`,
-				details: `A request ID must be provided`,
-			}),
-		);
+				event: `query.cancel`,
+				details: `taf.notifs.error.missing-id`,
+			},
+		));
 		return;
 	};
 

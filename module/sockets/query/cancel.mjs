@@ -1,16 +1,17 @@
 import { DialogManager } from "../../utils/DialogManager.mjs";
+import { localizer } from "../../utils/localizer.mjs";
 
 export async function queryCancel(payload) {
 	const { id } = payload;
 
 	if (!id) {
-		ui.notifications.error(game.i18n.format(
+		ui.notifications.error(localizer(
 			`taf.notifs.error.malformed-socket-payload`,
 			{
 				event: `query.cancel`,
-				details: `A request ID must be provided`,
-			}),
-		);
+				details: `taf.notifs.error.missing-id`,
+			},
+		));
 		return;
 	};
 

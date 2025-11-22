@@ -14,9 +14,18 @@
 		"sheet-names": {
 			"PlayerSheet": "Player Sheet"
 		},
+		"misc": {
+			"Key": "Key",
+			"Value": "Value",
+			"no-data-submitted": "No data submitted",
+			"data-query-notif-header": "Data Query Notification"
+		},
 		"Apps": {
 			"QueryStatus": {
-				"user-disconnected-tooltip": "This user is not logged in to Foundry"
+				"user-disconnected-tooltip": "This user is not logged in to Foundry",
+				"cancel-request": "Cancel Request",
+				"finish-early": "Finish Request Early",
+				"send-request": "Send Request"
 			},
 			"TAFDocumentSheetConfig": {
 				"Sizing": "Sizing",
@@ -34,6 +43,9 @@
 					"system": "Text-Based Actors"
 				}
 			}
+		},
+		"sockets": {
+			"user-list-required": "A list fo users must be provided"
 		},
 		"notifs": {
 			"error": {

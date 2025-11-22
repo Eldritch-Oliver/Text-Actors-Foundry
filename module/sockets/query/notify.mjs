@@ -1,3 +1,4 @@
+import { localizer } from "../../utils/localizer.mjs";
 import { respondedToQueries } from "../../utils/QueryManager.mjs";
 
 export function queryNotify(payload) {
@@ -14,7 +15,7 @@ export function queryNotify(payload) {
 	};
 
 	ChatMessage.implementation.create({
-		flavor: `Data Query Notification`,
+		flavor: localizer(`taf.misc.data-query-notif-header`),
 		content,
 		whisper,
 		style: CONST.CHAT_MESSAGE_STYLES.OOC,

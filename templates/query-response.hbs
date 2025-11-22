@@ -1,8 +1,8 @@
 {{#if answers}}
 	<table class="taf-query-summary">
 		<tr>
-			<td>Key</td>
-			<td>Value</td>
+			<td>{{ localize "taf.misc.Key" }}</td>
+			<td>{{ localize "taf.misc.Value" }}</td>
 		</tr>
 		{{#each answers as | answer |}}
 			<tr>
@@ -12,5 +12,5 @@
 		{{/each}}
 	</table>
 {{else}}
-No data submitted
+	{{ localize "taf.misc.no-data-submitted" }}
 {{/if}}

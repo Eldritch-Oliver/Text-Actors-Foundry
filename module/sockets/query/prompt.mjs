@@ -1,4 +1,5 @@
 import { DialogManager } from "../../utils/DialogManager.mjs";
+import { localizer } from "../../utils/localizer.mjs";
 import { respondedToQueries } from "../../utils/QueryManager.mjs";
 
 export async function queryPrompt(payload) {
@@ -10,25 +11,25 @@ export async function queryPrompt(payload) {
 	} = payload;
 
 	if (!id) {
-		ui.notifications.error(game.i18n.format(
+		ui.notifications.error(localizer(
 			`taf.notifs.error.malformed-socket-payload`,
 			{
-				event: `query.prompt`,
-				details: `A request ID must be provided`,
-			}),
-		);
+				event: `query.cancel`,
+				details: `taf.notifs.error.missing-id`,
+			},
+		));
 		return;
 	};
 
 	// null/undefined is a special case for "all users but me" by default
 	if (users != null && !Array.isArray(users)) {
-		ui.notifications.error(game.i18n.format(
+		ui.notifications.error(localizer(
 			`taf.notifs.error.malformed-socket-payload`,
 			{
-				event: `query.prompt`,
-				details: `A list of users must be provided`,
-			}),
-		);
+				event: `query.cancel`,
+				details: `taf.sockets.user-list-required`,
+			},
+		));
 		return;
 	};
 

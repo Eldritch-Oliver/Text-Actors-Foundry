@@ -10,6 +10,7 @@ import { TAFItem } from "../documents/Item.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
+import { registerUserSettings } from "../settings/user.mjs";
 import { registerWorldSettings } from "../settings/world.mjs";
 
 // Utils
@@ -41,6 +42,7 @@ Hooks.on(`init`, () => {
 	);
 
 	registerWorldSettings();
+	registerUserSettings();
 
 	registerSockets();
 	registerCustomComponents();

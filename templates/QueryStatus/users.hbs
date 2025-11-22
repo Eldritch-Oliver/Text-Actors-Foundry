@@ -8,9 +8,7 @@
 				<div class="grow">
 					{{ user.name }}
 				</div>
-				{{#if (eq user.status "cancelled")}}
-					<span>Cancelled by User</span>
-				{{else if (eq user.status "waiting")}}
+				{{#if (eq user.status "waiting")}}
 					<span class="loader"></span>
 				{{else if (eq user.status "disconnected")}}
 					<taf-icon

@@ -6,8 +6,8 @@ import { QueryStatus } from "../apps/QueryStatus.mjs";
  * An object containing information about the current status for all
  * users involved with the data request.
  * @typedef {Record<
- * string,
- * "finished" | "waiting" | "cancelled" | "disconnected" | "unprompted"
+ *   string,
+ *   "finished" | "waiting" | "disconnected" | "unprompted"
  * >} UserStatus
  */
 
@@ -148,18 +148,19 @@ export async function requery(requestID, users) {
 };
 
 export async function addResponse(requestID, userID, answers) {
-	const data = queries.get(requestID);
+	if (!queries.has(requestID)) { return };
+	const query = queries.get(requestID);
 
 	// User closed the popup manually
 	if (answers == null) {
-		data.status[userID] = `unprompted`;
+		query.status[userID] = `unprompted`;
 	}
 
 	// User submitted the answers as expected
 	else {
-		data.responses[userID] = answers;
-		data.status[userID] = `finished`;
-		await data.onSubmit?.(requestID, userID, answers);
+		query.responses[userID] = answers;
+		query.status[userID] = `finished`;
+		await query.onSubmit?.(requestID, userID, answers);
 	};
 
 	await maybeResolve(requestID);

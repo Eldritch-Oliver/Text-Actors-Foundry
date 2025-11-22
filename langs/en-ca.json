@@ -22,6 +22,7 @@
 		},
 		"Apps": {
 			"QueryStatus": {
+				"title": "Information Request Status",
 				"user-disconnected-tooltip": "This user is not logged in to Foundry",
 				"cancel-request": "Cancel Request",
 				"finish-early": "Finish Request Early",

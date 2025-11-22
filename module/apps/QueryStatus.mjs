@@ -16,6 +16,7 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 			height: `auto`,
 		},
 		window: {
+			title: `taf.Apps.QueryStatus.title`,
 			resizable: true,
 		},
 		actions: {

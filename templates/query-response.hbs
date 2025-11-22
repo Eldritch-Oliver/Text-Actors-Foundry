@@ -1,0 +1,16 @@
+{{#if answers}}
+	<table class="taf-query-summary">
+		<tr>
+			<td>{{ localize "taf.misc.Key" }}</td>
+			<td>{{ localize "taf.misc.Value" }}</td>
+		</tr>
+		{{#each answers as | answer |}}
+			<tr>
+				<td>{{ @key }}</td>
+				<td>{{ answer }}</td>
+			</tr>
+		{{/each}}
+	</table>
+{{else}}
+	{{ localize "taf.misc.no-data-submitted" }}
+{{/if}}

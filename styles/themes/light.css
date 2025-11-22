@@ -1,3 +1,13 @@
 .theme-light {
 	--prosemirror-background: white;
+
+	--spinner-outer-colour: black;
+	--spinner-inner-colour: #FF3D00;
+
+	/* Chip Variables */
+	--chip-color: #18181b;
+	--chip-background: #fafafa;
+	--chip-value-color: #18181b;
+	--chip-value-background: #d4d4d8aa;
+	--chip-border-color: var(--chip-value-background);
 }

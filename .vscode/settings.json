@@ -8,7 +8,6 @@
 	"git.branchProtection": [],
 	"files.exclude": {
 		"*.lock": true,
-		".styles": false,
 		"node_modules": true,
 		"packs": true,
 		"foundry": true

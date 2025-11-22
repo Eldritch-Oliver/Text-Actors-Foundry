@@ -12,6 +12,7 @@ const validInputTypes = [
 ];
 
 export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
+	// #region Options
 	static DEFAULT_OPTIONS = {
 		tag: `dialog`,
 		classes: [
@@ -47,7 +48,9 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 			template: filePath(`templates/Ask/controls.hbs`),
 		},
 	};
+	// #endregion Options
 
+	// #region Instance
 	_inputs = [];
 	alwaysUseAnswerObject = false;
 
@@ -88,6 +91,7 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 		this._userOnConfirm = onConfirm;
 		this._userOnClose = onClose;
 	};
+	// #endregion Instance
 
 	// #region Lifecycle
 	async _onFirstRender() {

@@ -2,10 +2,10 @@
 	"id": "taf",
 	"title": "Text-Based Actors",
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
-	"version": "2.3.0",
-	"download": "#{DOWNLOAD}#",
-	"manifest": "https://github.com/Eldritch-Oliver/Text-Actors-Foundry/releases/latest/download/system.json",
-	"url": "https://github.com/Eldritch-Oliver/Text-Actors-Foundry",
+	"version": "2.4.0",
+	"download": "",
+	"manifest": "",
+	"url": "https://git.varify.ca/Foundry/taf",
 	"compatibility": {
 		"minimum": 13,
 		"verified": 13,
@@ -41,6 +41,7 @@
 		},
 		"Item": {}
 	},
+	"socket": true,
 	"flags": {
 		"hotReload": {
 			"extensions": ["css", "hbs", "json", "js", "mjs", "svg"],

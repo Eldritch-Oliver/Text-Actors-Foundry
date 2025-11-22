@@ -14,7 +14,20 @@
 		"sheet-names": {
 			"PlayerSheet": "Player Sheet"
 		},
+		"misc": {
+			"Key": "Key",
+			"Value": "Value",
+			"no-data-submitted": "No data submitted",
+			"data-query-notif-header": "Data Query Notification"
+		},
 		"Apps": {
+			"QueryStatus": {
+				"title": "Information Request Status",
+				"user-disconnected-tooltip": "This user is not logged in to Foundry",
+				"cancel-request": "Cancel Request",
+				"finish-early": "Finish Request Early",
+				"send-request": "Send Request"
+			},
 			"TAFDocumentSheetConfig": {
 				"Sizing": "Sizing",
 				"Width": {
@@ -30,6 +43,17 @@
 					"foundry": "Foundry",
 					"system": "Text-Based Actors"
 				}
+			}
+		},
+		"sockets": {
+			"user-list-required": "A list fo users must be provided"
+		},
+		"notifs": {
+			"error": {
+				"missing-id": "An ID must be provided",
+				"invalid-socket": "Invalid socket data received, this means a module or system bug is present.",
+				"unknown-socket-event": "An unknown socket event was received: {event}",
+				"malformed-socket-payload": "Socket event \"{event}\" received with malformed payload. Details: {details}"
 			}
 		}
 	}

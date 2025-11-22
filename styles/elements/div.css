@@ -1,0 +1,20 @@
+.taf > .window-content div {
+	&.chip {
+		display: inline flex;
+		color: var(--chip-color);
+		background: var(--chip-background);
+		border: 1px solid var(--chip-border-color);
+		border-radius: 4px;
+
+		.key {
+			padding: 2px 4px;
+		}
+
+		.value {
+			padding: 2px 4px;
+			border-radius: 0 4px 4px 0;
+			color: var(--chip-value-color);
+			background: var(--chip-value-background);
+		}
+	}
+}

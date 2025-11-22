@@ -1,0 +1,96 @@
+on: [ workflow_dispatch ]
+jobs:
+  create-artifacts:
+    name: "Create artifacts"
+    runs-on: act
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - id: version
+        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+
+      - name: Assert that the tag doesn't exist
+        run: node scripts/tagExists.mjs
+        env:
+          TAG_NAME: "v${{steps.version.outputs.version}}"
+
+      # Compendia steps
+      - name: Build compendia
+        run: "npm run data:build"
+      - name: Remove compendia source
+        run: "rm -rf packs/**/_source"
+
+      - name: Compress files
+        run: zip -r release.zip langs module styles templates README.md assets
+
+      - name: Upload artifacts
+        uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+        with:
+          path: |
+            system.json
+            release.zip
+            scripts/*.mjs
+            package-lock.json
+            package.json
+          retention-days: 7
+          if-no-files-found: error
+
+
+  forgejo-release:
+    name: "Create Forgejo release"
+    runs-on: act
+    needs:
+      - create-artifacts
+    if: vars.RELEASE_TO_FORGEJO == 'yes'
+    steps:
+      - name: Download artifacts
+        uses: https://data.forgejo.org/forgejo/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: Install dependencies
+        run: npm i
+
+      - id: version
+        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+
+      - name: Update manifest
+        run: node scripts/prepareManifest.mjs
+        env:
+          DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
+          LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/latest/system.json"
+
+      - name: Add manifest into release archive
+        run: zip release.zip --update system.json
+
+      - name: Upload archive to s3
+        run: node scripts/uploadToS3.mjs
+        env:
+          TAG: "v${{steps.version.outputs.version}}"
+          FILE: "release.zip"
+          S3_BUCKET: "${{vars.S3_BUCKET}}"
+          S3_REGION: "${{vars.S3_REGION}}"
+          S3_KEY: "${{secrets.S3_KEY}}"
+          S3_SECRET: "${{secrets.S3_SECRET}}"
+          S3_ENDPOINT: "${{vars.S3_ENDPOINT}}"
+
+      - name: Upload manifest to s3
+        run: node scripts/uploadToS3.mjs
+        env:
+          TAG: "v${{steps.version.outputs.version}}"
+          FILE: "system.json"
+          S3_BUCKET: "${{vars.S3_BUCKET}}"
+          S3_REGION: "${{vars.S3_REGION}}"
+          S3_KEY: "${{secrets.S3_KEY}}"
+          S3_SECRET: "${{secrets.S3_SECRET}}"
+          S3_ENDPOINT: "${{vars.S3_ENDPOINT}}"
+
+      - name: Create draft release
+        run: node scripts/createForgejoRelease.mjs
+        env:
+          TAG: "v${{steps.version.outputs.version}}"
+          CDN_URL: "${{vars.CDN_URL}}"

@@ -1,0 +1,46 @@
+<ul class="user-list">
+	{{#each users as | user |}}
+		<li
+			style="--spinner-inner-colour: var(--user-color-{{user.id}})"
+			data-user-id="{{ user.id }}"
+		>
+			<div class="user-summary">
+				<div class="grow">
+					{{ user.name }}
+				</div>
+				{{#if (eq user.status "waiting")}}
+					<span class="loader"></span>
+				{{else if (eq user.status "disconnected")}}
+					<taf-icon
+						data-tooltip="taf.Apps.QueryStatus.user-disconnected-tooltip"
+						name="icons/disconnected"
+						var:size="35px"
+						var:stroke="currentColor"
+						var:fill="currentColor"
+					></taf-icon>
+				{{else if (eq user.status "unprompted")}}
+					<button
+						type="button"
+						data-action="promptUser"
+					>
+						{{ localize "taf.Apps.QueryStatus.send-request" }}
+					</button>
+				{{/if}}
+			</div>
+			{{#if (eq user.status "finished")}}
+				<div class="chip-list">
+					{{#each user.answers as | answer |}}
+						<div class="chip">
+							<span class="key">
+								{{ @key }}
+							</span>
+							<span class="value">
+								{{ answer }}
+							</span>
+						</div>
+					{{/each}}
+				</div>
+			{{/if}}
+		</li>
+	{{/each}}
+</ul>

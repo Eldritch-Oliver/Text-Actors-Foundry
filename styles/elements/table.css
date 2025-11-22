@@ -1,0 +1,21 @@
+/*
+This styling is unscoped in order to make it so that it still applies
+to the chat messages which are not within a scope I control.
+*/
+table.taf-query-summary {
+	margin: 0px;
+
+	tr:hover > td {
+		background-color: var(--table-header-border-highlight);
+	}
+
+	td {
+		padding: 4px 8px;
+		border: 1px solid var(--table-header-border-color);
+		width: 40%;
+
+		&:first-of-type {
+			width: 60%;
+		}
+	}
+}

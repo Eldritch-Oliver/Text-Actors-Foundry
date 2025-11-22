@@ -16,6 +16,7 @@ export default [
 		languageOptions: {
 			globals: {
 				CONFIG: `writable`,
+				CONST: `readonly`,
 				game: `readonly`,
 				Handlebars: `readonly`,
 				Hooks: `readonly`,
@@ -72,7 +73,7 @@ export default [
 			"@stylistic/eol-last": `warn`,
 			"@stylistic/operator-linebreak": [`warn`, `before`],
 			"@stylistic/indent": [`warn`, `tab`],
-			"@stylistic/brace-style": [`warn`, `1tbs`, { "allowSingleLine": true }],
+			"@stylistic/brace-style": [`off`],
 			"@stylistic/quotes": [`warn`, `backtick`, { "avoidEscape": true }],
 			"@stylistic/comma-dangle": [`warn`, { arrays: `always-multiline`, objects: `always-multiline`, imports: `always-multiline`, exports: `always-multiline`, functions: `always-multiline` }],
 			"@stylistic/comma-style": [`warn`, `last`],

@@ -7,6 +7,7 @@ import { QueryStatus } from "./apps/QueryStatus.mjs";
 // Utils
 import { attributeSorter } from "./utils/attributeSort.mjs";
 import { DialogManager } from "./utils/DialogManager.mjs";
+import { localizer } from "./utils/localizer.mjs";
 import { QueryManager } from "./utils/QueryManager.mjs";
 import { toID } from "./utils/toID.mjs";
 
@@ -27,6 +28,7 @@ Object.defineProperty(
 			},
 			utils: {
 				attributeSorter,
+				localizer,
 				toID,
 			},
 		}),

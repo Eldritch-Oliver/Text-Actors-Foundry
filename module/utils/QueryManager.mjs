@@ -100,7 +100,7 @@ export async function query(
 		/** @type {UserStatus} */
 		const status = {};
 		for (const user of users) {
-			status[user] = game.users.get(user).active ? `waiting` : `unprompted`;
+			status[user] = game.users.get(user).active ? `waiting` : `disconnected`;
 		};
 
 		queries.set(

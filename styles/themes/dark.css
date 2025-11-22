@@ -1,6 +1,9 @@
 .theme-dark {
 	--prosemirror-background: var(--color-cool-5);
 
+	--spinner-outer-colour: white;
+	--spinner-inner-colour: #FF3D00;
+
 	/* Chip Variables */
 	--chip-color: #fff7ed;
 	--chip-background: #2b3642;

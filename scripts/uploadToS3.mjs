@@ -57,9 +57,8 @@ async function main() {
 	try {
 		const response = await s3Client.send(new PutObjectCommand(params));
 		console.log("Upload successful");
-		console.log(response);
 	} catch (err) {
-		console.error("Error", err);
+		console.error("Upload to s3 failed");
 	};
 };
 

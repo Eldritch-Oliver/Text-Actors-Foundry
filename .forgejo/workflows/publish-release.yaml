@@ -1,9 +1,0 @@
-on:
-  release:
-    types: [published]
-jobs:
-  release-to-foundry:
-    runs-on: docker
-    steps:
-      - name: retrieve release URLS
-      - name: publish to Foundry

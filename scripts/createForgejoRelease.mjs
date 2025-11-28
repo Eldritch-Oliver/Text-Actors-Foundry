@@ -2,6 +2,7 @@ import axios from "axios";
 
 const {
 	TAG,
+	FORGEJO_SERVER_URL: WEB_URL,
 	FORGEJO_API_URL: API,
 	FORGEJO_REPOSITORY: REPO,
 	FORGEJO_TOKEN: TOKEN,
@@ -32,6 +33,7 @@ async function main() {
 			tag_name: TAG,
 			draft: true,
 			hide_archive_links: true,
+			body: `<!-- Manifest URL: ${WEB_URL}/${REPO}/releases/download/${TAG}/system.json -->`,
 		},
 		{
 			headers: { Authorization: `token ${TOKEN}` },

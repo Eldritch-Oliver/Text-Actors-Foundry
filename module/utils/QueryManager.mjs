@@ -92,7 +92,7 @@ export async function query(
 	};
 
 	users ??= game.users
-		.filter(u => u.id !== game.user.id)
+		.filter(u => u.id !== game.user.id && u.active)
 		.map(u => u.id);
 
 	const promise = new Promise((resolve) => {
@@ -168,12 +168,11 @@ export async function addResponse(requestID, userID, answers) {
 
 async function maybeResolve(requestID) {
 	const query = queries.get(requestID);
+	const hasApp = query.app != null;
 
 	// Determine how many users are considered "finished"
 	let finishedUserCount = 0;
 	for (const user of query.users) {
-		const hasApp = query.app != null;
-
 		switch (query.status[user]) {
 			case `finished`: {
 				finishedUserCount++;

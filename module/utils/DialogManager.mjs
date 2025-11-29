@@ -60,18 +60,13 @@ export async function ask(
 		i.id ??= foundry.utils.randomID(16);
 		i.key ??= i.label;
 
-		switch (i.type) {
-			case `input`: {
-				i.inputType ??= `text`;
-			}
-		}
-
 		// Only ever allow one input to claim autofocus
 		i.autofocus &&= !autofocusClaimed;
 		autofocusClaimed ||= i.autofocus;
 
 		// Set the value's attribute name if it isn't specified explicitly
-		if (!i.valueAttribute) {
+		if (i.type === `input`) {
+			i.inputType ??= `text`;
 			switch (i.inputType) {
 				case `checkbox`:
 					i.type = `checkbox`;
@@ -79,7 +74,7 @@ export async function ask(
 					delete i.inputType;
 					break;
 				default:
-					i.valueAttribute = `value`;
+					i.valueAttribute ??= `value`;
 			};
 		};
 	};

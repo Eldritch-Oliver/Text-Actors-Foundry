@@ -24,9 +24,9 @@ import { QueryStatus } from "../apps/QueryStatus.mjs";
  */
 
 /**
- * This internal API is used in order to prevent the query.notify event
- * from being fired off in situations where the user hasn't responded,
- * wasn't part of the query, or has already been notified.
+ * This internal data store is used in order to prevent the query.notify
+ * event from being fired off in situations where the user hasn't
+ * responded, wasn't part of the query, or has already been notified.
  * @type {Set<string>}
  */
 export const respondedToQueries = new Set();
@@ -281,9 +281,7 @@ export async function userActivity(userID, connected) {
 export const QueryManager = {
 	has, get,
 	query, requery,
-	addResponse,
 	notify,
 	finish, cancel,
 	setApplication,
-	userActivity,
 };

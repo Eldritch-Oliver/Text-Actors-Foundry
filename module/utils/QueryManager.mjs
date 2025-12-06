@@ -143,6 +143,14 @@ export async function requery(requestID, users) {
 	const query = queries.get(requestID);
 	if (!query) { return };
 
+	users = users.filter(userID => {
+		const isntFinished = query.status[userID] !== `finished`;
+		const isConnected = game.users.get(userID)?.active;
+		return isntFinished && isConnected;
+	});
+
+	if (users.length === 0) { return };
+
 	game.socket.emit(`system.taf`, {
 		event: `query.prompt`,
 		payload: {

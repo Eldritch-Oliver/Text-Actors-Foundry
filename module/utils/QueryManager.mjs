@@ -135,6 +135,7 @@ export async function query(
 		queries.get(request.id).app = app;
 	};
 
+	promises.set(request.id, promise);
 	return promise;
 };
 

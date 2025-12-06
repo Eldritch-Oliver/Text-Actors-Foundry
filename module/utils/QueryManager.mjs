@@ -139,6 +139,10 @@ export async function query(
 	return promise;
 };
 
+/**
+ * @param {string} requestID The unique ID for the request
+ * @param {string[]} users The user IDs that this rerequest should go to
+ */
 export async function requery(requestID, users) {
 	const query = queries.get(requestID);
 	if (!query) { return };
@@ -164,7 +168,12 @@ export async function requery(requestID, users) {
 	for (const user of users) {
 		query.status[user] = `waiting`;
 	};
-	query.app?.render({ parts: [ `users` ] });
+
+	// Rerender the status app
+	if (query.app && query.app.rendered) {
+		query.app.render({ parts: [ `users` ] });
+		query.app.bringToFront();
+	};
 };
 
 export async function addResponse(requestID, userID, answers) {

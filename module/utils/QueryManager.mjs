@@ -88,6 +88,17 @@ export async function query(
 	});
 
 	if (promises.has(request.id)) {
+
+		// Render / bring to front if the query has an app associated with it
+		const query = queries.get(request.id);
+		if (query?.app) {
+			if (query.app.rendered) {
+				query?.app?.bringToFront();
+			} else {
+				query.app.render({ force: true });
+			};
+		};
+
 		return null;
 	};
 

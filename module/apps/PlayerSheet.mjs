@@ -42,23 +42,36 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #region Lifecycle
 	_initializeApplicationOptions(options) {
 		const sizing = getProperty(options.document, `flags.${__ID__}.PlayerSheet.size`) ?? {};
+		const setting = {
+			width: game.settings.get(__ID__, `sheetDefaultWidth`),
+			height: game.settings.get(__ID__, `sheetDefaultHeight`),
+			resizable: game.settings.get(__ID__, `sheetDefaultResizable`),
+		};
 
 		options.window ??= {};
-		switch (sizing.resizable) {
-			case `false`:
-				options.window.resizable ??= false;
-				break;
-			case `true`:
-				options.window.resizable ??= true;
-				break;
+		if (sizing.resizable !== ``) {
+			options.window.resizable ??= sizing.resizable === `true`;
+		}
+		else if (setting.resizable !== ``) {
+			options.window.resizable ??= setting.resizable === `true`;
 		};
 
 		options.position ??= {};
+
+		// Set width
 		if (sizing.width) {
 			options.position.width ??= sizing.width;
+		}
+		else if (setting.width) {
+			options.position.width ??= setting.width;
 		};
+
+		// Set height
 		if (sizing.height) {
 			options.position.height ??= sizing.height;
+		}
+		else if (setting.height) {
+			options.position.height ??= setting.height;
 		};
 
 		return super._initializeApplicationOptions(options);

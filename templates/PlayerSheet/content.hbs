@@ -6,7 +6,7 @@
 			value="{{system.content}}"
 			collaborate="true"
 			data-document-uuid="{{actor.uuid}}"
-			toggled
+			{{ifThen toggled "toggled" ""}}
 		>
 			{{{ enriched.system.content }}}
 		</prose-mirror>

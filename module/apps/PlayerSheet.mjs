@@ -64,33 +64,6 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		return super._initializeApplicationOptions(options);
 	};
 
-	/** @type {boolean | null} */
-	#inEditMode = null;
-	async _onFirstRender(context, options) {
-		super._onFirstRender(context, options);
-		console.log(`_onFirstRender`)
-		this.#inEditMode ??= game.settings.get(__ID__, `openSheetInEdit`) ?? false;
-		this.element.querySelectorAll(`prose-mirror`).forEach(editor => {
-			editor.open = this.#inEditMode;
-		});
-	};
-
-	async _onRender(context, options) {
-		super._onRender(context, options);
-
-		if (options.parts?.includes(`content`)) {
-			const el = this.element.querySelector(`prose-mirror[name="system.content"]`);
-			el?.addEventListener(`open`, () => {
-				console.log(`event: open`);
-				this.#inEditMode = true;
-			});
-			el?.addEventListener(`close`, () => {
-				console.log(`event: close`);
-				this.#inEditMode = false;
-			});
-		};
-	};
-
 	_getHeaderControls() {
 		const controls = super._getHeaderControls();
 
@@ -152,8 +125,9 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		ctx.attrs = attrs.toSorted(attributeSorter);
 	};
 
-	/** @type {boolean | null} */
 	async _prepareContent(ctx) {
+		// Whether or not the prose-mirror is toggled or always-edit
+		ctx.toggled = true;
 
 		const TextEditor = foundry.applications.ux.TextEditor.implementation;
 		ctx.enriched = {

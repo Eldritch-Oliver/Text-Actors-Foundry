@@ -9,14 +9,11 @@
 			"canPlayersManageAttributes": {
 				"name": "Players Can Manage Attributes",
 				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"
-			},
-			"openSheetInEdit": {
-				"name": "Open Sheets in Edit Mode",
-				"hint": "This makes the default when you open an Actor sheet for the first time each session to put the text editor into edit mode instead of read-only mode. On subsequent opens, the sheet"
 			}
 		},
 		"sheet-names": {
-			"PlayerSheet": "Player Sheet"
+			"PlayerSheet": "Player Sheet",
+			"SingleModePlayerSheet": "Player Sheet (Always Editing)"
 		},
 		"misc": {
 			"Key": "Key",

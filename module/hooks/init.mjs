@@ -1,5 +1,6 @@
 // Apps
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
+import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
 
 // Data Models
 import { PlayerData } from "../data/Player.mjs";
@@ -10,7 +11,6 @@ import { TAFItem } from "../documents/Item.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
-import { registerUserSettings } from "../settings/user.mjs";
 import { registerWorldSettings } from "../settings/world.mjs";
 
 // Utils
@@ -40,9 +40,13 @@ Hooks.on(`init`, () => {
 			label: `taf.sheet-names.PlayerSheet`,
 		},
 	);
+	foundry.documents.collections.Actors.registerSheet(
+		__ID__,
+		SingleModePlayerSheet,
+		{ label: `taf.sheet-names.SingleModePlayerSheet` },
+	);
 
 	registerWorldSettings();
-	registerUserSettings();
 
 	registerSockets();
 	registerCustomComponents();

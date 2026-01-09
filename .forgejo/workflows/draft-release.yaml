@@ -25,7 +25,7 @@ jobs:
         run: "rm -rf packs/**/_source"
 
       - name: Compress files
-        run: zip -r release.zip langs module styles templates README.md assets
+        run: zip -r release.zip langs module styles templates README.md assets LICENSE
 
       - name: Upload artifacts
         uses: https://data.forgejo.org/forgejo/upload-artifact@v4

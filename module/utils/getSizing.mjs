@@ -1,3 +1,4 @@
+import { __ID__ } from "../consts.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 
 /**
@@ -21,12 +22,17 @@ export function getDefaultSizing() {
 		resizable: undefined,
 	};
 
-	// TODO: defaults from world settings
+	sizing.height ||= game.settings.get(__ID__, `sheetDefaultHeight`);
+	sizing.width ||= game.settings.get(__ID__, `sheetDefaultWidth`);
+	const globalResizable = game.settings.get(__ID__, `sheetDefaultResizable`);
+	if (globalResizable !== ``) {
+		sizing.resizable = globalResizable == `true`;
+	};
 
 	// Defaults from the sheet class itself
 	sizing.height ||= PlayerSheet.DEFAULT_OPTIONS.position.height;
 	sizing.width ||= PlayerSheet.DEFAULT_OPTIONS.position.width;
-	sizing.resizable ||= PlayerSheet.DEFAULT_OPTIONS.window.resizable;
+	sizing.resizable ??= PlayerSheet.DEFAULT_OPTIONS.window.resizable;
 
 	return sizing;
 };

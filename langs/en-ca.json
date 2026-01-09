@@ -9,6 +9,23 @@
 			"canPlayersManageAttributes": {
 				"name": "Players Can Manage Attributes",
 				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"
+			},
+			"sheetDefaultHeight": {
+				"name": "Default Actor Sheet Height",
+				"hint": "The height that all actor sheets will open at unless overwridden for that sheet specifically. This setting will not affect already opened sheets."
+			},
+			"sheetDefaultWidth": {
+				"name": "Default Actor Sheet Width",
+				"hint": "The width that all actor sheets will open at unless overwridden for that sheet specifically. This setting will not affect already opened sheets."
+			},
+			"sheetDefaultResizable": {
+				"name": "Default Actor Sheet Resizable",
+				"hint": "Whether or not actor sheets will be able to be resized by default, unless overridden for that specific sheet. This setting will not affect already opened sheets.",
+				"choices": {
+					"default": "No Global Default",
+					"false": "Not Resizable",
+					"true": "Resizable"
+				}
 			}
 		},
 		"sheet-names": {

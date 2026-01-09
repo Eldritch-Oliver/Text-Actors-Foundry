@@ -229,9 +229,17 @@ async function maybeResolve(requestID) {
 	};
 };
 
-export async function notify(requestID, userID, content, { includeGM = false } = {}) {
+export async function notify(requestID, userID, content, { includeGM = false, includeRequestor } = {}) {
 	// Prevent sending notifications for not-your queries
 	if (!queries.has(requestID)) { return };
+
+	// TODO: remove this code with #19
+	if (includeGM) {
+		foundry.utils.logCompatibilityWarning(
+			`The "includeGM" option has been deprecated in favour of "includeRequestor"`,
+			{ since: `v2.4.0`, until: `v3.0.0` },
+		);
+	};
 
 	game.socket.emit(`system.taf`, {
 		event: `query.notify`,
@@ -239,7 +247,8 @@ export async function notify(requestID, userID, content, { includeGM = false } =
 			id: requestID,
 			userID,
 			content,
-			includeGM,
+			includeGM, // TODO: remove this code with #19
+			includeRequestor,
 		},
 	});
 };

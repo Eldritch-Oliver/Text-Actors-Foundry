@@ -43,7 +43,7 @@ async function sendBasicNotification(requestID, userID, answers) {
 		{ answers },
 	);
 
-	await notify(requestID, userID, content, { includeGM: false });
+	await notify(requestID, userID, content, { includeRequestor: false });
 };
 
 export function has(requestID) {

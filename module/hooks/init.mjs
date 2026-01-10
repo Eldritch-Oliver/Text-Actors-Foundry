@@ -1,5 +1,6 @@
 // Apps
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
+import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
 
 // Data Models
 import { PlayerData } from "../data/Player.mjs";
@@ -38,6 +39,11 @@ Hooks.on(`init`, () => {
 			makeDefault: true,
 			label: `taf.sheet-names.PlayerSheet`,
 		},
+	);
+	foundry.documents.collections.Actors.registerSheet(
+		__ID__,
+		SingleModePlayerSheet,
+		{ label: `taf.sheet-names.SingleModePlayerSheet` },
 	);
 
 	registerWorldSettings();

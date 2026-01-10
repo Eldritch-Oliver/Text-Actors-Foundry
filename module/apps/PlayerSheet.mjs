@@ -139,6 +139,9 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	};
 
 	async _prepareContent(ctx) {
+		// Whether or not the prose-mirror is toggled or always-edit
+		ctx.toggled = true;
+
 		const TextEditor = foundry.applications.ux.TextEditor.implementation;
 		ctx.enriched = {
 			system: {

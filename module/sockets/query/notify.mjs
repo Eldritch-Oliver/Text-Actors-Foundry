@@ -2,7 +2,7 @@ import { localizer } from "../../utils/localizer.mjs";
 import { respondedToQueries } from "../../utils/QueryManager.mjs";
 
 export function queryNotify(payload, sender) {
-	const { id, userID, content, includeGM, includeRequestor } = payload;
+	const { id, userID, content, includeRequestor } = payload;
 
 	if (userID !== game.user.id) { return };
 
@@ -10,11 +10,6 @@ export function queryNotify(payload, sender) {
 	if (!respondedToQueries.has(id)) { return };
 
 	let whisper = [game.user.id];
-
-	// TODO: remove this code with #19
-	if (includeGM) {
-		whisper = game.users.filter(u => u.isGM).map(u => u.id);
-	};
 
 	if (includeRequestor) {
 		whisper = [sender.id];

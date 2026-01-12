@@ -33,6 +33,7 @@ async function main() {
 			tag_name: TAG,
 			draft: true,
 			hide_archive_links: true,
+			target_commitish: `main`,
 			body: `<!-- Manifest URL: ${WEB_URL}/${REPO}/releases/download/${TAG}/system.json -->`,
 		},
 		{

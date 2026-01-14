@@ -1,18 +1,16 @@
 {
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.934.0",
     "@eslint/js": "^9.8.0",
     "@foundryvtt/foundryvtt-cli": "^1.0.3",
     "@stylistic/eslint-plugin": "^2.6.1",
-    "axios": "^1.13.2",
-    "dotenv": "^17.2.2",
     "eslint": "^9.8.0",
-    "globals": "^15.9.0"
+    "globals": "^15.9.0",
+    "scripts": "file:./scripts"
   },
   "scripts": {
-    "data:build": "node scripts/buildCompendia.mjs",
-    "data:extract": "node scripts/extractCompendia.mjs",
-    "link": "node scripts/linkFoundry.mjs",
+    "data:build": "node scripts/src/buildCompendia.mjs",
+    "data:extract": "node scripts/src/extractCompendia.mjs",
+    "link": "node scripts/src/linkFoundry.mjs",
     "lint": "eslint --fix",
     "lint:nofix": "eslint"
   }

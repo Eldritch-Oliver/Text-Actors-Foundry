@@ -37,28 +37,6 @@ jobs:
       - name: Compress files
         run: zip -r release.zip langs module styles templates README.md assets LICENSE
 
-      # - name: Upload archive to s3
-      #   run: node scripts/uploadToS3.mjs
-      #   env:
-      #     TAG: "v${{steps.version.outputs.version}}"
-      #     FILE: "release.zip"
-      #     S3_BUCKET: "${{vars.S3_BUCKET}}"
-      #     S3_REGION: "${{vars.S3_REGION}}"
-      #     S3_KEY: "${{secrets.S3_KEY}}"
-      #     S3_SECRET: "${{secrets.S3_SECRET}}"
-      #     S3_ENDPOINT: "${{vars.S3_ENDPOINT}}"
-
-      # - name: Upload manifest to s3
-      #   run: node scripts/uploadToS3.mjs
-      #   env:
-      #     TAG: "v${{steps.version.outputs.version}}"
-      #     FILE: "system.json"
-      #     S3_BUCKET: "${{vars.S3_BUCKET}}"
-      #     S3_REGION: "${{vars.S3_REGION}}"
-      #     S3_KEY: "${{secrets.S3_KEY}}"
-      #     S3_SECRET: "${{secrets.S3_SECRET}}"
-      #     S3_ENDPOINT: "${{vars.S3_ENDPOINT}}"
-
       - name: Create forgejo release
         run: node scripts/src/createForgejoRelease.mjs
         env:

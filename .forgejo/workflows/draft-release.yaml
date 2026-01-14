@@ -1,4 +1,6 @@
 on: [ workflow_dispatch ]
+env:
+  MANIFEST: "system.json"
 jobs:
   create-draft-release:
     name: "Create Draft Release"

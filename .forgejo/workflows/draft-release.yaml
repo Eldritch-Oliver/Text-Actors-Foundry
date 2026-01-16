@@ -56,6 +56,8 @@ jobs:
         with:
           repository: "${{forgejo.repository}}.wiki"
           path: "wiki"
+          ref: "main"
+          token: ${{forgejo.token}}
 
       - name: "Remove git folder"
         run: "rm -rf wiki/.git"

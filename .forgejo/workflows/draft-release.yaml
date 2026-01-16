@@ -56,9 +56,6 @@ jobs:
         with:
           submodules: true
 
-      # - name: "Install dependencies"
-      #   run: "npm i"
-
       - name: "Clone wiki repo"
         uses: actions/checkout@v4
         with:
@@ -69,6 +66,9 @@ jobs:
 
       - name: "command"
         run: ls
+
+      - name: "Install dependencies"
+        run: "pwd; npm i"
 
       # - name: "Remove git folder"
       #   run: "rm -rf .git"

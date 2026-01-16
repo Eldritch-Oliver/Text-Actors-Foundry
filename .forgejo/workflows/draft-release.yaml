@@ -2,59 +2,62 @@ on: [ workflow_dispatch ]
 env:
   MANIFEST: "system.json"
 jobs:
-  create-draft-release:
-    name: "Create Draft Release"
-    runs-on: act
-    outputs:
-      version: ${{steps.version.outputs.version}}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: true
+  # create-draft-release:
+  #   name: "Create Draft Release"
+  #   runs-on: act
+  #   outputs:
+  #     version: ${{steps.version.outputs.version}}
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         submodules: true
 
-      - name: Install dependencies
-        run: npm clean-install
+  #     - name: Install dependencies
+  #       run: npm clean-install
 
-      - id: version
-        run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+  #     - id: version
+  #       run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
 
-      - name: Assert that the tag doesn't exist
-        run: node scripts/src/tagExists.mjs
-        env:
-          TAG_NAME: "v${{steps.version.outputs.version}}"
+  #     - name: Assert that the tag doesn't exist
+  #       run: node scripts/src/tagExists.mjs
+  #       env:
+  #         TAG_NAME: "v${{steps.version.outputs.version}}"
 
-      # Compendia steps
-      - name: Build compendia
-        run: "npm run data:build"
-      - name: Remove compendia source
-        run: "rm -rf packs/**/_source"
+  #     # Compendia steps
+  #     - name: Build compendia
+  #       run: "npm run data:build"
+  #     - name: Remove compendia source
+  #       run: "rm -rf packs/**/_source"
 
-      - name: Update manifest
-        run: node scripts/src/prepareManifest.mjs
-        env:
-          DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
-          LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/latest/system.json"
+  #     - name: Update manifest
+  #       run: node scripts/src/prepareManifest.mjs
+  #       env:
+  #         DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
+  #         LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/latest/system.json"
 
-      - name: Compress files
-        run: zip -r release.zip langs module styles templates README.md assets LICENSE
+  #     - name: Compress files
+  #       run: zip -r release.zip langs module styles templates README.md assets LICENSE
 
-      - name: Create forgejo release
-        run: node scripts/src/createForgejoRelease.mjs
-        env:
-          TAG: "v${{steps.version.outputs.version}}"
-          CDN_URL: "${{vars.CDN_URL}}"
+  #     - name: Create forgejo release
+  #       run: node scripts/src/createForgejoRelease.mjs
+  #       env:
+  #         TAG: "v${{steps.version.outputs.version}}"
+  #         CDN_URL: "${{vars.CDN_URL}}"
 
   wiki-release-artifact:
     name: "Add Wiki to Release"
     runs-on: act
-    needs:
-      - create-draft-release
+    needs: []
+      # - create-draft-release
     steps:
       - name: Checkout main code
         uses: actions/checkout@v4
         with:
           submodules: true
+
+      # - name: "Install dependencies"
+      #   run: "npm i"
 
       - name: "Clone wiki repo"
         uses: actions/checkout@v4
@@ -64,18 +67,15 @@ jobs:
           path: "wiki"
           token: ${{forgejo.token}}
 
-      - name: "Install dependencies"
-        run: "npm i"
+      # - name: "Remove git folder"
+      #   run: "rm -rf .git"
+      #   working-directory: "wiki"
 
-      - name: "Remove git folder"
-        run: "rm -rf .git"
-        working-directory: "wiki"
+      # - name: "Compress wiki folder"
+      #   run: "zip -r wiki.zip ."
+      #   working-directory: "wiki"
 
-      - name: "Compress wiki folder"
-        run: "zip -r wiki.zip ."
-        working-directory: "wiki"
-
-      - name: "Upload wiki archive"
-        run: "node scripts/src/addWikiArtifactToRelease.mjs"
-        env:
-          TAG: "v${{needs.create-draft-release.outputs.version}}"
+      # - name: "Upload wiki archive"
+      #   run: "node scripts/src/addWikiArtifactToRelease.mjs"
+      #   env:
+      #     TAG: "v${{needs.create-draft-release.outputs.version}}"

@@ -5,6 +5,8 @@ jobs:
   create-draft-release:
     name: "Create Draft Release"
     runs-on: act
+    outputs:
+      version: ${{steps.version.outputs.version}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,3 +44,26 @@ jobs:
         env:
           TAG: "v${{steps.version.outputs.version}}"
           CDN_URL: "${{vars.CDN_URL}}"
+
+  wiki-release-artifact:
+    name: "Add Wiki to Release"
+    runs-on: act
+    needs:
+      - create-draft-release
+    steps:
+      - name: "Clone wiki repo"
+        uses: actions/checkout@v4
+        with:
+          repository: "${{forgejo.repository}}.wiki"
+          path: "wiki"
+
+      - name: "Remove git folder"
+        run: "rm -rf wiki/.git"
+
+      - name: "Compress wiki folder"
+        run: "cd wiki && zip -r wiki.zip **/*"
+
+      - name: "Upload wiki archive"
+        run: "node scripts/src/addWikiArtifactToRelease.mjs"
+        env:
+          TAG: "v${{needs.create-draft-release.outputs.version}}"

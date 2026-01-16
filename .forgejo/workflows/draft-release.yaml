@@ -65,18 +65,18 @@ jobs:
           token: ${{forgejo.token}}
 
       - name: "command"
-        run: ls
+        run: "ls; echo newnewnewnewnewnewnew; cd wiki && ls"
 
       - name: "Install dependencies"
         run: "pwd; npm i"
 
-      # - name: "Remove git folder"
-      #   run: "rm -rf .git"
-      #   working-directory: "wiki"
+      - name: "Remove git folder"
+        run: "rm -rf .git"
+        working-directory: "wiki"
 
-      # - name: "Compress wiki folder"
-      #   run: "zip -r wiki.zip ."
-      #   working-directory: "wiki"
+      - name: "Compress wiki folder"
+        run: "zip -r wiki.zip ."
+        working-directory: "wiki"
 
       # - name: "Upload wiki archive"
       #   run: "node scripts/src/addWikiArtifactToRelease.mjs"

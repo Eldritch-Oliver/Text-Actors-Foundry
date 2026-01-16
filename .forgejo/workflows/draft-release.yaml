@@ -67,6 +67,9 @@ jobs:
           path: "wiki"
           token: ${{forgejo.token}}
 
+      - name: "command"
+        run: ls
+
       # - name: "Remove git folder"
       #   run: "rm -rf .git"
       #   working-directory: "wiki"

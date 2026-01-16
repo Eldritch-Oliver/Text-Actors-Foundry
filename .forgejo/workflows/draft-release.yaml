@@ -55,15 +55,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: "${{forgejo.repository}}.wiki"
-          path: "wiki"
           ref: "main"
           token: ${{forgejo.token}}
 
       - name: "Remove git folder"
-        run: "rm -rf wiki/.git"
+        run: "rm -rf .git"
+
+      - name: "log"
+        run: "ls"
 
       - name: "Compress wiki folder"
-        run: "cd wiki && zip -r wiki.zip **/*"
+        run: "cd wiki && zip -r wiki.zip ."
 
       - name: "Upload wiki archive"
         run: "node scripts/src/addWikiArtifactToRelease.mjs"

@@ -58,14 +58,14 @@ jobs:
           ref: "main"
           token: ${{forgejo.token}}
 
+      - name: "Install dependencies"
+        run: "npm i"
+
       - name: "Remove git folder"
         run: "rm -rf .git"
 
-      - name: "log"
-        run: "ls"
-
       - name: "Compress wiki folder"
-        run: "cd wiki && zip -r wiki.zip ."
+        run: "zip -r wiki.zip . --exclude .git node_modules"
 
       - name: "Upload wiki archive"
         run: "node scripts/src/addWikiArtifactToRelease.mjs"

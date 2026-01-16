@@ -51,11 +51,17 @@ jobs:
     needs:
       - create-draft-release
     steps:
+      - name: Checkout main code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
       - name: "Clone wiki repo"
         uses: actions/checkout@v4
         with:
           repository: "${{forgejo.repository}}.wiki"
           ref: "main"
+          path: "wiki"
           token: ${{forgejo.token}}
 
       - name: "Install dependencies"
@@ -63,9 +69,11 @@ jobs:
 
       - name: "Remove git folder"
         run: "rm -rf .git"
+        working-directory: "wiki"
 
       - name: "Compress wiki folder"
-        run: "zip -r wiki.zip . --exclude .git node_modules"
+        run: "zip -r wiki.zip ."
+        working-directory: "wiki"
 
       - name: "Upload wiki archive"
         run: "node scripts/src/addWikiArtifactToRelease.mjs"

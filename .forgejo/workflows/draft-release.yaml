@@ -48,7 +48,7 @@ jobs:
   wiki-release-artifact:
     name: "Add Wiki to Release"
     runs-on: act
-    needs: []
+    needs:
       - create-draft-release
     steps:
       - name: Checkout main code

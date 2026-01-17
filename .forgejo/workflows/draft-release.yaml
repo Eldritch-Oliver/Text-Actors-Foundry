@@ -64,9 +64,6 @@ jobs:
           path: "wiki"
           token: ${{forgejo.token}}
 
-      - name: "command"
-        run: "ls; echo newnewnewnewnewnewnew; cd wiki && ls"
-
       - name: "Install dependencies"
         run: "pwd; npm i"
 
@@ -78,10 +75,8 @@ jobs:
         run: "zip -r wiki.zip ."
         working-directory: "wiki"
 
-      - name: "Move wiki archive to root"
-        run: "mv wiki/wiki.zip wiki.zip"
-
       - name: "Upload wiki archive"
-        run: "node scripts/src/addWikiArtifactToRelease.mjs"
+        run: "node scripts/src/uploadReleaseAsset.mjs"
         env:
+          ASSET: "wiki/wiki.zip"
           TAG: "v${{needs.create-draft-release.outputs.version}}"

@@ -78,6 +78,9 @@ jobs:
         run: "zip -r wiki.zip ."
         working-directory: "wiki"
 
+      - name: "Move wiki archive to root"
+        run: "mv wiki/wiki.zip wiki.zip"
+
       - name: "Upload wiki archive"
         run: "node scripts/src/addWikiArtifactToRelease.mjs"
         env:

@@ -1,4 +1,4 @@
-import { DialogManager } from "../../utils/DialogManager.mjs";
+import { close } from "../../utils/DialogManager.mjs";
 import { localizer } from "../../utils/localizer.mjs";
 
 export async function queryCancel(payload) {
@@ -15,5 +15,5 @@ export async function queryCancel(payload) {
 		return;
 	};
 
-	await DialogManager.close(id);
+	close(id);
 };

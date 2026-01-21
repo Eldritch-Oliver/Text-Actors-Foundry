@@ -7,6 +7,7 @@ import { PlayerData } from "../data/Player.mjs";
 
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";
+import { TAFCombatant } from "../documents/Combatant.mjs";
 import { TAFItem } from "../documents/Item.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
@@ -25,6 +26,7 @@ Hooks.on(`init`, () => {
 
 	CONFIG.Token.documentClass = TAFTokenDocument;
 	CONFIG.Actor.documentClass = TAFActor;
+	CONFIG.Combatant.documentClass = TAFCombatant;
 
 	CONFIG.Actor.dataModels.player = PlayerData;
 

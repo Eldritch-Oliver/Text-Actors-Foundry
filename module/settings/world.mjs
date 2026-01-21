@@ -3,6 +3,16 @@ import { __ID__ } from "../consts.mjs";
 const { NumberField, StringField } = foundry.data.fields;
 
 export function registerWorldSettings() {
+
+	game.settings.register(__ID__, `initiativeFormula`, {
+		name: `taf.settings.initiativeFormula.name`,
+		hint: `taf.settings.initiativeFormula.hint`,
+		config: true,
+		type: String,
+		default: `1d20`,
+		scope: `world`,
+	});
+
 	game.settings.register(__ID__, `canPlayersManageAttributes`, {
 		name: `taf.settings.canPlayersManageAttributes.name`,
 		hint: `taf.settings.canPlayersManageAttributes.hint`,

@@ -15,13 +15,13 @@
 					type="text"
 					data-bind="{{ attr.id }}.name"
 					value="{{ attr.name }}"
-					placeholder="Attribute Name..."
+					placeholder="{{localize "taf.Apps.AttributeManager.name-placeholder"}}"
 				>
 			{{else}}
 				<span>{{ attr.name }}</span>
 			{{/if}}
 			<label>
-				Has Maximum?
+				{{localize "taf.Apps.AttributeManager.has-max"}}
 				<input
 					type="checkbox"
 					data-bind="{{ attr.id }}.isRange"
@@ -32,10 +32,12 @@
 				type="button"
 				data-action="removeAttribute"
 			>
-				Delete
+				{{localize "taf.misc.delete"}}
 			</button>
 		</div>
 	{{else}}
-		<p>No attributes yet</p>
+		<p>
+			{{localize "taf.Apps.AttributeManager.no-attributes"}}
+		</p>
 	{{/each}}
 </div>

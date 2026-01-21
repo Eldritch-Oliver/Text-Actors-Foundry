@@ -1,5 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
+import { localizer } from "../utils/localizer.mjs";
 import { toID } from "../utils/toID.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -52,7 +53,10 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	};
 
 	get title() {
-		return `Attributes: ${this.#doc.name}`;
+		return localizer(
+			`taf.Apps.AttributeManager.title`,
+			this.#doc,
+		);
 	};
 	// #endregion Instance Data
 
@@ -102,7 +106,6 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 			attrs.push({
 				id,
 				name: data.name,
-				displayName: data.isNew ? `New Attribute` : data.name,
 				sort: data.sort,
 				isRange: data.isRange,
 				isNew: data.isNew ?? false,

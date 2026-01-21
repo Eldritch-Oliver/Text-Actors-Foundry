@@ -1,4 +1,5 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { localizer } from "../utils/localizer.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -24,7 +25,7 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 			width: 330,
 		},
 		window: {
-			title: `Questions`,
+			title: `taf.Apps.Ask.title`,
 			resizable: true,
 			minimizable: true,
 			contentTag: `form`,
@@ -80,7 +81,10 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 
 		for (const input of inputs) {
 			if (!validInputTypes.includes(input.type)) {
-				input.details = `Invalid input type provided: ${input.type}`;
+				input.details = localizer(
+					`taf.Apps.Ask.invalid-input-type`,
+					{ type: input.type },
+				);
 				input.type = `error`;
 			};
 		};

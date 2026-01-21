@@ -36,9 +36,15 @@
 			"Key": "Key",
 			"Value": "Value",
 			"no-data-submitted": "No data submitted",
-			"data-query-notif-header": "Data Query Notification"
+			"data-query-notif-header": "Data Query Notification",
+			"cancel": "Cancel",
+			"confirm-and-close": "Confirm and Close"
 		},
 		"Apps": {
+			"Ask": {
+				"title": "Questions",
+				"invalid-input-type": "Invalid input type provided: {type}"
+			},
 			"QueryStatus": {
 				"title": "Information Request Status",
 				"user-disconnected-tooltip": "This user is not logged in to Foundry",

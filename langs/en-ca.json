@@ -10,6 +10,10 @@
 				"name": "Players Can Manage Attributes",
 				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"
 			},
+			"initiativeFormula": {
+				"name": "Initiative Formula",
+				"hint": "The dice formula used for initiative, this can reference attributes on the actor. If the actor doesn't have the attribute it will be interpreted as 0."
+			},
 			"sheetDefaultHeight": {
 				"name": "Default Actor Sheet Height",
 				"hint": "The height that all actor sheets will open at unless overwridden for that sheet specifically. This setting will not affect already opened sheets."

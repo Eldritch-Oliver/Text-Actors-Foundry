@@ -1,4 +1,4 @@
-import { DialogManager } from "../../utils/DialogManager.mjs";
+import { ask } from "../../utils/DialogManager.mjs";
 import { localizer } from "../../utils/localizer.mjs";
 import { respondedToQueries } from "../../utils/QueryManager.mjs";
 
@@ -36,7 +36,7 @@ export async function queryPrompt(payload) {
 	if (users != null && !users.includes(game.user.id)) { return };
 
 	request.id = id;
-	const result = await DialogManager.ask(request, config);
+	const result = await ask(request, config);
 	if (result.state === `fronted`) {
 		return;
 	} else if (result.state === `errored`) {

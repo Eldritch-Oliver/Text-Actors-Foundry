@@ -40,9 +40,31 @@
 			"Key": "Key",
 			"Value": "Value",
 			"no-data-submitted": "No data submitted",
-			"data-query-notif-header": "Data Query Notification"
+			"data-query-notif-header": "Data Query Notification",
+			"cancel": "Cancel",
+			"confirm-and-close": "Confirm and Close",
+			"save-and-close": "Save and Close",
+			"delete": "Delete",
+			"resizable": "Resizable",
+			"not-resizable": "Not Resizable"
 		},
 		"Apps": {
+			"Ask": {
+				"title": "Questions",
+				"invalid-input-type": "Invalid input type provided: {type}"
+			},
+			"AttributeManager": {
+				"title": "Attributes: {name}",
+				"has-max": "Has Maximum?",
+				"name-placeholder": "Attribute Name...",
+				"no-attributes": "No attributes yet",
+				"add-new-attribute": "Add New Attribute"
+			},
+			"PlayerSheet": {
+				"manage-attributes": "Manage Attributes",
+				"current-value": "Current value",
+				"max-value": "Maximum value"
+			},
 			"QueryStatus": {
 				"title": "Information Request Status",
 				"user-disconnected-tooltip": "This user is not logged in to Foundry",
@@ -59,7 +81,8 @@
 					"label": "Height"
 				},
 				"Resizable": {
-					"label": "Resizable"
+					"label": "Resizable",
+					"placeholder": "Default ({placeholder})"
 				},
 				"tabs": {
 					"foundry": "Foundry",

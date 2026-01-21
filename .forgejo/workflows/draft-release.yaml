@@ -37,7 +37,7 @@ jobs:
           LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/latest/system.json"
 
       - name: Compress files
-        run: zip -r release.zip langs module styles templates README.md assets LICENSE
+        run: zip -r release.zip langs module styles templates README.md assets LICENSE ${{env.MANIFEST}}
 
       - name: Create forgejo release
         run: node scripts/src/createForgejoRelease.mjs

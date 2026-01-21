@@ -40,7 +40,9 @@
 			"cancel": "Cancel",
 			"confirm-and-close": "Confirm and Close",
 			"save-and-close": "Save and Close",
-			"delete": "Delete"
+			"delete": "Delete",
+			"resizable": "Resizable",
+			"not-resizable": "Not Resizable"
 		},
 		"Apps": {
 			"Ask": {
@@ -75,7 +77,8 @@
 					"label": "Height"
 				},
 				"Resizable": {
-					"label": "Resizable"
+					"label": "Resizable",
+					"placeholder": "Default ({placeholder})"
 				},
 				"tabs": {
 					"foundry": "Foundry",

@@ -1,5 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { getDefaultSizing } from "../utils/getSizing.mjs";
+import { localizer } from "../utils/localizer.mjs";
 
 const { diffObject, expandObject, flattenObject } = foundry.utils;
 const { DocumentSheetConfig } = foundry.applications.apps;
@@ -74,7 +75,9 @@ export class TAFDocumentSheetConfig extends DocumentSheetConfig {
 		const defaults = getDefaultSizing();
 		context.placeholders = {
 			...defaults,
-			resizable: defaults.resizable ? `Resizable` : `Not Resizable`,
+			resizable: defaults.resizable
+				? localizer(`taf.misc.resizable`)
+				: localizer(`taf.misc.not-resizable`),
 		};
 
 		// Custom values from document itself
@@ -88,9 +91,15 @@ export class TAFDocumentSheetConfig extends DocumentSheetConfig {
 
 		// Static prep
 		context.resizeOptions = [
-			{ label: `Default (${context.placeholders.resizable})`, value: `` },
-			{ label: `Resizable`, value: `true` },
-			{ label: `No Resizing`, value: `false` },
+			{
+				label: localizer(
+					`taf.Apps.TAFDocumentSheetConfig.Resizable.placeholder`,
+					{ placeholder: context.placeholders.resizable },
+				),
+				value: ``,
+			},
+			{ label: localizer(`taf.misc.resizable`), value: `true` },
+			{ label: localizer(`taf.misc.not-resizable`), value: `false` },
 		];
 	};
 	// #endregion Data Prep

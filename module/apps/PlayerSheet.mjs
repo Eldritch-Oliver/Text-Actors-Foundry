@@ -82,7 +82,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
 		controls.push({
 			icon: `fa-solid fa-at`,
-			label: `Manage Attributes`,
+			label: `taf.Apps.PlayerSheet.manage-attributes`,
 			action: `manageAttributes`,
 			visible: () => {
 				const isGM = game.user.isGM;
@@ -167,7 +167,6 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		event.stopPropagation();
 		if ( event.detail > 1 ) { return }
 
-		// const docSheetConfigWidth = TAFDocumentSheetConfig.DEFAULT_OPTIONS.position.width;
 		new TAFDocumentSheetConfig({
 			document: this.document,
 			position: {

@@ -54,6 +54,11 @@
 				"no-attributes": "No attributes yet",
 				"add-new-attribute": "Add New Attribute"
 			},
+			"PlayerSheet": {
+				"manage-attributes": "Manage Attributes",
+				"current-value": "Current value",
+				"max-value": "Maximum value"
+			},
 			"QueryStatus": {
 				"title": "Information Request Status",
 				"user-disconnected-tooltip": "This user is not logged in to Foundry",

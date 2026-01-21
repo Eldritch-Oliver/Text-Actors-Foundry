@@ -11,7 +11,7 @@
 						class="attr-range__value"
 						name="{{attr.path}}.value"
 						value="{{attr.value}}"
-						aria-label="Current value"
+						aria-label="{{localize "taf.Apps.PlayerSheet.current-value"}}"
 						data-tooltip="@{{ attr.id }}{{#if attr.isRange}}.value{{/if}}"
 					>
 					{{#if attr.isRange}}
@@ -21,7 +21,7 @@
 							class="attr-range__max"
 							name="{{attr.path}}.max"
 							value="{{attr.max}}"
-							aria-label="Maximum value"
+							aria-label="{{localize "taf.Apps.PlayerSheet.max-value"}}"
 							data-tooltip="@{{ attr.id }}.max"
 						>
 					{{/if}}

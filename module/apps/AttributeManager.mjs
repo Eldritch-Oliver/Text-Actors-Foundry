@@ -5,7 +5,7 @@ import { toID } from "../utils/toID.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 const { deepClone, diffObject, mergeObject, performIntegerSort, randomID, setProperty } = foundry.utils;
-const { DragDrop, TextEditor } = foundry.applications.ux;
+const { DragDrop } = foundry.applications.ux;
 
 export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) {
 
@@ -71,7 +71,8 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		};
 
 		new DragDrop.implementation({
-			dragSelector: `.draggable`,
+			dragSelector: `.attribute-drag-handle`,
+			dropSelector: `.attributes`,
 			permissions: {
 				dragstart: this._canDragStart.bind(this),
 				drop: this._canDragDrop.bind(this),
@@ -172,6 +173,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 				return [ id, attr ];
 			});
 		const data = Object.fromEntries(entries);
+		this.#attributes = data;
 
 		const diff = diffObject(
 			this.#doc.system.attr,
@@ -195,24 +197,34 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	_onDragStart(event) {
 		const target = event.currentTarget.closest(`[data-attribute]`);
 		if (`link` in event.target.dataset) { return };
-		let dragData;
+		if (!target.dataset.attribute) { return };
 
-		if (target.dataset.attribute) {
-			const attributeID = target.dataset.attribute;
-			const attribute = this.#attributes[attributeID];
-			dragData = {
-				_id: attributeID,
-				sort: attribute.sort,
-			};
+		const attributeID = target.dataset.attribute;
+		const attribute = this.#attributes[attributeID];
+		const dragData = {
+			_id: attributeID,
+			sort: attribute.sort,
 		};
 
-		if (!dragData) { return };
 		event.dataTransfer.setDragImage(target, 16, 23);
-		event.dataTransfer.setData(`text/plain`, JSON.stringify(dragData));
+		event.dataTransfer.setData(`taf/json`, JSON.stringify(dragData));
+
+		// Provide an attribute reference in a way that prose-mirror can use
+		if (!attribute.isNew) {
+			event.dataTransfer.setData(
+				`text/plain`,
+				`[[@${attributeID}]]{${attribute.name}}`,
+			);
+		};
 	};
 
 	_onDrop(event) {
-		const dropped = TextEditor.implementation.getDragEventData(event);
+		let dropped;
+		try {
+			dropped = JSON.parse(event.dataTransfer.getData(`taf/json`));
+		} catch {
+			return;
+		}
 
 		const dropTarget = event.target.closest(`[data-attribute]`);
 		if (!dropTarget) { return };

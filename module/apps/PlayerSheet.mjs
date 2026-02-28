@@ -159,7 +159,10 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		if (this.#attributeManager.rendered) {
 			await this.#attributeManager.bringToFront();
 		} else {
-			await this.#attributeManager.render({ force: true });
+			await this.#attributeManager.render({
+				force: true,
+				window: { windowId: this.window.windowId },
+			});
 		};
 	};
 
@@ -173,7 +176,10 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 				top: this.position.top + 40,
 				left: this.position.left + ((this.position.width - 60) / 2),
 			},
-		}).render({ force: true });
+		}).render({
+			force: true,
+			window: { windowId: this.window.windowId },
+		});
 	};
 	// #endregion Actions
 };

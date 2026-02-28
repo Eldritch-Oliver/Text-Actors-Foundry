@@ -1,4 +1,5 @@
 // Apps
+import { AttributeOnlyPlayerSheet } from "../apps/AttributeOnlyPlayerSheet.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
 
@@ -46,6 +47,11 @@ Hooks.on(`init`, () => {
 		__ID__,
 		SingleModePlayerSheet,
 		{ label: `taf.sheet-names.SingleModePlayerSheet` },
+	);
+	foundry.documents.collections.Actors.registerSheet(
+		__ID__,
+		AttributeOnlyPlayerSheet,
+		{ label: `taf.sheet-names.AttributeOnlyPlayerSheet` },
 	);
 
 	registerWorldSettings();

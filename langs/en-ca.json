@@ -34,7 +34,8 @@
 		},
 		"sheet-names": {
 			"PlayerSheet": "Player Sheet",
-			"SingleModePlayerSheet": "Player Sheet (Always Editing)"
+			"SingleModePlayerSheet": "Player Sheet (Always Editing)",
+			"AttributeOnlyPlayerSheet": "Player Sheet (Attributes Only)"
 		},
 		"misc": {
 			"Key": "Key",

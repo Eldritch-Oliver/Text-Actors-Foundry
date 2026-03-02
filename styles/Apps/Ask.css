@@ -13,7 +13,7 @@
 		overflow: auto;
 	}
 
-	.dialog-content {
+	.input-list {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
@@ -51,5 +51,12 @@
 		align-self: center;
 		justify-self: right;
 		margin: 0;
+	}
+
+	summary {
+		font-size: var(--font-size-14);
+		color: var(--color-text-primary);
+		color-scheme: var(--color-scheme);
+		font-weight: bold;
 	}
 }

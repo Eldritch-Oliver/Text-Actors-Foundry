@@ -1,0 +1,12 @@
+<details>
+	<summary>
+		{{ summary }}
+	</summary>
+	<div class="input-list">
+		{{#each inputs as | i |}}
+			{{> (concat (systemFilePath "templates/Ask/inputs/" ) i.type ".hbs") i}}
+		{{else}}
+			{{ content }}
+		{{/each}}
+	</div>
+</details>

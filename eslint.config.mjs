@@ -21,15 +21,16 @@ export default [
 				Handlebars: `readonly`,
 				Hooks: `readonly`,
 				ui: `readonly`,
-				ActorSheet: `readonly`,
-				ItemSheet: `readonly`,
 				foundry: `readonly`,
 				ChatMessage: `readonly`,
 				ActiveEffect: `readonly`,
-				Dialog: `readonly`,
-				renderTemplate: `readonly`,
 				fromUuid: `readonly`,
 				fromUuidSync: `readonly`,
+
+				// v14 Additions:
+				_loc: `readonly`,
+				_del: `reaonly`,
+				_replace: `readonly`,
 			},
 		},
 	},
@@ -40,7 +41,6 @@ export default [
 		},
 		languageOptions: {
 			globals: {
-				Logger: `readonly`,
 				taf: `readonly`,
 			},
 		},

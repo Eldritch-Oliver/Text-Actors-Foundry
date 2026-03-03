@@ -1,4 +1,5 @@
 .taf > .window-content hr {
+	display: block;
 	height: 1px;
 	background: rebeccapurple;
 	border-radius: 0;

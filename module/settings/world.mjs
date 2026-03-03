@@ -59,4 +59,10 @@ export function registerWorldSettings() {
 		}),
 		scope: `world`,
 	});
+
+	game.settings.register(__ID__, `actorDefaultAttributes`, {
+		config: false,
+		type: Object,
+		scope: `world`,
+	});
 };

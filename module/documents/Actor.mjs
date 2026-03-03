@@ -1,6 +1,24 @@
+import { __ID__ } from "../consts.mjs";
+
 const { Actor } = foundry.documents;
+const { hasProperty } = foundry.utils;
 
 export class TAFActor extends Actor {
+
+	// #region Lifecycle
+	async _preCreate(data, options, user) {
+
+		// Assign the defaults from the world setting if they exist
+		const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? {};
+		if (!hasProperty(data, `system.attr`)) {
+			const value = game.release.generation > 13 ? _replace(defaults) : defaults;
+			this.updateSource({ "system.==attr": value });
+		};
+
+		return super._preCreate(data, options, user);
+	};
+	// #endregion Lifecycle
+
 	async modifyTokenAttribute(attribute, value, isDelta = false, isBar = true) {
 		const attr = foundry.utils.getProperty(this.system, attribute);
 		const current = isBar ? attr.value : attr;

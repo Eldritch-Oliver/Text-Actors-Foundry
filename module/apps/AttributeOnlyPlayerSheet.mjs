@@ -14,4 +14,13 @@ export class AttributeOnlyPlayerSheet extends PlayerSheet {
 		return parts;
 	};
 	// #endregion Options
+
+	// #region Lifecycle
+	_configureRenderOptions(options) {
+		super._configureRenderOptions(options);
+
+		// don't attempt to rerender the content
+		options.parts = options.parts?.filter(partID => partID !== `content`);
+	};
+	// #endregion Lifecycle
 };

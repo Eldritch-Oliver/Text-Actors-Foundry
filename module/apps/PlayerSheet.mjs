@@ -5,7 +5,16 @@ import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
-const { getProperty } = foundry.utils;
+const { getProperty, hasProperty } = foundry.utils;
+
+const propertyToParts = {
+	"name": [`header`],
+	"img": [`header`],
+	"system.attr": [`attributes`],
+	"system.attr.value": [`attributes`, `content`],
+	"system.attr.max": [`attributes`, `content`],
+	"system.content": [`content`],
+};
 
 export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
@@ -93,6 +102,21 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		});
 
 		return controls;
+	};
+
+	_configureRenderOptions(options) {
+		// Only rerender the parts of the app that got changed
+		if (options.renderContext === `updateActor`) {
+			const parts = new Set();
+			for (const property in propertyToParts) {
+				if (hasProperty(options.renderData, property)) {
+					propertyToParts[property].forEach(partID => parts.add(partID));
+				};
+			};
+			options.parts = options.parts?.filter(part => !parts.has(part)) ?? Array.from(parts);
+		};
+
+		super._configureRenderOptions(options);
 	};
 
 	async close() {

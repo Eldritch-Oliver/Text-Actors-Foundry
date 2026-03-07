@@ -262,7 +262,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 
 		const fullAttrs = mergeObject(attrs, response.answers);
 		game.settings.set(__ID__, `actorDefaultAttributes`, fullAttrs);
-		ui.notifications.success(`taf.notifs.success.saved-default-attributes`);
+		ui.notifications.success(`taf.notifs.success.saved-default-attributes`, { localize: true });
 	};
 	// #endregion Actions
 

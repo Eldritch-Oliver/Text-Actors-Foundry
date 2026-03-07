@@ -136,7 +136,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	async _prepareAttributeContext(ctx) {
 		const attrs = [];
 		for (const [id, data] of Object.entries(this.#attributes)) {
-			if (data == null) { continue };
+			if (data == null || data == _del) { continue };
 			attrs.push({
 				id,
 				name: data.name,

@@ -5,11 +5,11 @@ import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
 
 // Data Models
 import { PlayerData } from "../data/Player.mjs";
+import { GenericItemData } from "../data/Item/generic.mjs";
 
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";
 import { TAFCombatant } from "../documents/Combatant.mjs";
-import { TAFItem } from "../documents/Item.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
@@ -30,10 +30,7 @@ Hooks.on(`init`, () => {
 	CONFIG.Combatant.documentClass = TAFCombatant;
 
 	CONFIG.Actor.dataModels.player = PlayerData;
-
-	// We disable items in the system for now
-	CONFIG.Item.documentClass = TAFItem;
-	delete CONFIG.ui.sidebar.TABS.items;
+	CONFIG.Item.dataModels.generic = GenericItemData;
 
 	foundry.documents.collections.Actors.registerSheet(
 		__ID__,

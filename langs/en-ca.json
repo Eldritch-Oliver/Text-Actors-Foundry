@@ -2,6 +2,9 @@
 	"TYPES": {
 		"Actor": {
 			"player": "Player"
+		},
+		"Item": {
+			"generic": "Generic Item"
 		}
 	},
 	"taf": {

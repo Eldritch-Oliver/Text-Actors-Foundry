@@ -39,7 +39,14 @@
 				"filePathFields": {}
 			}
 		},
-		"Item": {}
+		"Item": {
+			"generic": {
+				"htmlFields": [
+					"description"
+				],
+				"filePathFields": {}
+			}
+		}
 	},
 	"socket": true,
 	"flags": {

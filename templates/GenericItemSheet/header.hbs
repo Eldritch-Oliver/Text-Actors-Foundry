@@ -1,0 +1,25 @@
+<header class="sheet-header bordered">
+	<img
+		src="{{item.img}}"
+		data-action="editImage"
+		data-edit="img"
+		title="{{item.name}}"
+		height="48"
+		width="48"
+	>
+	<input
+		type="text"
+		name="name"
+		class="large"
+		value="{{item.name}}"
+		placeholder="{{localize "Name"}}"
+	>
+	<span aria-hidden="true">x</span>
+	<input
+		type="number"
+		name="system.quantity"
+		value="{{system.quantity}}"
+		data-tooltip
+		aria-label="Quantity"
+	>
+</header>

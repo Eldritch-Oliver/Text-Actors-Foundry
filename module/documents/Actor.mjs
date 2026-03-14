@@ -6,6 +6,11 @@ const { hasProperty } = foundry.utils;
 export class TAFActor extends Actor {
 
 	// #region Lifecycle
+	/**
+	 * This makes sure that the actor gets created with the global attributes if
+	 * they exist, while still allowing programmatic creation through the API with
+	 * specific attributes.
+	 */
 	async _preCreate(data, options, user) {
 
 		// Assign the defaults from the world setting if they exist
@@ -17,8 +22,19 @@ export class TAFActor extends Actor {
 
 		return super._preCreate(data, options, user);
 	};
+
+	/**
+	 * This resets the cache of the item groupings whenever a descedant document
+	 * gets changed (created, updated, deleted) so that we keep the cache as close
+	 * to accurate as can be possible.
+	 */
+	_onEmbeddedDocumentChange(...args) {
+		super._onEmbeddedDocumentChange(...args);
+		this.#sortedTypes = null;
+	};
 	// #endregion Lifecycle
 
+	// #region Token Attributes
 	async modifyTokenAttribute(attribute, value, isDelta = false, isBar = true) {
 		const attr = foundry.utils.getProperty(this.system, attribute);
 		const current = isBar ? attr.value : attr;
@@ -40,7 +56,9 @@ export class TAFActor extends Actor {
 
 		return allowed !== false ? this.update(updates) : this;
 	};
+	// #endregion Token Attributes
 
+	// #region Roll Data
 	getRollData() {
 		/*
 		All properties assigned during this phase of the roll data prep can potentially
@@ -67,4 +85,24 @@ export class TAFActor extends Actor {
 
 		return data;
 	};
+	// #endregion Roll Data
+
+	// #region Getters
+	#sortedTypes = null;
+	get itemTypes() {
+		if (this.#sortedTypes) return this.#sortedTypes;
+		const types = {};
+		for (const item of this.items) {
+			if (item.type !== `generic`) {
+				types[item.type] ??= [];
+				types[item.type].push(item);
+			} else {
+				const group = item.system.group ?? `Items`;
+				types[group] ??= [];
+				types[group].push(item);
+			};
+		};
+		return this.#sortedTypes = types;
+	};
+	// #endregion Getters
 };

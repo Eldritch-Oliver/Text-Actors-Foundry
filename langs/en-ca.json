@@ -59,7 +59,8 @@
 			"item": {
 				"weight": "Weight",
 				"quantity": "Quantity",
-				"equipped": "Equipped"
+				"equipped": "Equipped",
+				"group": "Group"
 			}
 		},
 		"Apps": {

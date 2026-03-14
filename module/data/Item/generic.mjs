@@ -2,6 +2,12 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {
+			group: new fields.StringField({
+				blank: false,
+				trim: true,
+				initial: null,
+				nullable: true,
+			}),
 			weight: new fields.NumberField({
 				min: 0,
 				initial: 0,

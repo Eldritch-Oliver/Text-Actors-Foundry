@@ -12,6 +12,18 @@
 		>
 	</div>
 	<div class="property">
+		<label for="{{meta.idp}}-group">
+			{{localize "taf.misc.item.group"}}
+		</label>
+		<input
+			type="text"
+			id="{{meta.idp}}-group"
+			name="system.group"
+			value="{{system.group}}"
+			{{disabled (not meta.editable)}}
+		>
+	</div>
+	<div class="property">
 		<label for="{{meta.idp}}-equipped">
 			{{localize "taf.misc.item.equipped"}}
 		</label>

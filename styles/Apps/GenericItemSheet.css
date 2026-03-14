@@ -15,4 +15,38 @@
 			border-radius: 4px;
 		}
 	}
+
+	.content {
+		display: contents;
+	}
+
+	.property {
+		display: grid;
+		grid-template-columns: 1fr 100px;
+		align-items: center;
+		gap: 8px;
+
+		input[type="checkbox"] {
+			justify-self: end;
+		}
+	}
+
+	.description {
+		flex-grow: 1;
+		overflow: hidden;
+		--table-row-color-odd: var(--table-header-bg-color);
+
+		&:not(:has(> prose-mirror)) {
+			padding: 0.5rem;
+		}
+	}
+
+	prose-mirror {
+		height: 100%;
+
+		menu {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
 }

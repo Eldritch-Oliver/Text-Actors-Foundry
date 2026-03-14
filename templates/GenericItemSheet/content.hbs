@@ -1,13 +1,38 @@
-<div>
-	<label>
-		Equipped
-		<input type="checkbox" name="system.equipped">
-	</label>
-	<label>
-		Weight
-		<input type="number" name="system.weight">
-	</label>
-	<prose-mirror
-		name="system.description"
-	></prose-mirror>
+<div class="content">
+	<div class="property">
+		<label for="">
+			Weight
+		</label>
+		<input
+			type="number"
+			name="system.weight"
+			value="{{system.weight}}"
+			{{disabled (not meta.editable)}}
+		>
+	</div>
+	<div class="property">
+		<label for="">
+			Equipped
+		</label>
+		<input
+			type="checkbox"
+			name="system.equipped"
+			{{checked system.equipped}}
+			{{disabled (not meta.editable)}}
+		>
+	</div>
+	<div class="bordered description">
+		{{#if meta.editable}}
+			<prose-mirror
+				name="system.description"
+				value="{{system.description}}"
+				collaborate="true"
+				data-document-uuid="{{item.uuid}}"
+			>
+				{{{ enriched.system.description }}}
+			</prose-mirror>
+		{{else}}
+			{{{ enriched.system.description }}}
+		{{/if}}
+	</div>
 </div>

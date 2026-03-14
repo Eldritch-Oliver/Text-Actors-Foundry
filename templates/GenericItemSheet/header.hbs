@@ -9,9 +9,11 @@
 	>
 	<input
 		type="text"
-		name="name"
 		class="large"
+		name="name"
 		value="{{item.name}}"
+		title="{{item.name}}"
+		{{disabled (not meta.editable)}}
 		placeholder="{{localize "Name"}}"
 	>
 	<span aria-hidden="true">x</span>
@@ -19,6 +21,7 @@
 		type="number"
 		name="system.quantity"
 		value="{{system.quantity}}"
+		{{disabled (not meta.editable)}}
 		data-tooltip
 		aria-label="Quantity"
 	>

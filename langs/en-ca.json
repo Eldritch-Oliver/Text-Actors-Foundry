@@ -55,7 +55,12 @@
 			"save-and-close": "Save and Close",
 			"delete": "Delete",
 			"resizable": "Resizable",
-			"not-resizable": "Not Resizable"
+			"not-resizable": "Not Resizable",
+			"item": {
+				"weight": "Weight",
+				"quantity": "Quantity",
+				"equipped": "Equipped"
+			}
 		},
 		"Apps": {
 			"Ask": {

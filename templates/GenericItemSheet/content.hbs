@@ -1,21 +1,23 @@
 <div class="content">
 	<div class="property">
-		<label for="">
-			Weight
+		<label for="{{meta.idp}}-weight">
+			{{localize "taf.misc.item.weight"}}
 		</label>
 		<input
 			type="number"
+			id="{{meta.idp}}-weight"
 			name="system.weight"
 			value="{{system.weight}}"
 			{{disabled (not meta.editable)}}
 		>
 	</div>
 	<div class="property">
-		<label for="">
-			Equipped
+		<label for="{{meta.idp}}-equipped">
+			{{localize "taf.misc.item.equipped"}}
 		</label>
 		<input
 			type="checkbox"
+			id="{{meta.idp}}-equipped"
 			name="system.equipped"
 			{{checked system.equipped}}
 			{{disabled (not meta.editable)}}

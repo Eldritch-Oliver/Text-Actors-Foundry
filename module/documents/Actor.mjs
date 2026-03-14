@@ -97,7 +97,7 @@ export class TAFActor extends Actor {
 				types[item.type] ??= [];
 				types[item.type].push(item);
 			} else {
-				const group = item.system.group ?? `Items`;
+				const group = item.system.group?.toLowerCase() ?? `items`;
 				types[group] ??= [];
 				types[group].push(item);
 			};

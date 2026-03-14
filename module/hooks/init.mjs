@@ -5,7 +5,7 @@ import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
 import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 
 // Data Models
-import { PlayerData } from "../data/Player.mjs";
+import { PlayerData } from "../data/Actor/player.mjs";
 import { GenericItemData } from "../data/Item/generic.mjs";
 
 // Documents

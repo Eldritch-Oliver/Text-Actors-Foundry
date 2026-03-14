@@ -24,6 +24,7 @@
 		display: grid;
 		grid-template-columns: 1fr 100px;
 		align-items: center;
+		justify-items: left;
 		gap: 8px;
 
 		input[type="checkbox"] {

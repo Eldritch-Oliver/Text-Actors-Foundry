@@ -1,0 +1,10 @@
+.taf > .window-content {
+	nav.tabs.system-tabs {
+		all: initial;
+	}
+
+	nav.sheet-tabs.top-tabs {
+		margin-inline: 0;
+		margin-top: calc(var(--spacer-8) * -1);
+	}
+}

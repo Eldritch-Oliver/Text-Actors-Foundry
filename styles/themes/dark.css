@@ -4,6 +4,9 @@
 	--spinner-outer-colour: white;
 	--spinner-inner-colour: #FF3D00;
 
+	--tab-button-active-border: rebeccapurple;
+	--tab-button-hover-bg: var(--color-cool-3);
+
 	/* Chip Variables */
 	--chip-color: #fff7ed;
 	--chip-background: #2b3642;

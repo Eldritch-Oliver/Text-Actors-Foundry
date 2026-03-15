@@ -79,7 +79,11 @@
 			"PlayerSheet": {
 				"manage-attributes": "Manage Attributes",
 				"current-value": "Current value",
-				"max-value": "Maximum value"
+				"max-value": "Maximum value",
+				"tab-names": {
+					"content": "Content",
+					"items": "Items"
+				}
 			},
 			"QueryStatus": {
 				"title": "Information Request Status",

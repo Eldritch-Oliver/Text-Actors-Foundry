@@ -1,9 +1,10 @@
 @layer resets, themes, elements, components, partials, apps, exceptions;
 
 /* Resets */
+@import url("./resets/button.css") layer(resets);
 @import url("./resets/hr.css") layer(resets);
 @import url("./resets/inputs.css") layer(resets);
-@import url("./resets/button.css") layer(resets);
+@import url("./resets/tabs.css") layer(resets);
 
 /* Themes */
 @import url("./themes/dark.css") layer(themes);

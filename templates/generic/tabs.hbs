@@ -1,0 +1,17 @@
+{{#if hideTabs}}
+	<template></template>
+{{else}}
+	<nav class="tabs system-tabs">
+		{{#each tabs as |tab|}}
+			<button
+				type="button"
+				class="{{tab.cssClass}}"
+				data-action="tab"
+				data-group="{{tab.group}}"
+				data-tab="{{tab.id}}"
+			>
+				{{localize tab.label}}
+			</button>
+		{{/each}}
+	</nav>
+{{/if}}

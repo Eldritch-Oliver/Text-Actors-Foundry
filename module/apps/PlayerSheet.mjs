@@ -14,6 +14,7 @@ const propertyToParts = {
 	"system.attr.value": [`attributes`, `content`],
 	"system.attr.max": [`attributes`, `content`],
 	"system.content": [`content`],
+	"system.carryCapacity": [`items`],
 };
 
 export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
@@ -44,7 +45,26 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	static PARTS = {
 		header: { template: filePath(`templates/PlayerSheet/header.hbs`) },
 		attributes: { template: filePath(`templates/PlayerSheet/attributes.hbs`) },
+		tabs: { template: filePath(`templates/generic/tabs.hbs`) },
 		content: { template: filePath(`templates/PlayerSheet/content.hbs`) },
+		items: {
+			template: filePath(`templates/PlayerSheet/item-lists.hbs`),
+			scrollable: [``],
+			templates: [
+				filePath(`templates/PlayerSheet/item.hbs`),
+			],
+		},
+	};
+
+	static TABS = {
+		primary: {
+			initial: `content`,
+			labelPrefix: `taf.Apps.PlayerSheet.tab-names`,
+			tabs: [
+				{ id: `content` },
+				{ id: `items` },
+			],
+		}
 	};
 	// #endregion Options
 
@@ -127,20 +147,36 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Lifecycle
 
 	// #region Data Prep
-	async _preparePartContext(partID) {
-		let ctx = {
+	async _prepareContext() {
+		return {
+			meta: {
+				idp: this.id,
+				editable: this.isEditable,
+			},
 			actor: this.actor,
 			system: this.actor.system,
 			editable: this.isEditable,
 		};
+	};
+
+	async _preparePartContext(partID, ctx) {
 
 		switch (partID) {
 			case `attributes`: {
 				await this._prepareAttributes(ctx);
 				break;
 			};
+			case `tabs`: {
+				ctx.hideTabs = this.actor.items.size <= 0;
+				ctx.tabs = await this._prepareTabs(`primary`);
+				break;
+			};
 			case `content`: {
 				await this._prepareContent(ctx);
+				break;
+			};
+			case `items`: {
+				await this._prepareItems(ctx);
 				break;
 			};
 		};
@@ -165,6 +201,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	async _prepareContent(ctx) {
 		// Whether or not the prose-mirror is toggled or always-edit
 		ctx.toggled = true;
+		ctx.tabActive = this.tabGroups.primary === `content` || this.actor.items.size === 0;
 
 		const TextEditor = foundry.applications.ux.TextEditor.implementation;
 		ctx.enriched = {
@@ -173,6 +210,12 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 			},
 		};
 	};
+
+	async _prepareItems(ctx) {
+		ctx.tabActive = this.tabGroups.primary === `items`;
+	};
+
+	async _prepareItem(item) {};
 	// #endregion Data Prep
 
 	// #region Actions

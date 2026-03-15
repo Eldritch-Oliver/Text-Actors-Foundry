@@ -6,4 +6,26 @@
 		gap: 0.5rem;
 		overflow: auto;
 	}
+
+	> .window-content nav.system-tabs {
+		display: flex;
+		flex-direction: row;
+		justify-content: left;
+		align-items: center;
+		gap: 8px;
+
+		button {
+			border: none;
+			text-shadow: none;
+			box-shadow: none;
+
+			&.active {
+				outline: 1px solid var(--tab-button-active-border);
+			}
+
+			&:hover {
+				background: var(--tab-button-hover-bg);
+			}
+		}
+	}
 }

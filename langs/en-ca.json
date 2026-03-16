@@ -9,6 +9,11 @@
 	},
 	"taf": {
 		"settings": {
+			"actorDefaultAttributes": {
+				"name": "Remove Default Attributes",
+				"hint": "This removes the default attributes that are applied when a new actor is created, making it so that no attributes get created alongside the actor.",
+				"label": "Remove Attributes"
+			},
 			"canPlayersManageAttributes": {
 				"name": "Players Can Manage Attributes",
 				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"
@@ -34,10 +39,9 @@
 					"true": "Resizable"
 				}
 			},
-			"actorDefaultAttributes": {
-				"name": "Remove Default Attributes",
-				"hint": "This removes the default attributes that are applied when a new actor is created, making it so that no attributes get created alongside the actor.",
-				"label": "Remove Attributes"
+			"weightUnit": {
+				"name": "Weight Unit",
+				"hint": "This unit is used to display the units for the weights of items and carrying capacity of actors. This does NOTHING beyond adding the unit into the displays, it will not automatically convert between any units."
 			}
 		},
 		"sheet-names": {

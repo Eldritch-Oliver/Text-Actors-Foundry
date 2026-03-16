@@ -7,6 +7,13 @@
 	--tab-button-active-border: rebeccapurple;
 	--tab-button-hover-bg: var(--color-cool-3);
 
+	--item-card-background: #1d262f;
+	--item-card-color: white;
+	--item-card-header-background: #242d38;
+	--item-card-header-color: white;
+	--item-card-header-input-background: #2b3642;
+	--item-card-header-input-color: white;
+
 	/* Chip Variables */
 	--chip-color: #fff7ed;
 	--chip-background: #2b3642;

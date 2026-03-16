@@ -1,1 +1,29 @@
-<div></div>
+<li
+	class="item"
+	data-item-uuid="{{uuid}}"
+>
+	<div
+		class="summary"
+		{{#if canExpand}}
+		data-action="toggleExpand"
+		{{/if}}
+	>
+		<img
+			src="{{img}}"
+			alt=""
+		>
+		<div class="title">
+			<span class="name">{{ name }}</span>
+			<span class="subtitle">{{ weight }}</span>
+		</div>
+		<input
+			type="number"
+			value="{{quantity}}"
+		>
+	</div>
+	{{#if canExpand}}
+		<div class="full-details" data-expanded="{{isExpanded}}">
+			{{{ description }}}
+		</div>
+	{{/if}}
+</li>

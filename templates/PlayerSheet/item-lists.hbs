@@ -3,5 +3,23 @@
 	data-group="primary"
 	data-tab="items"
 >
-	Item Tab Content Here
+	Total Weight: {{totalWeight}}
+	<hr>
+	{{#each itemGroups as | group |}}
+		<section>
+			<div class="header">
+				<span class="name">
+					{{ group.name }}
+				</span>
+				<span class="weight">
+					{{ group.weight }}
+				</span>
+			</div>
+			<ul class="item-list">
+				{{#each group.items as |item|}}
+					{{> (systemFilePath "templates/PlayerSheet/item.hbs") item }}
+				{{/each}}
+			</ul>
+		</section>
+	{{/each}}
 </div>

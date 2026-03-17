@@ -90,7 +90,7 @@ export class TAFActor extends Actor {
 	// #region Getters
 	#sortedTypes = null;
 	get itemTypes() {
-		if (this.#sortedTypes) return this.#sortedTypes;
+		if (this.#sortedTypes) { return this.#sortedTypes };
 		const types = {};
 		for (const item of this.items) {
 			if (item.type !== `generic`) {

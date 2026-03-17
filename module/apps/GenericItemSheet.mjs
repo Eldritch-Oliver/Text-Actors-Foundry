@@ -40,7 +40,7 @@ export class GenericItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 			meta: {
 				idp: this.id,
 				editable: this.isEditable,
-				limited: this.isLimited
+				limited: this.isLimited,
 			},
 			item: this.item,
 			system: this.item.system,

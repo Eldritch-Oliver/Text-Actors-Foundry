@@ -1,12 +1,12 @@
 // Apps
 import { AttributeOnlyPlayerSheet } from "../apps/AttributeOnlyPlayerSheet.mjs";
+import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
-import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 
 // Data Models
-import { PlayerData } from "../data/Actor/player.mjs";
 import { GenericItemData } from "../data/Item/generic.mjs";
+import { PlayerData } from "../data/Actor/player.mjs";
 
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";

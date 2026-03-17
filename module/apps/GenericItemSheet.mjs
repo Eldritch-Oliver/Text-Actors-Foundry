@@ -1,10 +1,15 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
 const { setProperty } = foundry.utils;
 
-export class GenericItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
+export class GenericItemSheet extends
+	TAFDocumentSheetMixin(
+	HandlebarsApplicationMixin(
+	ItemSheetV2,
+)) {
 	// #region Options
 	static DEFAULT_OPTIONS = {
 		classes: [
@@ -28,6 +33,17 @@ export class GenericItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 	static PARTS = {
 		header: { template: filePath(`templates/GenericItemSheet/header.hbs`) },
 		content: { template: filePath(`templates/GenericItemSheet/content.hbs`) },
+	};
+
+	/**
+	 * This tells the Application's TAFDocumentSheetMixin how to rerender this app
+	 * when specific properties get changed on the actor, so that it doesn't need
+	 * to full-app rendering if we can do a partial rerender instead.
+	 */
+	static PROPERTY_TO_PARTIAL = {
+		"name": [`header`],
+		"img": [`header`],
+		"system": [`content`],
 	};
 	// #endregion Options
 

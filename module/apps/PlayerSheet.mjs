@@ -2,24 +2,19 @@ import { __ID__, filePath } from "../consts.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
+import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 import { toPrecision } from "../utils/roundToPrecision.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
-const { getProperty, hasProperty } = foundry.utils;
+const { getProperty } = foundry.utils;
 const { TextEditor } = foundry.applications.ux;
 
-const propertyToParts = {
-	"name": [`header`],
-	"img": [`header`],
-	"system.attr": [`attributes`],
-	"system.attr.value": [`attributes`, `content`],
-	"system.attr.max": [`attributes`, `content`],
-	"system.content": [`content`],
-	"system.carryCapacity": [`items`],
-};
-
-export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+export class PlayerSheet extends
+	TAFDocumentSheetMixin(
+	HandlebarsApplicationMixin(
+	ActorSheetV2,
+)) {
 
 	// #region Options
 	static DEFAULT_OPTIONS = {
@@ -59,6 +54,21 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		},
 	};
 
+	/**
+	 * This tells the Application's TAFDocumentSheetMixin how to rerender this app
+	 * when specific properties get changed on the actor, so that it doesn't need
+	 * to full-app rendering if we can do a partial rerender instead.
+	 */
+	static PROPERTY_TO_PARTIAL = {
+		"name": [`header`],
+		"img": [`header`],
+		"system.attr": [`attributes`],
+		"system.attr.value": [`attributes`, `content`],
+		"system.attr.max": [`attributes`, `content`],
+		"system.content": [`content`],
+		"system.carryCapacity": [`items`],
+	};
+
 	static TABS = {
 		primary: {
 			initial: `content`,
@@ -67,7 +77,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 				{ id: `content` },
 				{ id: `items` },
 			],
-		}
+		},
 	};
 	// #endregion Options
 
@@ -134,21 +144,6 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		});
 
 		return controls;
-	};
-
-	_configureRenderOptions(options) {
-		// Only rerender the parts of the app that got changed
-		if (options.renderContext === `updateActor`) {
-			const parts = new Set();
-			for (const property in propertyToParts) {
-				if (hasProperty(options.renderData, property)) {
-					propertyToParts[property].forEach(partID => parts.add(partID));
-				};
-			};
-			options.parts = options.parts?.filter(part => !parts.has(part)) ?? Array.from(parts);
-		};
-
-		super._configureRenderOptions(options);
 	};
 
 	async close() {
@@ -250,7 +245,7 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	};
 
 	async _prepareItem(item) {
-		const weightUnit = game.settings.get(__ID__, `weightUnit`)
+		const weightUnit = game.settings.get(__ID__, `weightUnit`);
 		const ctx = {
 			uuid: item.uuid,
 			img: item.img,

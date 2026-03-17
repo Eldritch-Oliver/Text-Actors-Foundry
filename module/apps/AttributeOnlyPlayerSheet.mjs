@@ -1,5 +1,7 @@
 import { PlayerSheet } from "./PlayerSheet.mjs";
 
+const { deepClone } = foundry.utils;
+
 export class AttributeOnlyPlayerSheet extends PlayerSheet {
 	// #region Options
 	static DEFAULT_OPTIONS = {
@@ -9,7 +11,7 @@ export class AttributeOnlyPlayerSheet extends PlayerSheet {
 	};
 
 	static get PARTS() {
-		const parts = super.PARTS;
+		const parts = deepClone(super.PARTS);
 		delete parts.content;
 		return parts;
 	};

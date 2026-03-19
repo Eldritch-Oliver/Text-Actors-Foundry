@@ -2,12 +2,7 @@
 	class="item"
 	data-item-uuid="{{uuid}}"
 >
-	<div
-		class="summary"
-		{{#if canExpand}}
-		data-action="toggleExpand"
-		{{/if}}
-	>
+	<div class="summary">
 		<img
 			src="{{img}}"
 			alt=""
@@ -20,9 +15,24 @@
 			type="number"
 			value="{{quantity}}"
 		>
+		<button
+			type="button"
+			class="expand-button"
+			data-action="toggleExpand"
+			data-expanded="{{isExpanded}}"
+			{{disabled (not canExpand)}}
+		>
+			<taf-icon
+				name="icons/chevron"
+				var:colour="var(--item-card-header-input-color)"
+			></taf-icon>
+		</button>
 	</div>
 	{{#if canExpand}}
-		<div class="full-details" data-expanded="{{isExpanded}}">
+		<div
+			class="full-details"
+			data-expanded="{{isExpanded}}"
+		>
 			{{{ description }}}
 		</div>
 	{{/if}}

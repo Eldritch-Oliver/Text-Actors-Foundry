@@ -3,14 +3,23 @@
 	data-group="primary"
 	data-tab="items"
 >
-	Total Weight: {{totalWeight}}
-	<hr>
+	<section>
+		Total Weight: {{totalWeight}}
+		/
+		<input
+			type="number"
+			name="system.carryCapacity"
+			value="{{system.carryCapacity}}"
+		>
+
+		({{ carryCapacityPercent }}%)
+	</section>
 	{{#each itemGroups as | group |}}
 		<section>
-			<div class="header">
-				<span class="name">
+			<div class="item-list-header">
+				<div class="grow">
 					{{ group.name }}
-				</span>
+				</div>
 				<span class="weight">
 					{{ group.weight }}
 				</span>

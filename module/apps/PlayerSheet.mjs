@@ -241,7 +241,14 @@ export class PlayerSheet extends
 			});
 		};
 
-		ctx.totalWeight = toPrecision(totalWeight, 2) + weightUnit;
+		totalWeight = toPrecision(totalWeight, 2);
+		ctx.totalWeight = totalWeight + weightUnit;
+		console.log({
+			totalWeight,
+			carryCapacity: this.actor.system.carryCapacity,
+			percent: Math.round(totalWeight / this.actor.system.carryCapacity * 100),
+		});
+		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);
 	};
 
 	async _prepareItem(item) {
@@ -319,19 +326,19 @@ export class PlayerSheet extends
 	 * @this {PlayerSheet}
 	 */
 	static async #toggleExpand(event, target) {
-		if (event.srcElement instanceof HTMLInputElement) { return };
-
-		const { itemUuid } = target.closest(`[data-item-uuid]`)?.dataset ?? {};
+		const element = target.closest(`[data-item-uuid]`);
+		const { itemUuid } = element?.dataset ?? {};
 		if (!itemUuid) { return };
 
 		const expanded = this.#expandedItems.has(itemUuid);
-		if (expanded) {
-			this.#expandedItems.delete(itemUuid);
-			target.nextElementSibling.dataset.expanded = false;
-		} else {
-			this.#expandedItems.add(itemUuid);
-			target.nextElementSibling.dataset.expanded = true;
-		}
+		const newExpanded = !expanded;
+
+		this.#expandedItems[newExpanded ? `add` : `delete`]?.(itemUuid);
+		target.dataset.expanded = newExpanded;
+		const collapses = element.querySelectorAll(`[data-expanded]`);
+		collapses.forEach(el => {
+			el.dataset.expanded = newExpanded;
+		});
 	};
 	// #endregion Actions
 };

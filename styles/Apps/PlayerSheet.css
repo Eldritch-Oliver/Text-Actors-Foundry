@@ -37,12 +37,37 @@
 		}
 	}
 
+	.items-tab {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.inventory-summary {
+		display: flex;
+		flex-direction: row;
+		gap: 4px;
+		align-items: center;
+		background: var(--inventory-summary-background);
+		color: var(--inventory-summary-color);
+		padding: 6px;
+		border-radius: 4px;
+
+		input {
+			width: 75px;
+			text-align: center;
+			background: var(--inventory-input-background);
+			color: var(--inventory-input-color);
+			text-align: center;
+		}
+	}
+
 	.item-list-header {
 		display: flex;
 		flex-direction: row;
 		gap: 8px;
 		border-radius: 6px 6px 0 0;
-		padding: 4px;
+		padding: 6px 6px 4px;
 		margin-bottom: 2px;
 		background: var(--item-list-header-background);
 		color: var(--item-list-header-color);

@@ -7,6 +7,11 @@
 	--tab-button-active-border: rebeccapurple;
 	--tab-button-hover-bg: var(--color-cool-3);
 
+	--inventory-summary-background: #171e26;
+	--inventory-summary-color: white;
+	--inventory-input-background: #2b3642;
+	--inventory-input-color: white;
+
 	--item-list-header-background: #171e26;
 	--item-list-header-color: white;
 	--item-card-background: #1d262f;

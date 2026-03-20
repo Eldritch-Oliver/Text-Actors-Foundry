@@ -243,11 +243,6 @@ export class PlayerSheet extends
 
 		totalWeight = toPrecision(totalWeight, 2);
 		ctx.totalWeight = totalWeight + weightUnit;
-		console.log({
-			totalWeight,
-			carryCapacity: this.actor.system.carryCapacity,
-			percent: Math.round(totalWeight / this.actor.system.carryCapacity * 100),
-		});
 		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);
 	};
 

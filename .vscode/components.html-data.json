@@ -2,23 +2,35 @@
 	"version": 1.1,
 	"tags": [
 		{
-			"name": "dd-incrementer",
-			"description": "A number input that allows more flexible increase/decrease buttons",
+			"name": "taf-icon",
+			"description": "Loads an icon asynchronously, caching the result for future uses",
 			"attributes": [
-				{ "name": "value", "description": "The initial value to put in the input" },
-				{ "name": "name", "description": "The form name to use when this input is used to submit data" },
-				{ "name": "min", "description": "The minimum value that this input can contain" },
-				{ "name": "max", "description": "The maximum value that this input can contain" },
-				{ "name": "smallStep", "description": "The value that the input is changed by when clicking a delta button or using the up/down arrow key" },
-				{ "name": "largeStep", "description": "The value that the input is changed by when clicking a delta button with control held or using the page up/ page down arrow key" }
+				{ "name": "name", "description": "The name of the icon, this is relative to the assets folder of the system" },
+				{ "name": "path", "description": "The full path of the icon, this will only be used if `name` isn't provided or fails to fetch." }
 			]
 		},
 		{
-			"name": "dd-icon",
-			"description": "Loads an icon asynchronously, caching the result for future uses",
+			"name": "taf-svg",
+			"description": "Loads an SVG file asynchronously, caching the result for future uses",
 			"attributes": [
-				{ "name": "name", "description": "The name of the icon, this is relative to the assets folder of the dotdungeon system" },
+				{ "name": "name", "description": "The name of the icon, this is relative to the assets folder of the system" },
 				{ "name": "path", "description": "The full path of the icon, this will only be used if `name` isn't provided or fails to fetch." }
+			]
+		},
+		{
+			"name": "taf-toggle",
+			"description": "A conveniency component for a toggle switch",
+			"attributes": [
+				{
+					"name": "type",
+					"description": "The type of toggle that this should be",
+					"values": [
+						{
+							"name": "round",
+							"description": "The slider is a full circle"
+						}
+					]
+				}
 			]
 		}
 	],

@@ -1,9 +1,9 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
+import { config } from "../config.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
-import { toPrecision } from "../utils/roundToPrecision.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -220,7 +220,6 @@ export class PlayerSheet extends
 	async _prepareItems(ctx) {
 		ctx.tabActive = this.tabGroups.primary === `items`;
 
-		const weightUnit = game.settings.get(__ID__, `weightUnit`);
 		let totalWeight = 0;
 
 		ctx.itemGroups = [];
@@ -237,24 +236,22 @@ export class PlayerSheet extends
 			ctx.itemGroups.push({
 				name: groupName.titleCase(),
 				items: preparedItems,
-				weight: toPrecision(summedWeight, 2) + weightUnit,
+				weight: config.weightFormatter(totalWeight),
 			});
 		};
 
-		totalWeight = toPrecision(totalWeight, 2);
-		ctx.totalWeight = totalWeight + weightUnit;
+		ctx.totalWeight = config.weightFormatter(totalWeight);
 		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);
 	};
 
 	async _prepareItem(item) {
-		const weightUnit = game.settings.get(__ID__, `weightUnit`);
 		const ctx = {
 			uuid: item.uuid,
 			img: item.img,
 			name: item.name,
 			equipped: item.system.equipped,
 			quantity: item.system.quantity,
-			weight: item.system.quantifiedWeight + weightUnit,
+			weight: config.weightFormatter(item.system.quantifiedWeight),
 			isExpanded: this.#expandedItems.has(item.uuid),
 			canExpand: item.system.description.length > 0,
 		};

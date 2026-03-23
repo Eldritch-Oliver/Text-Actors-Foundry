@@ -3,6 +3,11 @@
 	data-item-uuid="{{uuid}}"
 >
 	<div class="summary">
+		<taf-toggle
+			var:size="8px"
+			var:padding="2px"
+			{{checked equipped}}
+		></taf-toggle>
 		<img
 			src="{{img}}"
 			alt=""
@@ -21,6 +26,7 @@
 			data-action="toggleExpand"
 			data-expanded="{{isExpanded}}"
 			{{disabled (not canExpand)}}
+			aria-label="{{localize "taf.Apps.PlayerSheet.toggle-item-description"}}"
 		>
 			<taf-icon
 				name="icons/chevron"

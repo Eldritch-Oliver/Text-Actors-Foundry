@@ -12,9 +12,10 @@
 	--tab-button-hover-bg: var(--color-cool-3);
 
 	--inventory-summary-background: #171e26;
-	--inventory-summary-color: white;
+	--inventory-summary-colour: white;
 	--inventory-input-background: #2b3642;
-	--inventory-input-color: white;
+	--inventory-input-colour: white;
+	--inventory-input-disabled-colour: gray;
 
 	--item-list-header-background: #171e26;
 	--item-list-header-color: white;

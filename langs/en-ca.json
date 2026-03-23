@@ -84,6 +84,13 @@
 				"manage-attributes": "Manage Attributes",
 				"current-value": "Current value",
 				"max-value": "Maximum value",
+				"carry-capacity-used": "({percent}% Used)",
+				"carrying-capacity": {
+					"title": "Carrying Capacity:",
+					"label": "Maximum carrying weight"
+				},
+				"total-weight": "Total weight",
+				"toggle-item-description": "Show/Hide Item Description",
 				"tab-names": {
 					"content": "Content",
 					"items": "Items"

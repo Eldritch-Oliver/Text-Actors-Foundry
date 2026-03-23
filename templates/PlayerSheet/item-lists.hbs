@@ -5,15 +5,21 @@
 >
 	<section class="inventory-summary">
 		<h3 class="grow">
-			Carrying Capacity:
+			{{localize "taf.Apps.PlayerSheet.carrying-capacity.title"}}
 		</h3>
 		<div>
-			({{carryCapacityPercent}}% Used)
+			{{localize
+				"taf.Apps.PlayerSheet.carry-capacity-used"
+				percent=carryCapacityPercent
+			}}
 		</div>
 		<input
 			type="text"
 			value="{{totalWeight}}"
 			disabled
+			aria-label="{{localize "taf.Apps.PlayerSheet.total-weight"}}"
+			data-tooltip
+			data-tooltip-direction="UP"
 		>
 		<div aria-hidden="true">
 			/
@@ -22,6 +28,9 @@
 			type="number"
 			name="system.carryCapacity"
 			value="{{system.carryCapacity}}"
+			aria-label="{{localize "taf.Apps.PlayerSheet.carrying-capacity.label"}}"
+			data-tooltip
+			data-tooltip-direction="UP"
 		>
 	</section>
 	{{#each itemGroups as | group |}}

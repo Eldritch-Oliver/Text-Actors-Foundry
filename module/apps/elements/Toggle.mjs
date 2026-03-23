@@ -1,0 +1,97 @@
+import { StyledShadowElement } from "./StyledShadowElement.mjs";
+
+export class TafToggle extends StyledShadowElement(HTMLElement) {
+	static elementName = `taf-toggle`;
+
+	static _stylePath = `toggle.css`;
+
+	_mounted;
+	_internals;
+
+	constructor() {
+		super({ focusable: true });
+
+		this._internals = this.attachInternals();
+		this._internals.role = `checkbox`;
+	};
+
+	get type() {
+		return `checkbox`;
+	};
+
+	get name() {
+		return this.getAttribute(`name`);
+	};
+	set name(newName) {
+		this.setAttribute(`name`, newName);
+	};
+
+	get value() {
+		return this._input.value;
+	};
+	set value(newValue) {
+		this._input.value = newValue;
+	};
+
+	get checked() {
+		return this.hasAttribute(`checked`);
+	};
+	set checked(newValue) {
+		if (typeof newValue !== `boolean`) { return };
+		this.toggleAttribute(`checked`, newValue);
+	};
+
+	get disabled() {
+		return this.matches(`:disabled`);
+	};
+	set disabled(value) {
+		this.toggleAttribute(`disabled`, value);
+	};
+
+	get editable() {
+		return true;
+	};
+
+	connectedCallback() {
+		super.connectedCallback();
+		if (this._mounted) { return };
+
+		this._internals.checked = this.checked;
+
+		/*
+		This converts all of the double-dash prefixed properties on the
+		element to CSS variables so that they don't all need to be
+		provided by doing style=""
+		*/
+		for (const attrVar of this.attributes) {
+			if (attrVar.name?.startsWith(`var:`)) {
+				const prop = attrVar.name.replace(`var:`, ``);
+				this.style.setProperty(`--` + prop, attrVar.value);
+			};
+		};
+
+		const label = document.createElement(`label`);
+		label.dataset.type = `round`;
+
+		const input = document.createElement(`input`);
+		input.type = `checkbox`;
+		input.toggleAttribute(`switch`, true);
+		input.checked = this.checked;
+
+		label.appendChild(input);
+
+		const slider = document.createElement(`div`);
+		slider.classList = `slider`;
+		label.appendChild(slider);
+
+		this._shadow.appendChild(label);
+
+		this._mounted = true;
+	};
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		if (!this._mounted) { return };
+		this._mounted = false;
+	};
+};

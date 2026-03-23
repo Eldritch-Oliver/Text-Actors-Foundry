@@ -4,6 +4,10 @@
 	--spinner-outer-colour: white;
 	--spinner-inner-colour: #FF3D00;
 
+	--toggle-background-colour: #171e26;
+	--toggle-slider-unchecked-colour: maroon;
+	--toggle-slider-checked-colour: green;
+
 	--tab-button-active-border: rebeccapurple;
 	--tab-button-hover-bg: var(--color-cool-3);
 
@@ -19,7 +23,8 @@
 	--item-card-header-background: #242d38;
 	--item-card-header-color: white;
 	--item-card-header-input-background: #2b3642;
-	--item-card-header-input-color: white;
+	--item-card-header-input-colour: white;
+	--item-card-header-disabled-input-colour: gray;
 
 	/* Chip Variables */
 	--chip-color: #fff7ed;

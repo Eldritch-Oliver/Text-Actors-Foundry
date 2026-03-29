@@ -1,3 +1,5 @@
+import { updateForeignDocumentFromEvent } from "../utils.mjs";
+
 const { hasProperty } = foundry.utils;
 
 export function TAFDocumentSheetMixin(HandlebarsApplication) {
@@ -5,6 +7,7 @@ export function TAFDocumentSheetMixin(HandlebarsApplication) {
 		/** @type {Record<string, string[]> | null} */
 		static PROPERTY_TO_PARTIAL = null;
 
+		// #region Lifecycle
 		/**
 		 * This override is used by the mixin in order to allow for partial
 		 * re-rendering of applications based on what properties changed.
@@ -30,6 +33,20 @@ export function TAFDocumentSheetMixin(HandlebarsApplication) {
 
 			super._configureRenderOptions(options);
 		};
+
+		async _onRender(...args) {
+			await super._onRender(...args);
+			this._attachEmbeddedChangeListeners();
+		};
+
+		_attachEmbeddedChangeListeners() {
+			/** @type {HTMLElement[]} */
+			const elements = this.element.querySelectorAll(`[data-foreign-name]`);
+			for (const el of elements) {
+				el.addEventListener(`change`, updateForeignDocumentFromEvent);
+			};
+		};
+		// #endregion Lifecycle
 	};
 
 	return TAFDocumentSheet;

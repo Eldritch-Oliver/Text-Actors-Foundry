@@ -1,4 +1,4 @@
-const config = Object.preventExtensions({
+const config = Object.seal({
 	subKeyPattern: /@(?<key>[a-zA-Z.]+)/gm,
 	maxDepth: 10,
 });

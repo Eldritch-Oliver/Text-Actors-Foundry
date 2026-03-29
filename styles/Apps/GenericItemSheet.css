@@ -27,7 +27,7 @@
 		justify-items: left;
 		gap: 8px;
 
-		input[type="checkbox"] {
+		taf-toggle {
 			justify-self: end;
 		}
 	}

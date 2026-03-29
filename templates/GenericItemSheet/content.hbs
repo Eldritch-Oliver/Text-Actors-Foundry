@@ -27,13 +27,11 @@
 		<label for="{{meta.idp}}-equipped">
 			{{localize "taf.misc.item.equipped"}}
 		</label>
-		<input
-			type="checkbox"
+		<taf-toggle
 			id="{{meta.idp}}-equipped"
 			name="system.equipped"
 			{{checked system.equipped}}
-			{{disabled (not meta.editable)}}
-		>
+		></taf-toggle>
 	</div>
 	<div class="bordered description">
 		{{#if meta.editable}}

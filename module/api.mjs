@@ -13,24 +13,18 @@ import { toID } from "./utils/toID.mjs";
 
 const { deepFreeze } = foundry.utils;
 
-Object.defineProperty(
-	globalThis,
-	`taf`,
-	{
-		value: deepFreeze({
-			DialogManager,
-			QueryManager,
-			Apps: {
-				Ask,
-				AttributeManager,
-				PlayerSheet,
-				QueryStatus,
-			},
-			utils: {
-				attributeSorter,
-				localizer,
-				toID,
-			},
-		}),
+export const api = deepFreeze({
+	DialogManager,
+	QueryManager,
+	Apps: {
+		Ask,
+		AttributeManager,
+		PlayerSheet,
+		QueryStatus,
 	},
-);
+	utils: {
+		attributeSorter,
+		localizer,
+		toID,
+	},
+});

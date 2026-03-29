@@ -2,6 +2,7 @@ import { StyledShadowElement } from "./StyledShadowElement.mjs";
 
 export class TafToggle extends StyledShadowElement(HTMLElement) {
 	static elementName = `taf-toggle`;
+	static formAssociated = true;
 
 	static _stylePath = `toggle.css`;
 
@@ -34,11 +35,12 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 	};
 
 	get checked() {
-		return this.hasAttribute(`checked`);
+		return this._input.checked ?? false;
 	};
 	set checked(newValue) {
 		if (typeof newValue !== `boolean`) { return };
-		this.toggleAttribute(`checked`, newValue);
+		this._input.checked = newValue;
+		this.#emitEvents();
 	};
 
 	get disabled() {
@@ -56,7 +58,7 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 		super.connectedCallback();
 		if (this._mounted) { return };
 
-		this._internals.checked = this.checked;
+		this._internals.checked = this.hasAttribute(`checked`);
 
 		/*
 		This converts all of the double-dash prefixed properties on the
@@ -73,10 +75,13 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 		const label = document.createElement(`label`);
 		label.dataset.type = `round`;
 
-		const input = document.createElement(`input`);
+		const input = this._input = document.createElement(`input`);
 		input.type = `checkbox`;
 		input.toggleAttribute(`switch`, true);
-		input.checked = this.checked;
+		input.checked = this.hasAttribute(`checked`);
+		input.addEventListener(`change`, () => {
+			this.#emitEvents();
+		});
 
 		label.appendChild(input);
 
@@ -93,5 +98,10 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 		super.disconnectedCallback();
 		if (!this._mounted) { return };
 		this._mounted = false;
+	};
+
+	#emitEvents() {
+		this.dispatchEvent(new Event(`input`, {bubbles: true, cancelable: false}));
+		this.dispatchEvent(new Event(`change`, {bubbles: true, cancelable: false}));
 	};
 };

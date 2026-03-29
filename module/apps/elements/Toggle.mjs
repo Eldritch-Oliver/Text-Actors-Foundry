@@ -1,5 +1,7 @@
 import { StyledShadowElement } from "./StyledShadowElement.mjs";
 
+const { debounce } = foundry.utils;
+
 export class TafToggle extends StyledShadowElement(HTMLElement) {
 	static elementName = `taf-toggle`;
 	static formAssociated = true;
@@ -72,8 +74,9 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 			};
 		};
 
-		const label = document.createElement(`label`);
-		label.dataset.type = `round`;
+		const container = document.createElement(`div`);
+		container.classList = `toggle`;
+		container.dataset.type = `round`;
 
 		const input = this._input = document.createElement(`input`);
 		input.type = `checkbox`;
@@ -83,13 +86,17 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 			this.#emitEvents();
 		});
 
-		label.appendChild(input);
+		this.addEventListener(`click`, () => {
+			input.click();
+		});
+
+		container.appendChild(input);
 
 		const slider = document.createElement(`div`);
 		slider.classList = `slider`;
-		label.appendChild(slider);
+		container.appendChild(slider);
 
-		this._shadow.appendChild(label);
+		this._shadow.appendChild(container);
 
 		this._mounted = true;
 	};
@@ -100,8 +107,11 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 		this._mounted = false;
 	};
 
-	#emitEvents() {
-		this.dispatchEvent(new Event(`input`, {bubbles: true, cancelable: false}));
-		this.dispatchEvent(new Event(`change`, {bubbles: true, cancelable: false}));
-	};
+	#emitEvents = debounce(
+		() => {
+			this.dispatchEvent(new Event(`input`, {bubbles: true, cancelable: false}));
+			this.dispatchEvent(new Event(`change`, {bubbles: true, cancelable: false}));
+		},
+		150,
+	);
 };

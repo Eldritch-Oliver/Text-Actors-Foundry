@@ -16,11 +16,11 @@ input {
 		--slider-colour,
 		var(--toggle-slider-unchecked-colour)
 	);
-	transition: all var(--speed, 150ms) ease-in-out;
+	transition: all 150ms ease-in-out;
 	border-radius: 9999px;
 }
 
-label {
+.toggle {
 	display: flex;
 	padding: var(--padding, 4px);
 	height: calc(var(--size, 16px) + (var(--padding, 4px) * 2));
@@ -34,7 +34,7 @@ label {
 	cursor: pointer;
 
 	/* Non-checked, clicking */
-	&:active .slider {
+	&:is(&:active, &.active) .slider {
 		width: calc(var(--size, 16px) * 1.5);
 	}
 
@@ -48,7 +48,7 @@ label {
 	}
 
 	/* checked, clicking */
-	&:active > :checked + .slider {
+	&:is(&:active, &.active) > :checked + .slider {
 		width: calc(var(--size, 16px) * 1.5);
 		transform: translateX(calc(var(--size, 16px) * 0.5));
 	}

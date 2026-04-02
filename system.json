@@ -2,13 +2,13 @@
 	"id": "taf",
 	"title": "Text-Based Actors",
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"download": "",
 	"manifest": "",
 	"url": "https://git.varify.ca/Foundry/taf",
 	"compatibility": {
 		"minimum": 13,
-		"verified": 13,
+		"verified": 14,
 		"maximum": 14
 	},
 	"authors": [

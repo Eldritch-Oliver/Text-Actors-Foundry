@@ -1,6 +1,8 @@
 import "./hooks/init.mjs";
+import "./hooks/ready.mjs";
 import "./hooks/userConnected.mjs";
 import "./hooks/renderSettingsConfig.mjs";
+
 import { api } from "./api.mjs";
 import { config } from "./config.mjs";
 

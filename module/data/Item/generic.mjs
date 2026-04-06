@@ -17,7 +17,6 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 			}),
 			quantity: new fields.NumberField({
 				integer: true,
-				min: 0,
 				initial: 1,
 			}),
 			equipped: new fields.BooleanField({
@@ -36,6 +35,7 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 	 * rounds the number to the nearest 2 decimal places.
 	 */
 	get quantifiedWeight() {
-		return toPrecision(this.weight * this.quantity, 2);
+		const value = this.weight * this.quantity
+		return toPrecision(Math.max(value, 0), 2);
 	};
 };

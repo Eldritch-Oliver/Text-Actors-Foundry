@@ -137,6 +137,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		const attrs = [];
 		for (const [id, data] of Object.entries(this.#attributes)) {
 			if (data == null) { continue };
+			// Remove with issue: Foundry/taf#54
 			if (game.release.generation >= 14 && data == _del) {continue}
 			attrs.push({
 				id,
@@ -186,6 +187,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	static async #remove($e, element) {
 		const attribute = element.closest(`[data-attribute]`)?.dataset.attribute;
 		if (!attribute) { return };
+		// Remove with issue: Foundry/taf#54
 		if (game.release.generation < 14) {
 			delete this.#attributes[attribute];
 			this.#attributes[`-=${attribute}`] = null;

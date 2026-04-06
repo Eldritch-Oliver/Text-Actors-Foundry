@@ -16,6 +16,7 @@ export class TAFActor extends Actor {
 		// Assign the defaults from the world setting if they exist
 		const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? {};
 		if (!hasProperty(data, `system.attr`)) {
+			// Remove with issue: Foundry/taf#55
 			const value = game.release.generation > 13 ? _replace(defaults) : defaults;
 			this.updateSource({ "system.==attr": value });
 		};

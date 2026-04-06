@@ -1,7 +1,8 @@
 .taf > .window-content hr {
+	color: inherit;
 	display: block;
 	height: 1px;
-	background: rebeccapurple;
+	background: var(--divider-color, rebeccapurple);
 	border-radius: 0;
 	margin: 0;
 	padding: 0;

@@ -1,7 +1,8 @@
 .taf.GenericItemSheet {
-	.bordered {
-		border-radius: 8px;
-		border: 1px solid rebeccapurple;
+	> .window-content {
+		padding: 0;
+		color: var(--item-sheet-color);
+		background: var(--item-sheet-background);
 	}
 
 	.sheet-header {
@@ -9,7 +10,8 @@
 		grid-template-columns: auto 1fr min-content 75px;
 		gap: 4px;
 		align-items: center;
-		padding: 4px;
+		padding: 0.5rem;
+		border-bottom: 1px solid var(--item-sheet-divider-color);
 
 		img {
 			border-radius: 4px;
@@ -17,7 +19,11 @@
 	}
 
 	.content {
-		display: contents;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		gap: inherit;
+		padding: 0.5rem;
 	}
 
 	.property {
@@ -35,6 +41,7 @@
 	.description {
 		flex-grow: 1;
 		overflow: hidden;
+		border-radius: 8px;
 		--table-row-color-odd: var(--table-header-bg-color);
 
 		&:not(:has(> prose-mirror)) {
@@ -44,10 +51,28 @@
 
 	prose-mirror {
 		height: 100%;
+		background: var(--item-sheet-description-content-background);
+		--divider-color: currentColor;
 
 		menu {
 			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
+			background: var(--item-sheet-description-menu-background);
+
+			button {
+				color: var(--item-sheet-description-menu-color);
+			}
 		}
+	}
+
+	input {
+		color: var(--item-sheet-input-color);
+		background: var(--item-sheet-input-background);
+	}
+
+	taf-toggle {
+		--toggle-background: var(--item-sheet-input-background);
+		--slider-checked-colour: var(--item-sheet-toggle-slider-enabled-color);
+		--slider-unchecked-colour: var(--item-sheet-toggle-slider-disabled-color)
 	}
 }

@@ -7,6 +7,7 @@
 @import url("./resets/tabs.css") layer(resets);
 
 /* Themes */
+@import url("./palettes/forgejo.css") layer(themes);
 @import url("./themes/dark.css") layer(themes);
 @import url("./themes/light.css") layer(themes);
 

@@ -4,6 +4,32 @@ DRYer
 */
 
 /**
+ * @param {Event} _event The click event
+ * @param {HTMLElement} target The element to operate on
+ */
+export async function editItemFromElement(_event, target) {
+	const itemEl = target.closest(`[data-item-uuid]`);
+	if (!itemEl) { return };
+	const uuid = itemEl.dataset.itemUuid;
+	if (!uuid) { return };
+	const item = await fromUuid(uuid);
+	item.sheet.render({ force: true, orBringToFront: true });
+};
+
+/**
+ * @param {Event} _event The click event
+ * @param {HTMLElement} target The element to operate on
+ */
+export async function deleteItemFromElement(_event, target) {
+	const itemEl = target.closest(`[data-item-uuid]`);
+	if (!itemEl) { return };
+	const uuid = itemEl.dataset.itemUuid;
+	if (!uuid) { return };
+	const item = await fromUuid(uuid);
+	item.deleteDialog();
+};
+
+/**
  * Updates a document using the UUID, this is most useful for editing
  * documents from a sheet of another document (e.g. an Item embedded
  * in an Actor). This requires the dataset of the element to have a

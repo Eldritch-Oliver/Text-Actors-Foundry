@@ -4,11 +4,12 @@ import { attributeSorter } from "../utils/attributeSort.mjs";
 import { config } from "../config.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
+import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 const { getProperty } = foundry.utils;
-const { TextEditor } = foundry.applications.ux;
+const { ContextMenu, TextEditor } = foundry.applications.ux;
 
 export class PlayerSheet extends
 	TAFDocumentSheetMixin(
@@ -144,6 +145,36 @@ export class PlayerSheet extends
 		});
 
 		return controls;
+	};
+
+	async _onRender(ctx, options) {
+		await super._onRender(ctx, options);
+
+		new ContextMenu.implementation(
+			this.element,
+			`li.item`,
+			[
+				{
+					label: _loc(`taf.misc.edit`),
+					condition: (el) => {
+						const itemUuid = el.dataset.itemUuid;
+						const itemExists = itemUuid != null && itemUuid !== "";
+						return this.isEditable && itemExists;
+					},
+					onClick: editItemFromElement,
+				},
+				{
+					label: _loc(`taf.misc.delete`),
+					condition: (el) => {
+						const itemUuid = el.dataset.itemUuid;
+						const itemExists = itemUuid != null && itemUuid !== "";
+						return this.isEditable && itemExists;
+					},
+					onClick: deleteItemFromElement,
+				},
+			],
+			{ jQuery: false, fixed: true, },
+		);
 	};
 
 	async close() {

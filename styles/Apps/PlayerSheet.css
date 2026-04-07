@@ -75,7 +75,7 @@
 		padding: 6px 6px 4px;
 		margin-bottom: 2px;
 		background: var(--item-list-header-background);
-		color: var(--item-list-header-color);
+		color: var(--item-list-header-colour);
 	}
 
 	.item-list {
@@ -89,7 +89,7 @@
 
 	.item {
 		background: var(--item-card-background);
-		color: var(--item-card-color);
+		color: var(--item-card-colour);
 		overflow: hidden;
 		margin-bottom: 0;
 
@@ -99,7 +99,7 @@
 			align-items: center;
 			gap: 8px;
 			background: var(--item-card-header-background);
-			color: var(--item-card-header-color);
+			color: var(--item-card-header-colour);
 			padding: 4px;
 
 			img {

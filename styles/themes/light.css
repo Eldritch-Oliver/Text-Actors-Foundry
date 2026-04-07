@@ -8,9 +8,9 @@
 	--tab-button-hover-bg: var(--color-light-3);
 
 	/* Chip Variables */
-	--chip-color: #18181b;
+	--chip-colour: #18181b;
 	--chip-background: #fafafa;
-	--chip-value-color: #18181b;
+	--chip-value-colour: #18181b;
 	--chip-value-background: #d4d4d8aa;
-	--chip-border-color: var(--chip-value-background);
+	--chip-border-colour: var(--chip-value-background);
 }

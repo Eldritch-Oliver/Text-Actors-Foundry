@@ -19,32 +19,32 @@
 	--inventory-input-colour: white;
 	--inventory-input-disabled-colour: gray;
 	--item-list-header-background: #171e26;
-	--item-list-header-color: white;
+	--item-list-header-colour: white;
 
 	--item-card-background: #1d262f;
-	--item-card-color: white;
+	--item-card-colour: white;
 	--item-card-header-background: #242d38;
-	--item-card-header-color: white;
+	--item-card-header-colour: white;
 	--item-card-header-input-background: #2b3642;
 	--item-card-header-input-colour: white;
 	--item-card-header-disabled-input-colour: gray;
 
 	/* Item Sheet Variables */
-	--item-sheet-color: var(--steel-100);
+	--item-sheet-colour: var(--steel-100);
 	--item-sheet-background: var(--steel-800);
-	--item-sheet-divider-color: var(--steel-700);
-	--item-sheet-input-color: var(--steel-100);
+	--item-sheet-divider-colour: var(--steel-700);
+	--item-sheet-input-colour: var(--steel-100);
 	--item-sheet-input-background: var(--steel-650);
-	--item-sheet-toggle-slider-enabled-color: green;
-	--item-sheet-toggle-slider-disabled-color: maroon;
-	--item-sheet-description-menu-color: var(--steel-100);
+	--item-sheet-toggle-slider-enabled-colour: green;
+	--item-sheet-toggle-slider-disabled-colour: maroon;
+	--item-sheet-description-menu-colour: var(--steel-100);
 	--item-sheet-description-menu-background: var(--steel-700);
 	--item-sheet-description-content-background: var(--steel-650);
 
 	/* Chip Variables */
-	--chip-color: #fff7ed;
+	--chip-colour: #fff7ed;
 	--chip-background: #2b3642;
-	--chip-value-color: #fff7ed;
+	--chip-value-colour: #fff7ed;
 	--chip-value-background: #10161d;
-	--chip-border-color: var(--chip-value-background);
+	--chip-border-colour: var(--chip-value-background);
 }

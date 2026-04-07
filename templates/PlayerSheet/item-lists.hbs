@@ -7,12 +7,14 @@
 		<h3 class="grow">
 			{{localize "taf.Apps.PlayerSheet.carrying-capacity.title"}}
 		</h3>
-		<div>
-			{{localize
-				"taf.Apps.PlayerSheet.carry-capacity-used"
-				percent=carryCapacityPercent
-			}}
-		</div>
+		{{#if hasCarryCapacity}}
+			<div>
+				{{localize
+					"taf.Apps.PlayerSheet.carry-capacity-used"
+					percent=carryCapacityPercent
+				}}
+			</div>
+		{{/if}}
 		<input
 			type="text"
 			value="{{totalWeight}}"
@@ -28,6 +30,7 @@
 			type="number"
 			name="system.carryCapacity"
 			value="{{system.carryCapacity}}"
+			placeholder="{{localize "taf.Apps.PlayerSheet.carrying-capacity.placeholder"}}"
 			aria-label="{{localize "taf.Apps.PlayerSheet.carrying-capacity.label"}}"
 			data-tooltip
 			data-tooltip-direction="UP"

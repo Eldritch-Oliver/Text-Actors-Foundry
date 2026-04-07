@@ -87,6 +87,7 @@
 				"max-value": "Maximum value",
 				"carry-capacity-used": "({percent}% Used)",
 				"carrying-capacity": {
+					"placeholder": "Unlimited",
 					"title": "Carrying Capacity:",
 					"label": "Maximum carrying weight"
 				},

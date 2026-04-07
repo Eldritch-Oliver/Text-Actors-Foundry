@@ -272,6 +272,7 @@ export class PlayerSheet extends
 		};
 
 		ctx.totalWeight = config.weightFormatter(totalWeight);
+		ctx.hasCarryingCapacity = this.actor.system.carryCapacity != null;
 		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);
 	};
 

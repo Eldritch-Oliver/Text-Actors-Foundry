@@ -1,6 +1,10 @@
 .taf > .window-content input {
 	border: none;
 
+	&::placeholder {
+		color: color-mix(in srgb, currentColor 40%, transparent 60%);
+	}
+
 	&.large {
 		--input-height: 2.5rem;
 		font-size: 1.75rem;

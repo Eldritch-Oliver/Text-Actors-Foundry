@@ -19,8 +19,11 @@
 			<span class="subtitle">{{ weight }}</span>
 		</div>
 		<input
+			id="{{uuid}}-quantity"
 			type="number"
 			value="{{quantity}}"
+			data-foreign-name="system.quantity"
+			data-foreign-uuid="{{uuid}}"
 		>
 		<button
 			type="button"

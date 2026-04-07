@@ -47,7 +47,8 @@
 		"sheet-names": {
 			"PlayerSheet": "Player Sheet",
 			"SingleModePlayerSheet": "Player Sheet (Always Editing)",
-			"AttributeOnlyPlayerSheet": "Player Sheet (Attributes Only)"
+			"AttributeOnlyPlayerSheet": "Player Sheet (Attributes Only)",
+			"GenericItemSheet": "System Item Sheet"
 		},
 		"misc": {
 			"Key": "Key",

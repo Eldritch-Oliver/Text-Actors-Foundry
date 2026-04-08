@@ -35,7 +35,7 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 	 * rounds the number to the nearest 2 decimal places.
 	 */
 	get quantifiedWeight() {
-		const value = this.weight * this.quantity
+		const value = this.weight * this.quantity;
 		return toPrecision(Math.max(value, 0), 2);
 	};
 };

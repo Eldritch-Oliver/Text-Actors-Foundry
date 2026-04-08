@@ -84,6 +84,7 @@
 			},
 			"PlayerSheet": {
 				"manage-attributes": "Manage Attributes",
+				"create-item": "Create Embedded Item",
 				"current-value": "Current value",
 				"max-value": "Maximum value",
 				"carry-capacity-used": "({percent}% Used)",

@@ -35,6 +35,7 @@ export class PlayerSheet extends
 			closeOnSubmit: false,
 		},
 		actions: {
+			createEmbeddedItem: this.#createEmbeddedItem,
 			manageAttributes: this.#manageAttributes,
 			configureSheet: this.#configureSheet,
 			toggleExpand: this.#toggleExpand,
@@ -132,17 +133,27 @@ export class PlayerSheet extends
 	_getHeaderControls() {
 		const controls = super._getHeaderControls();
 
-		controls.push({
-			icon: `fa-solid fa-at`,
-			label: `taf.Apps.PlayerSheet.manage-attributes`,
-			action: `manageAttributes`,
-			visible: () => {
-				const isGM = game.user.isGM;
-				const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
-				const editable = this.isEditable;
-				return isGM || (allowPlayerEdits && editable);
+		controls.push(
+			{
+				icon: `fa-solid fa-at`,
+				label: `taf.Apps.PlayerSheet.manage-attributes`,
+				action: `manageAttributes`,
+				visible: () => {
+					const isGM = game.user.isGM;
+					const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
+					const editable = this.isEditable;
+					return isGM || (allowPlayerEdits && editable);
+				},
 			},
-		});
+			{
+				icon: `fa-solid fa-suitcase`,
+				label: `taf.Apps.PlayerSheet.create-item`,
+				action: `createEmbeddedItem`,
+				visible: () => {
+					return this.isEditable;
+				},
+			},
+		);
 
 		return controls;
 	};
@@ -158,7 +169,7 @@ export class PlayerSheet extends
 					label: _loc(`taf.misc.edit`),
 					condition: (el) => {
 						const itemUuid = el.dataset.itemUuid;
-						const itemExists = itemUuid != null && itemUuid !== "";
+						const itemExists = itemUuid != null && itemUuid !== ``;
 						return this.isEditable && itemExists;
 					},
 					onClick: editItemFromElement,
@@ -167,13 +178,13 @@ export class PlayerSheet extends
 					label: _loc(`taf.misc.delete`),
 					condition: (el) => {
 						const itemUuid = el.dataset.itemUuid;
-						const itemExists = itemUuid != null && itemUuid !== "";
+						const itemExists = itemUuid != null && itemUuid !== ``;
 						return this.isEditable && itemExists;
 					},
 					onClick: deleteItemFromElement,
 				},
 			],
-			{ jQuery: false, fixed: true, },
+			{ jQuery: false, fixed: true },
 		);
 	};
 
@@ -363,6 +374,31 @@ export class PlayerSheet extends
 		collapses.forEach(el => {
 			el.dataset.expanded = newExpanded;
 		});
+	};
+
+	/**
+	 * Used by the sheet in order to create embedded items without needing to have
+	 * equivalent World Items or Compendiums initially.
+	 *
+	 * @this {PlayerSheet}
+	 */
+	static async #createEmbeddedItem(event, target) {
+		let { itemGroup } = target.dataset ?? {};
+		if (itemGroup === `Items`) { itemGroup = undefined };
+
+		const data = {
+			name: Item.defaultName({
+				type: `generic`,
+				parent: this.actor,
+			}),
+			type: `generic`,
+			system: {
+				group: itemGroup,
+			},
+		};
+
+		const item = await Item.create(data, { parent: this.actor });
+		item?.sheet?.render({ force: true });
 	};
 	// #endregion Actions
 };

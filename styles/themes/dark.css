@@ -13,21 +13,24 @@
 
 	/* Actor Sheet Variables */
 	/* Use --steel-850 as the main sheet background */
-	--inventory-summary-background: #171e26;
-	--inventory-summary-colour: white;
-	--inventory-input-background: #2b3642;
-	--inventory-input-colour: white;
-	--inventory-input-disabled-colour: gray;
-	--item-list-header-background: #171e26;
-	--item-list-header-colour: white;
+	--inventory-summary-background: var(--steel-800);
+	--inventory-summary-colour: var(--steel-100);
+	--inventory-input-background: var(--steel-650);
+	--inventory-input-colour: var(--steel-100);
+	--inventory-input-disabled-colour: var(--steel-350);
+
+	--item-list-header-background: var(--steel-800);
+	--item-list-header-colour: var(--steel-100);
+	--item-list-header-input-background: var(--steel-650);
+	--item-list-header-input-colour: var(--steel-100);
 
 	--item-card-background: #1d262f;
-	--item-card-colour: white;
-	--item-card-header-background: #242d38;
-	--item-card-header-colour: white;
-	--item-card-header-input-background: #2b3642;
-	--item-card-header-input-colour: white;
-	--item-card-header-disabled-input-colour: gray;
+	--item-card-colour: var(--steel-100);
+	--item-card-header-background: var(--steel-700);
+	--item-card-header-colour: var(--steel-100);
+	--item-card-header-input-background: var(--steel-650);
+	--item-card-header-input-colour: var(--steel-100);
+	--item-card-header-disabled-input-colour: var(--steel-350);
 
 	/* Item Sheet Variables */
 	--item-sheet-colour: var(--steel-100);

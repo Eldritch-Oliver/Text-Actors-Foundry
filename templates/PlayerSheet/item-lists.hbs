@@ -39,6 +39,19 @@
 	{{#each itemGroups as | group |}}
 		<section>
 			<div class="item-list-header">
+				{{#if @root.meta.editable}}
+					<button
+						data-action="createEmbeddedItem"
+						data-item-group="{{ group.name }}"
+						aria-label="{{localize "taf.Apps.PlayerSheet.create-item"}}"
+						data-tooltip
+					>
+						<taf-icon
+							name="icons/plus"
+							var:fill="currentColor"
+						></taf-icon>
+					</button>
+				{{/if}}
 				<h3 class="grow">
 					{{ group.name }}
 				</h3>

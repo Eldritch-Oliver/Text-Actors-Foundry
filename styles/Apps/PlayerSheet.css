@@ -70,12 +70,23 @@
 	.item-list-header {
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 		gap: 8px;
 		border-radius: 6px 6px 0 0;
 		padding: 6px 6px 4px;
 		margin-bottom: 2px;
 		background: var(--item-list-header-background);
 		color: var(--item-list-header-colour);
+
+		button {
+			padding: 2px;
+			border: none;
+			aspect-ratio: 1;
+			height: unset;
+			min-height: unset;
+			background: var(--item-list-header-input-background);
+			color: var(--item-list-header-input-colour);
+		}
 	}
 
 	.item-list {

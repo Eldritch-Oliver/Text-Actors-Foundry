@@ -138,6 +138,10 @@
 				background: var(--item-card-header-input-background);
 				color: var(--item-card-header-input-colour);
 				text-align: center;
+
+				&:disabled {
+					color: var(--item-card-header-disabled-input-colour);
+				}
 			}
 		}
 

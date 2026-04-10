@@ -13,6 +13,7 @@
 
 /* Elements */
 @import url("./elements/utils.css") layer(elements);
+@import url("./elements/button.css") layer(elements);
 @import url("./elements/div.css") layer(elements);
 @import url("./elements/headers.css") layer(elements);
 @import url("./elements/hr.css") layer(elements);

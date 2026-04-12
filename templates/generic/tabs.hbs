@@ -3,15 +3,17 @@
 {{else}}
 	<nav class="tabs system-tabs">
 		{{#each tabs as |tab|}}
-			<button
-				type="button"
-				class="{{tab.cssClass}}"
-				data-action="tab"
-				data-group="{{tab.group}}"
-				data-tab="{{tab.id}}"
-			>
-				{{localize tab.label}}
-			</button>
+			{{#if tab.visible}}
+				<button
+					type="button"
+					class="{{tab.cssClass}}"
+					data-action="tab"
+					data-group="{{tab.group}}"
+					data-tab="{{tab.id}}"
+				>
+					{{localize tab.label}}
+				</button>
+			{{/if}}
 		{{/each}}
 	</nav>
 {{/if}}

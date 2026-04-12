@@ -5,6 +5,7 @@ import { config } from "../config.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
+import { Logger } from "../utils/Logger.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -90,6 +91,44 @@ export class PlayerSheet extends
 	 * they occur.
 	 */
 	#expandedItems = new Set();
+
+	/**
+	 * This method is used in order to ensure that when we hide specific
+	 * tabs due to programmatic logic (e.g. having no items), that the tab
+	 * doesn't stay selected in the app if the logic for it being visible
+	 * no longer holds true.
+	 */
+	_assertSelectedTabs() {
+		const initial = this.constructor.TABS.primary.initial;
+		if (this.tabGroups.primary === `items` && !this.hasItemsTab) {
+			Logger.debug(`Asserting app "${this.id}" from tab "items" to "${initial}"`);
+			this.tabGroups.primary = initial;
+		};
+	};
+
+	/**
+	 * A helper method that allows a shortcut to determine if a tab is visible
+	 * solely based on it's ID. This usually redirects to the relevant getter in
+	 * the class, but if the tab ID doesn't exist it always returns false.
+	 *
+	 * @param {string} tabID The ID of the relevant tab
+	 * @returns Whether or not the tab is visible
+	 */
+	hasTab(tabID) {
+		switch (tabID) {
+			case `content`: return this.hasContentTab;
+			case `items`: return this.hasItemsTab;
+		};
+		return false;
+	};
+
+	get hasContentTab() {
+		return true;
+	};
+
+	get hasItemsTab() {
+		return this.actor.items.size > 0;
+	};
 	// #endregion Instance Data
 
 	// #region Lifecycle
@@ -158,6 +197,11 @@ export class PlayerSheet extends
 		return controls;
 	};
 
+	async _preRender(ctx, options) {
+		this._assertSelectedTabs();
+		return super._preRender(ctx, options);
+	};
+
 	async _onRender(ctx, options) {
 		await super._onRender(ctx, options);
 
@@ -209,15 +253,13 @@ export class PlayerSheet extends
 	};
 
 	async _preparePartContext(partID, ctx) {
-
 		switch (partID) {
 			case `attributes`: {
 				await this._prepareAttributes(ctx);
 				break;
 			};
 			case `tabs`: {
-				ctx.hideTabs = this.actor.items.size <= 0;
-				ctx.tabs = await this._prepareTabs(`primary`);
+				await this._prepareTabList(ctx);
 				break;
 			};
 			case `content`: {
@@ -245,6 +287,19 @@ export class PlayerSheet extends
 			});
 		};
 		ctx.attrs = attrs.toSorted(attributeSorter);
+	};
+
+	async _prepareTabList(ctx) {
+		ctx.tabs = await this._prepareTabs(`primary`);
+
+		let amountVisible = 0;
+		for (const tabID in ctx.tabs) {
+			const visible = this.hasTab(tabID);
+			ctx.tabs[tabID].visible = visible;
+			if (visible) { amountVisible++ };
+		};
+
+		ctx.hideTabs = amountVisible <= 1;
 	};
 
 	async _prepareContent(ctx) {

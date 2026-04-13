@@ -1,11 +1,11 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
 import { config } from "../config.mjs";
+import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
-import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
-import { Logger } from "../utils/Logger.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;

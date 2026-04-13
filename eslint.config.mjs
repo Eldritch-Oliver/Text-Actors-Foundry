@@ -22,6 +22,8 @@ export default [
 				Hooks: `readonly`,
 				ui: `readonly`,
 				foundry: `readonly`,
+				Actor: `readonly`,
+				Item: `readonly`,
 				ChatMessage: `readonly`,
 				ActiveEffect: `readonly`,
 				fromUuid: `readonly`,

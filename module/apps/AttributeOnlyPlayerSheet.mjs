@@ -13,8 +13,7 @@ export class AttributeOnlyPlayerSheet extends PlayerSheet {
 	};
 
 	static get PARTS() {
-		const parts = super.PARTS;
-		delete parts.tabs;
+		const parts = deepClone(super.PARTS);
 		delete parts.content;
 		return parts;
 	};

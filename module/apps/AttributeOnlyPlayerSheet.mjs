@@ -2,7 +2,7 @@ import { PlayerSheet } from "./PlayerSheet.mjs";
 
 const { deepClone } = foundry.utils;
 
-const removedParts = new Set([`content`, `tabs`]);
+const removedParts = new Set([`content`]);
 
 export class AttributeOnlyPlayerSheet extends PlayerSheet {
 	// #region Options

@@ -35,7 +35,7 @@ export class AttributeOnlyPlayerSheet extends PlayerSheet {
 	 * no longer holds true.
 	 */
 	_assertSelectedTabs() {
-		// Intention No-Op Function
+		// Intentional No-Op Function
 	};
 
 	get hasContentTab() {

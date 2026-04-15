@@ -305,7 +305,7 @@ export class PlayerSheet extends
 	async _prepareContent(ctx) {
 		// Whether or not the prose-mirror is toggled or always-edit
 		ctx.toggled = true;
-		ctx.tabActive = this.tabGroups.primary === `content` || this.actor.items.size === 0;
+		ctx.tabActive = this.tabGroups.primary === `content`;
 
 		ctx.enriched = {
 			system: {

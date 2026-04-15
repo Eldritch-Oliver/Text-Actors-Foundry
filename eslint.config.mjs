@@ -22,6 +22,8 @@ export default [
 				Hooks: `readonly`,
 				ui: `readonly`,
 				foundry: `readonly`,
+				Actor: `readonly`,
+				Item: `readonly`,
 				ChatMessage: `readonly`,
 				ActiveEffect: `readonly`,
 				fromUuid: `readonly`,
@@ -29,7 +31,7 @@ export default [
 
 				// v14 Additions:
 				_loc: `readonly`,
-				_del: `reaonly`,
+				_del: `readonly`,
 				_replace: `readonly`,
 			},
 		},
@@ -72,7 +74,16 @@ export default [
 			"@stylistic/space-infix-ops": `warn`,
 			"@stylistic/eol-last": `warn`,
 			"@stylistic/operator-linebreak": [`warn`, `before`],
-			"@stylistic/indent": [`warn`, `tab`],
+			"@stylistic/indent": [
+				`warn`,
+				`tab`,
+				{
+					SwitchCase: 1,
+					ignoredNodes: [
+						`.superClass CallExpression`,
+					],
+				},
+			],
 			"@stylistic/brace-style": [`off`],
 			"@stylistic/quotes": [`warn`, `backtick`, { "avoidEscape": true }],
 			"@stylistic/comma-dangle": [`warn`, { arrays: `always-multiline`, objects: `always-multiline`, imports: `always-multiline`, exports: `always-multiline`, functions: `always-multiline` }],

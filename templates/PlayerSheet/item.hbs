@@ -1,0 +1,50 @@
+<li
+	class="item"
+	data-item-uuid="{{uuid}}"
+>
+	<div class="summary">
+		<taf-toggle
+			data-foreign-name="system.equipped"
+			data-foreign-uuid="{{uuid}}"
+			var:size="8px"
+			var:padding="2px"
+			{{checked equipped}}
+		></taf-toggle>
+		<img
+			src="{{img}}"
+			alt=""
+		>
+		<div class="title">
+			<span class="name">{{ name }}</span>
+			<span class="subtitle">{{ weight }}</span>
+		</div>
+		<input
+			id="{{uuid}}-quantity"
+			type="number"
+			value="{{quantity}}"
+			data-foreign-name="system.quantity"
+			data-foreign-uuid="{{uuid}}"
+		>
+		<button
+			type="button"
+			class="expand-button"
+			data-action="toggleExpand"
+			data-expanded="{{isExpanded}}"
+			{{disabled (not canExpand)}}
+			aria-label="{{localize "taf.Apps.PlayerSheet.toggle-item-description"}}"
+		>
+			<taf-icon
+				name="icons/chevron"
+				var:colour="var(--item-card-header-input-color)"
+			></taf-icon>
+		</button>
+	</div>
+	{{#if canExpand}}
+		<div
+			class="full-details"
+			data-expanded="{{isExpanded}}"
+		>
+			{{{ description }}}
+		</div>
+	{{/if}}
+</li>

@@ -1,22 +1,22 @@
 import { __ID__, filePath } from "../consts.mjs";
+import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
 import { attributeSorter } from "../utils/attributeSort.mjs";
+import { config } from "../config.mjs";
+import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
+import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
-const { getProperty, hasProperty } = foundry.utils;
+const { getProperty } = foundry.utils;
+const { ContextMenu, TextEditor } = foundry.applications.ux;
 
-const propertyToParts = {
-	"name": [`header`],
-	"img": [`header`],
-	"system.attr": [`attributes`],
-	"system.attr.value": [`attributes`, `content`],
-	"system.attr.max": [`attributes`, `content`],
-	"system.content": [`content`],
-};
-
-export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+export class PlayerSheet extends
+	TAFDocumentSheetMixin(
+	HandlebarsApplicationMixin(
+	ActorSheetV2,
+)) {
 
 	// #region Options
 	static DEFAULT_OPTIONS = {
@@ -36,17 +36,100 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 			closeOnSubmit: false,
 		},
 		actions: {
+			createEmbeddedItem: this.#createEmbeddedItem,
 			manageAttributes: this.#manageAttributes,
 			configureSheet: this.#configureSheet,
+			toggleExpand: this.#toggleExpand,
 		},
 	};
 
 	static PARTS = {
 		header: { template: filePath(`templates/PlayerSheet/header.hbs`) },
 		attributes: { template: filePath(`templates/PlayerSheet/attributes.hbs`) },
+		tabs: { template: filePath(`templates/generic/tabs.hbs`) },
 		content: { template: filePath(`templates/PlayerSheet/content.hbs`) },
+		items: {
+			template: filePath(`templates/PlayerSheet/item-lists.hbs`),
+			scrollable: [``],
+			templates: [
+				filePath(`templates/PlayerSheet/item.hbs`),
+			],
+		},
+	};
+
+	/**
+	 * This tells the Application's TAFDocumentSheetMixin how to rerender this app
+	 * when specific properties get changed on the actor, so that it doesn't need
+	 * to full-app rendering if we can do a partial rerender instead.
+	 */
+	static PROPERTY_TO_PARTIAL = {
+		"name": [`header`],
+		"img": [`header`],
+		"system.attr": [`attributes`],
+		"system.attr.value": [`attributes`, `content`],
+		"system.attr.max": [`attributes`, `content`],
+		"system.content": [`content`],
+		"system.carryCapacity": [`items`],
+	};
+
+	static TABS = {
+		primary: {
+			initial: `content`,
+			labelPrefix: `taf.Apps.PlayerSheet.tab-names`,
+			tabs: [
+				{ id: `content` },
+				{ id: `items` },
+			],
+		},
 	};
 	// #endregion Options
+
+	// #region Instance Data
+	/**
+	 * This Set is used to keep track of which items have had their full
+	 * details expanded so that it can be persisted across rerenders as
+	 * they occur.
+	 */
+	#expandedItems = new Set();
+
+	/**
+	 * This method is used in order to ensure that when we hide specific
+	 * tabs due to programmatic logic (e.g. having no items), that the tab
+	 * doesn't stay selected in the app if the logic for it being visible
+	 * no longer holds true.
+	 */
+	_assertSelectedTabs() {
+		const initial = this.constructor.TABS.primary.initial;
+		if (this.tabGroups.primary === `items` && !this.hasItemsTab) {
+			Logger.debug(`Asserting app "${this.id}" from tab "items" to "${initial}"`);
+			this.tabGroups.primary = initial;
+		};
+	};
+
+	/**
+	 * A helper method that allows a shortcut to determine if a tab is visible
+	 * solely based on it's ID. This usually redirects to the relevant getter in
+	 * the class, but if the tab ID doesn't exist it always returns false.
+	 *
+	 * @param {string} tabID The ID of the relevant tab
+	 * @returns Whether or not the tab is visible
+	 */
+	hasTab(tabID) {
+		switch (tabID) {
+			case `content`: return this.hasContentTab;
+			case `items`: return this.hasItemsTab;
+		};
+		return false;
+	};
+
+	get hasContentTab() {
+		return true;
+	};
+
+	get hasItemsTab() {
+		return this.actor.items.size > 0;
+	};
+	// #endregion Instance Data
 
 	// #region Lifecycle
 	_initializeApplicationOptions(options) {
@@ -89,34 +172,64 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	_getHeaderControls() {
 		const controls = super._getHeaderControls();
 
-		controls.push({
-			icon: `fa-solid fa-at`,
-			label: `taf.Apps.PlayerSheet.manage-attributes`,
-			action: `manageAttributes`,
-			visible: () => {
-				const isGM = game.user.isGM;
-				const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
-				const editable = this.isEditable;
-				return isGM || (allowPlayerEdits && editable);
+		controls.push(
+			{
+				icon: `fa-solid fa-at`,
+				label: `taf.Apps.PlayerSheet.manage-attributes`,
+				action: `manageAttributes`,
+				visible: () => {
+					const isGM = game.user.isGM;
+					const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
+					const editable = this.isEditable;
+					return isGM || (allowPlayerEdits && editable);
+				},
 			},
-		});
+			{
+				icon: `fa-solid fa-suitcase`,
+				label: `taf.Apps.PlayerSheet.create-item`,
+				action: `createEmbeddedItem`,
+				visible: () => {
+					return this.isEditable;
+				},
+			},
+		);
 
 		return controls;
 	};
 
-	_configureRenderOptions(options) {
-		// Only rerender the parts of the app that got changed
-		if (options.renderContext === `updateActor`) {
-			const parts = new Set();
-			for (const property in propertyToParts) {
-				if (hasProperty(options.renderData, property)) {
-					propertyToParts[property].forEach(partID => parts.add(partID));
-				};
-			};
-			options.parts = options.parts?.filter(part => !parts.has(part)) ?? Array.from(parts);
-		};
+	async _preRender(ctx, options) {
+		this._assertSelectedTabs();
+		return super._preRender(ctx, options);
+	};
 
-		super._configureRenderOptions(options);
+	async _onRender(ctx, options) {
+		await super._onRender(ctx, options);
+
+		new ContextMenu.implementation(
+			this.element,
+			`li.item`,
+			[
+				{
+					label: _loc(`taf.misc.edit`),
+					condition: (el) => {
+						const itemUuid = el.dataset.itemUuid;
+						const itemExists = itemUuid != null && itemUuid !== ``;
+						return this.isEditable && itemExists;
+					},
+					onClick: editItemFromElement,
+				},
+				{
+					label: _loc(`taf.misc.delete`),
+					condition: (el) => {
+						const itemUuid = el.dataset.itemUuid;
+						const itemExists = itemUuid != null && itemUuid !== ``;
+						return this.isEditable && itemExists;
+					},
+					onClick: deleteItemFromElement,
+				},
+			],
+			{ jQuery: false, fixed: true },
+		);
 	};
 
 	async close() {
@@ -127,20 +240,34 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 	// #endregion Lifecycle
 
 	// #region Data Prep
-	async _preparePartContext(partID) {
-		let ctx = {
+	async _prepareContext() {
+		return {
+			meta: {
+				idp: this.id,
+				editable: this.isEditable,
+			},
 			actor: this.actor,
 			system: this.actor.system,
 			editable: this.isEditable,
 		};
+	};
 
+	async _preparePartContext(partID, ctx) {
 		switch (partID) {
 			case `attributes`: {
 				await this._prepareAttributes(ctx);
 				break;
 			};
+			case `tabs`: {
+				await this._prepareTabList(ctx);
+				break;
+			};
 			case `content`: {
 				await this._prepareContent(ctx);
+				break;
+			};
+			case `items`: {
+				await this._prepareItems(ctx);
 				break;
 			};
 		};
@@ -162,22 +289,91 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		ctx.attrs = attrs.toSorted(attributeSorter);
 	};
 
+	async _prepareTabList(ctx) {
+		ctx.tabs = await this._prepareTabs(`primary`);
+
+		let amountVisible = 0;
+		for (const tabID in ctx.tabs) {
+			const visible = this.hasTab(tabID);
+			ctx.tabs[tabID].visible = visible;
+			if (visible) { amountVisible++ };
+		};
+
+		ctx.hideTabs = amountVisible <= 1;
+	};
+
 	async _prepareContent(ctx) {
 		// Whether or not the prose-mirror is toggled or always-edit
 		ctx.toggled = true;
+		ctx.tabActive = this.tabGroups.primary === `content` || this.actor.items.size === 0;
 
-		const TextEditor = foundry.applications.ux.TextEditor.implementation;
 		ctx.enriched = {
 			system: {
-				content: await TextEditor.enrichHTML(this.actor.system.content),
+				content: await TextEditor.implementation.enrichHTML(this.actor.system.content),
 			},
 		};
+	};
+
+	async _prepareItems(ctx) {
+		ctx.tabActive = this.tabGroups.primary === `items`;
+
+		let totalWeight = 0;
+
+		ctx.itemGroups = [];
+		for (const [groupName, items] of Object.entries(this.actor.itemTypes)) {
+			const preparedItems = [];
+
+			let summedWeight = 0;
+			for (const item of items) {
+				summedWeight += item.system.quantifiedWeight;
+				preparedItems.push(await this._prepareItem(item));
+			};
+			totalWeight += summedWeight;
+
+			ctx.itemGroups.push({
+				name: groupName.titleCase(),
+				items: preparedItems,
+				weight: config.weightFormatter(totalWeight),
+			});
+		};
+
+		ctx.totalWeight = config.weightFormatter(totalWeight);
+		ctx.hasCarryingCapacity = this.actor.system.carryCapacity != null;
+		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);
+	};
+
+	async _prepareItem(item) {
+		const ctx = {
+			uuid: item.uuid,
+			img: item.img,
+			name: item.name,
+			equipped: item.system.equipped,
+			quantity: item.system.quantity,
+			weight: config.weightFormatter(item.system.quantifiedWeight),
+			isExpanded: this.#expandedItems.has(item.uuid),
+			canExpand: item.system.description.length > 0,
+		};
+
+		ctx.description = ``;
+		if (item.system.description.length > 0) {
+			ctx.description = await TextEditor.implementation.enrichHTML(item.system.description);
+		};
+
+		return ctx;
 	};
 	// #endregion Data Prep
 
 	// #region Actions
 	#attributeManager = null;
-	/** @this {PlayerSheet} */
+
+	/**
+	 * This action opens an instance of the AttributeManager application
+	 * so that the user can edit and update all of the attributes for the
+	 * actor. This persists the application instance for the duration of
+	 * the ActorSheet's lifespan.
+	 *
+	 * @this {PlayerSheet}
+	 */
 	static async #manageAttributes() {
 		this.#attributeManager ??= new AttributeManager({ document: this.actor });
 		if (this.#attributeManager.rendered) {
@@ -190,6 +386,13 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 		};
 	};
 
+	/**
+	 * This action overrides the default Foundry action in order to tell
+	 * it to open my custom DocumentSheetConfig application instead of
+	 * opening the non-customized sheet config app.
+	 *
+	 * @this {PlayerSheet}
+	 */
 	static async #configureSheet(event) {
 		event.stopPropagation();
 		if ( event.detail > 1 ) { return }
@@ -204,6 +407,53 @@ export class PlayerSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 			force: true,
 			window: { windowId: this.window.windowId },
 		});
+	};
+
+	/**
+	 * This action is used by the item lists in order to expand/collapse
+	 * the descriptions while maintaining that state across renders.
+	 *
+	 * @this {PlayerSheet}
+	 */
+	static async #toggleExpand(event, target) {
+		const element = target.closest(`[data-item-uuid]`);
+		const { itemUuid } = element?.dataset ?? {};
+		if (!itemUuid) { return };
+
+		const expanded = this.#expandedItems.has(itemUuid);
+		const newExpanded = !expanded;
+
+		this.#expandedItems[newExpanded ? `add` : `delete`]?.(itemUuid);
+		target.dataset.expanded = newExpanded;
+		const collapses = element.querySelectorAll(`[data-expanded]`);
+		collapses.forEach(el => {
+			el.dataset.expanded = newExpanded;
+		});
+	};
+
+	/**
+	 * Used by the sheet in order to create embedded items without needing to have
+	 * equivalent World Items or Compendiums initially.
+	 *
+	 * @this {PlayerSheet}
+	 */
+	static async #createEmbeddedItem(event, target) {
+		let { itemGroup } = target.dataset ?? {};
+		if (itemGroup === `Items`) { itemGroup = undefined };
+
+		const data = {
+			name: Item.defaultName({
+				type: `generic`,
+				parent: this.actor,
+			}),
+			type: `generic`,
+			system: {
+				group: itemGroup,
+			},
+		};
+
+		const item = await Item.create(data, { parent: this.actor });
+		item?.sheet?.render({ force: true });
 	};
 	// #endregion Actions
 };

@@ -1,4 +1,8 @@
-<div class="content">
+<div
+	class="content tab {{ifThen tabActive "active" ""}}"
+	data-group="primary"
+	data-tab="content"
+>
 	{{#if editable}}
 		<prose-mirror
 			class="actor-text"

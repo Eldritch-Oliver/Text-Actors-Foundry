@@ -7,6 +7,11 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 				trim: true,
 				initial: ``,
 			}),
+			carryCapacity: new fields.NumberField({
+				min: 0,
+				nullable: true,
+				initial: null,
+			}),
 			attr: new fields.TypedObjectField(
 				new fields.SchemaField({
 					name: new fields.StringField({ blank: false, trim: true }),

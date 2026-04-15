@@ -4,10 +4,50 @@
 	--spinner-outer-colour: white;
 	--spinner-inner-colour: #FF3D00;
 
+	--toggle-background-colour: #171e26;
+	--toggle-slider-unchecked-colour: maroon;
+	--toggle-slider-checked-colour: green;
+
+	--tab-button-active-border: rebeccapurple;
+	--tab-button-hover-bg: var(--color-cool-3);
+
+	/* Actor Sheet Variables */
+	/* Use --steel-850 as the main sheet background */
+	--inventory-summary-background: var(--steel-800);
+	--inventory-summary-colour: var(--steel-100);
+	--inventory-input-background: var(--steel-650);
+	--inventory-input-colour: var(--steel-100);
+	--inventory-input-disabled-colour: var(--steel-350);
+
+	--item-list-header-background: var(--steel-800);
+	--item-list-header-colour: var(--steel-100);
+	--item-list-header-input-background: var(--steel-650);
+	--item-list-header-input-colour: var(--steel-100);
+
+	--item-card-background: #1d262f;
+	--item-card-colour: var(--steel-100);
+	--item-card-header-background: var(--steel-700);
+	--item-card-header-colour: var(--steel-100);
+	--item-card-header-input-background: var(--steel-650);
+	--item-card-header-input-colour: var(--steel-100);
+	--item-card-header-disabled-input-colour: var(--steel-350);
+
+	/* Item Sheet Variables */
+	--item-sheet-colour: var(--steel-100);
+	--item-sheet-background: var(--steel-800);
+	--item-sheet-divider-colour: var(--steel-700);
+	--item-sheet-input-colour: var(--steel-100);
+	--item-sheet-input-background: var(--steel-650);
+	--item-sheet-toggle-slider-enabled-colour: green;
+	--item-sheet-toggle-slider-disabled-colour: maroon;
+	--item-sheet-description-menu-colour: var(--steel-100);
+	--item-sheet-description-menu-background: var(--steel-700);
+	--item-sheet-description-content-background: var(--steel-650);
+
 	/* Chip Variables */
-	--chip-color: #fff7ed;
+	--chip-colour: #fff7ed;
 	--chip-background: #2b3642;
-	--chip-value-color: #fff7ed;
+	--chip-value-colour: #fff7ed;
 	--chip-value-background: #10161d;
-	--chip-border-color: var(--chip-value-background);
+	--chip-border-colour: var(--chip-value-background);
 }

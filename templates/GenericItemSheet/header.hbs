@@ -1,0 +1,28 @@
+<header class="sheet-header bordered">
+	<img
+		src="{{item.img}}"
+		data-action="editImage"
+		data-edit="img"
+		title="{{item.name}}"
+		height="48"
+		width="48"
+	>
+	<input
+		type="text"
+		class="large"
+		name="name"
+		value="{{item.name}}"
+		title="{{item.name}}"
+		{{disabled (not meta.editable)}}
+		placeholder="{{localize "Name"}}"
+	>
+	<span aria-hidden="true">x</span>
+	<input
+		type="number"
+		name="system.quantity"
+		value="{{system.quantity}}"
+		{{disabled (not meta.editable)}}
+		data-tooltip
+		aria-label="{{localize "taf.misc.item.quantity"}}"
+	>
+</header>

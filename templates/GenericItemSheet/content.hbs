@@ -1,0 +1,50 @@
+<div class="content">
+	<div class="property">
+		<label for="{{meta.idp}}-weight">
+			{{localize "taf.misc.item.weight"}}
+		</label>
+		<input
+			type="number"
+			id="{{meta.idp}}-weight"
+			name="system.weight"
+			value="{{system.weight}}"
+			{{disabled (not meta.editable)}}
+		>
+	</div>
+	<div class="property">
+		<label for="{{meta.idp}}-group">
+			{{localize "taf.misc.item.group"}}
+		</label>
+		<input
+			type="text"
+			id="{{meta.idp}}-group"
+			name="system.group"
+			value="{{system.group}}"
+			{{disabled (not meta.editable)}}
+		>
+	</div>
+	<div class="property">
+		<label for="{{meta.idp}}-equipped">
+			{{localize "taf.misc.item.equipped"}}
+		</label>
+		<taf-toggle
+			id="{{meta.idp}}-equipped"
+			name="system.equipped"
+			{{checked system.equipped}}
+		></taf-toggle>
+	</div>
+	<div class="bordered description">
+		{{#if meta.editable}}
+			<prose-mirror
+				name="system.description"
+				value="{{system.description}}"
+				collaborate="true"
+				data-document-uuid="{{item.uuid}}"
+			>
+				{{{ enriched.system.description }}}
+			</prose-mirror>
+		{{else}}
+			{{{ enriched.system.description }}}
+		{{/if}}
+	</div>
+</div>

@@ -1,9 +1,9 @@
 .taf > .window-content div {
 	&.chip {
 		display: inline flex;
-		color: var(--chip-color);
+		color: var(--chip-colour);
 		background: var(--chip-background);
-		border: 1px solid var(--chip-border-color);
+		border: 1px solid var(--chip-border-colour);
 		border-radius: 4px;
 
 		.key {
@@ -13,7 +13,7 @@
 		.value {
 			padding: 2px 4px;
 			border-radius: 0 4px 4px 0;
-			color: var(--chip-value-color);
+			color: var(--chip-value-colour);
 			background: var(--chip-value-background);
 		}
 	}

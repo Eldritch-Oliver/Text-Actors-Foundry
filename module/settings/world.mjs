@@ -13,6 +13,15 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
+	game.settings.register(__ID__, `weightUnit`, {
+		name: `taf.settings.weightUnit.name`,
+		hint: `taf.settings.weightUnit.hint`,
+		config: true,
+		type: String,
+		default: ``,
+		scope: `world`,
+	});
+
 	game.settings.register(__ID__, `canPlayersManageAttributes`, {
 		name: `taf.settings.canPlayersManageAttributes.name`,
 		hint: `taf.settings.canPlayersManageAttributes.hint`,

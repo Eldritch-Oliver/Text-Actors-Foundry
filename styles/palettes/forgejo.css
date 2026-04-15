@@ -1,0 +1,49 @@
+/*
+Most of this file comes from a combination of Forgejo's themes
+
+- https://codeberg.org/forgejo/forgejo/src/commit/b68caa311fe5e3b7118130c2894c5b396b319681/web_src/css/themes/theme-forgejo-dark.css
+- https://codeberg.org/forgejo/forgejo/src/commit/b68caa311fe5e3b7118130c2894c5b396b319681/web_src/css/themes/theme-forgejo-light.css
+
+Licensed under the GNU GPL v3
+*/
+
+:root {
+  /* Steel */
+  --steel-900: #10161d;
+  --steel-850: #131a21;
+  --steel-800: #171e26;
+  --steel-750: #1d262f;
+  --steel-700: #242d38;
+  --steel-650: #2b3642;
+  --steel-600: #374351;
+  --steel-550: #445161;
+  --steel-500: #515f70;
+  --steel-450: #5f6e80;
+  --steel-400: #6d7d8f;
+  --steel-350: #7c8c9f;
+  --steel-300: #8c9caf;
+  --steel-250: #9dadc0;
+  --steel-200: #aebed0;
+  --steel-150: #c0cfe0;
+  --steel-100: #d2e0f0;
+
+  /* Zinc */
+  --zinc-50: #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-150: #ececee;
+  --zinc-200: #e4e4e7;
+  --zinc-250: #dcdce0;
+  --zinc-300: #d4d4d8;
+  --zinc-350: #babac1;
+  --zinc-400: #a1a1aa;
+  --zinc-450: #898992;
+  --zinc-500: #71717a;
+  --zinc-550: #61616a;
+  --zinc-600: #52525b;
+  --zinc-650: #484850;
+  --zinc-700: #3f3f46;
+  --zinc-750: #333338;
+  --zinc-800: #27272a;
+  --zinc-850: #1f1f23;
+  --zinc-900: #18181b;
+}

@@ -26,10 +26,13 @@ export function StyledShadowElement(Base) {
 		/** @type {ShadowRoot} */
 		_shadow;
 
-		constructor() {
+		constructor({focusable = false} = {}) {
 			super();
 
-			this._shadow = this.attachShadow({ mode: `open` });
+			this._shadow = this.attachShadow({
+				mode: `open`,
+				delegatesFocus: focusable,
+			});
 			this._style = document.createElement(`style`);
 			this._shadow.appendChild(this._style);
 		};

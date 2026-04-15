@@ -1,0 +1,5 @@
+.taf > .window-content button {
+	&:disabled {
+		cursor: not-allowed;
+	}
+}

@@ -1,0 +1,69 @@
+<div
+	class="tab items-tab {{ifThen tabActive "active" ""}}"
+	data-group="primary"
+	data-tab="items"
+>
+	<section class="inventory-summary">
+		<h3 class="grow">
+			{{localize "taf.Apps.PlayerSheet.carrying-capacity.title"}}
+		</h3>
+		{{#if hasCarryingCapacity}}
+			<div>
+				{{localize
+					"taf.Apps.PlayerSheet.carry-capacity-used"
+					percent=carryCapacityPercent
+				}}
+			</div>
+		{{/if}}
+		<input
+			type="text"
+			value="{{totalWeight}}"
+			disabled
+			aria-label="{{localize "taf.Apps.PlayerSheet.total-weight"}}"
+			data-tooltip
+			data-tooltip-direction="UP"
+		>
+		<div aria-hidden="true">
+			/
+		</div>
+		<input
+			type="number"
+			name="system.carryCapacity"
+			value="{{system.carryCapacity}}"
+			placeholder="{{localize "taf.Apps.PlayerSheet.carrying-capacity.placeholder"}}"
+			aria-label="{{localize "taf.Apps.PlayerSheet.carrying-capacity.label"}}"
+			data-tooltip
+			data-tooltip-direction="UP"
+		>
+	</section>
+	{{#each itemGroups as | group |}}
+		<section>
+			<div class="item-list-header">
+				{{#if @root.meta.editable}}
+					<button
+						data-action="createEmbeddedItem"
+						data-item-group="{{ group.name }}"
+						aria-label="{{localize "taf.Apps.PlayerSheet.create-item"}}"
+						data-tooltip
+					>
+						<taf-icon
+							name="icons/plus"
+							var:fill="currentColor"
+						></taf-icon>
+					</button>
+				{{/if}}
+				<h3 class="grow">
+					{{ group.name }}
+				</h3>
+				<span class="weight">
+					{{ group.weight }}
+				</span>
+			</div>
+			<ul class="item-list">
+				{{#each group.items as |item|}}
+					{{> (systemFilePath "templates/PlayerSheet/item.hbs") item }}
+				{{/each}}
+			</ul>
+		</section>
+	{{/each}}
+</div>

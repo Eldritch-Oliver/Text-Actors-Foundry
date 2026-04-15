@@ -2,10 +2,18 @@
 	"TYPES": {
 		"Actor": {
 			"player": "Player"
+		},
+		"Item": {
+			"generic": "Generic Item"
 		}
 	},
 	"taf": {
 		"settings": {
+			"actorDefaultAttributes": {
+				"name": "Remove Default Attributes",
+				"hint": "This removes the default attributes that are applied when a new actor is created, making it so that no attributes get created alongside the actor.",
+				"label": "Remove Attributes"
+			},
 			"canPlayersManageAttributes": {
 				"name": "Players Can Manage Attributes",
 				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"
@@ -31,16 +39,16 @@
 					"true": "Resizable"
 				}
 			},
-			"actorDefaultAttributes": {
-				"name": "Remove Default Attributes",
-				"hint": "This removes the default attributes that are applied when a new actor is created, making it so that no attributes get created alongside the actor.",
-				"label": "Remove Attributes"
+			"weightUnit": {
+				"name": "Weight Unit",
+				"hint": "This unit is used to display the units for the weights of items and carrying capacity of actors. This does NOTHING beyond adding the unit into the displays, it will not automatically convert between any units."
 			}
 		},
 		"sheet-names": {
 			"PlayerSheet": "Player Sheet",
 			"SingleModePlayerSheet": "Player Sheet (Always Editing)",
-			"AttributeOnlyPlayerSheet": "Player Sheet (Attributes Only)"
+			"AttributeOnlyPlayerSheet": "Player Sheet (Attributes Only)",
+			"GenericItemSheet": "System Item Sheet"
 		},
 		"misc": {
 			"Key": "Key",
@@ -51,8 +59,15 @@
 			"confirm-and-close": "Confirm and Close",
 			"save-and-close": "Save and Close",
 			"delete": "Delete",
+			"edit": "Edit",
 			"resizable": "Resizable",
-			"not-resizable": "Not Resizable"
+			"not-resizable": "Not Resizable",
+			"item": {
+				"weight": "Weight",
+				"quantity": "Quantity",
+				"equipped": "Equipped",
+				"group": "Group"
+			}
 		},
 		"Apps": {
 			"Ask": {
@@ -69,8 +84,21 @@
 			},
 			"PlayerSheet": {
 				"manage-attributes": "Manage Attributes",
+				"create-item": "Create Embedded Item",
 				"current-value": "Current value",
-				"max-value": "Maximum value"
+				"max-value": "Maximum value",
+				"carry-capacity-used": "({percent}% Used)",
+				"carrying-capacity": {
+					"placeholder": "Unlimited",
+					"title": "Carrying Capacity:",
+					"label": "Maximum carrying weight"
+				},
+				"total-weight": "Total weight",
+				"toggle-item-description": "Show/Hide Item Description",
+				"tab-names": {
+					"content": "Content",
+					"items": "Items"
+				}
 			},
 			"QueryStatus": {
 				"title": "Information Request Status",

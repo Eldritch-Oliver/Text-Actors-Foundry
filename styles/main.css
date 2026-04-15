@@ -1,16 +1,19 @@
 @layer resets, themes, elements, components, partials, apps, exceptions;
 
 /* Resets */
+@import url("./resets/button.css") layer(resets);
 @import url("./resets/hr.css") layer(resets);
 @import url("./resets/inputs.css") layer(resets);
-@import url("./resets/button.css") layer(resets);
+@import url("./resets/tabs.css") layer(resets);
 
 /* Themes */
+@import url("./palettes/forgejo.css") layer(themes);
 @import url("./themes/dark.css") layer(themes);
 @import url("./themes/light.css") layer(themes);
 
 /* Elements */
 @import url("./elements/utils.css") layer(elements);
+@import url("./elements/button.css") layer(elements);
 @import url("./elements/div.css") layer(elements);
 @import url("./elements/headers.css") layer(elements);
 @import url("./elements/hr.css") layer(elements);
@@ -24,6 +27,7 @@
 @import url("./Apps/common.css") layer(apps);
 @import url("./Apps/Ask.css") layer(apps);
 @import url("./Apps/AttributeManager.css") layer(apps);
+@import url("./Apps/GenericItemSheet.css") layer(apps);
 @import url("./Apps/PlayerSheet.css") layer(apps);
 @import url("./Apps/QueryStatus.css") layer(apps);
 @import url("./Apps/TAFDocumentSheetConfig.css") layer(apps);

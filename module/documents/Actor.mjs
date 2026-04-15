@@ -6,19 +6,36 @@ const { hasProperty } = foundry.utils;
 export class TAFActor extends Actor {
 
 	// #region Lifecycle
+	/**
+	 * This makes sure that the actor gets created with the global attributes if
+	 * they exist, while still allowing programmatic creation through the API with
+	 * specific attributes.
+	 */
 	async _preCreate(data, options, user) {
 
 		// Assign the defaults from the world setting if they exist
 		const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? {};
 		if (!hasProperty(data, `system.attr`)) {
+			// Remove with issue: Foundry/taf#55
 			const value = game.release.generation > 13 ? _replace(defaults) : defaults;
 			this.updateSource({ "system.==attr": value });
 		};
 
 		return super._preCreate(data, options, user);
 	};
+
+	/**
+	 * This resets the cache of the item groupings whenever a descedant document
+	 * gets changed (created, updated, deleted) so that we keep the cache as close
+	 * to accurate as can be possible.
+	 */
+	_onEmbeddedDocumentChange(...args) {
+		super._onEmbeddedDocumentChange(...args);
+		this.#sortedTypes = null;
+	};
 	// #endregion Lifecycle
 
+	// #region Token Attributes
 	async modifyTokenAttribute(attribute, value, isDelta = false, isBar = true) {
 		const attr = foundry.utils.getProperty(this.system, attribute);
 		const current = isBar ? attr.value : attr;
@@ -40,9 +57,18 @@ export class TAFActor extends Actor {
 
 		return allowed !== false ? this.update(updates) : this;
 	};
+	// #endregion Token Attributes
 
+	// #region Roll Data
 	getRollData() {
-		const data = {};
+		/*
+		All properties assigned during this phase of the roll data prep can potentially
+		be overridden by users creating attributes of the same key, if users shouldn't
+		be able to override, assign the property before the return of this function.
+		*/
+		const data = {
+			carryCapacity: this.system.carryCapacity ?? null,
+		};
 
 		if (`attr` in this.system) {
 			for (const attrID in this.system.attr) {
@@ -60,4 +86,24 @@ export class TAFActor extends Actor {
 
 		return data;
 	};
+	// #endregion Roll Data
+
+	// #region Getters
+	#sortedTypes = null;
+	get itemTypes() {
+		if (this.#sortedTypes) { return this.#sortedTypes };
+		const types = {};
+		for (const item of this.items) {
+			if (item.type !== `generic`) {
+				types[item.type] ??= [];
+				types[item.type].push(item);
+			} else {
+				const group = item.system.group?.toLowerCase() ?? `items`;
+				types[group] ??= [];
+				types[group].push(item);
+			};
+		};
+		return this.#sortedTypes = types;
+	};
+	// #endregion Getters
 };

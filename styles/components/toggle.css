@@ -1,0 +1,55 @@
+:host {
+	display: block;
+}
+
+input {
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.slider {
+	width: var(--size, 16px);
+	height: var(--size, 16px);
+	background: var(
+		--slider-colour,
+		var(--toggle-slider-unchecked-colour)
+	);
+	transition: all 150ms ease-in-out;
+	border-radius: 9999px;
+}
+
+.toggle {
+	display: flex;
+	padding: var(--padding, 4px);
+	height: calc(var(--size, 16px) + (var(--padding, 4px) * 2));
+	width: calc((var(--size, 16px) * 2) + (var(--padding, 4px) * 2));
+	border-radius: 9999px;
+	background: var(
+		--toggle-background,
+		var(--toggle-background-colour)
+	);
+	box-sizing: border-box;
+	cursor: pointer;
+
+	/* Non-checked, clicking */
+	&:is(&:active, &.active) .slider {
+		width: calc(var(--size, 16px) * 1.5);
+	}
+
+	/* checked, non-clicking */
+	& > :checked + .slider {
+		transform: translateX(var(--size, 16px));
+		background: var(
+			--slider-checked-colour,
+			var(--toggle-slider-checked-colour)
+		);
+	}
+
+	/* checked, clicking */
+	&:is(&:active, &.active) > :checked + .slider {
+		width: calc(var(--size, 16px) * 1.5);
+		transform: translateX(calc(var(--size, 16px) * 0.5));
+	}
+}

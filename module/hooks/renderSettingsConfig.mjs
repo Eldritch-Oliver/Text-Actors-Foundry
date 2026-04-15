@@ -1,6 +1,6 @@
 import { __ID__ } from "../consts.mjs";
 
-Hooks.on(`renderSettingsConfig`, (app, html, context, options) => {
+Hooks.on(`renderSettingsConfig`, (app, html) => {
 	/*
 	This section is used to insert a button into the settings config that unsets
 	a world setting when it exists but doesn't allow any other form of editing it.

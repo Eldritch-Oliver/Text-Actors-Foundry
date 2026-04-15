@@ -1,6 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
-import { attributeSorter } from "../utils/attributeSort.mjs";
 import { ask } from "../utils/DialogManager.mjs";
+import { attributeSorter } from "../utils/attributeSort.mjs";
 import { localizer } from "../utils/localizer.mjs";
 import { toID } from "../utils/toID.mjs";
 
@@ -29,7 +29,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 					label: `Save As Defaults`,
 					visible: () => game.user.isGM,
 					action: `saveAsDefault`,
-				}
+				},
 			],
 		},
 		form: {
@@ -137,7 +137,8 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		const attrs = [];
 		for (const [id, data] of Object.entries(this.#attributes)) {
 			if (data == null) { continue };
-			if (game.release.generation >= 14 && data == _del) continue;
+			// Remove with issue: Foundry/taf#54
+			if (game.release.generation >= 14 && data == _del) {continue}
 			attrs.push({
 				id,
 				name: data.name,
@@ -150,7 +151,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	};
 	// #endregion Data Prep
 
-// #region Actions
+	// #region Actions
 	/**
 	 * @param {Event} event
 	 */
@@ -186,6 +187,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 	static async #remove($e, element) {
 		const attribute = element.closest(`[data-attribute]`)?.dataset.attribute;
 		if (!attribute) { return };
+		// Remove with issue: Foundry/taf#54
 		if (game.release.generation < 14) {
 			delete this.#attributes[attribute];
 			this.#attributes[`-=${attribute}`] = null;
@@ -227,7 +229,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 							},
 						],
 					},
-					{ type: `divider` }
+					{ type: `divider` },
 				);
 				continue;
 			};
@@ -254,6 +256,7 @@ export class AttributeManager extends HandlebarsApplicationMixin(ApplicationV2) 
 		switch (response.state) {
 			case `errored`:
 				ui.notifications.error(response.error);
+			// eslint-disable-next-line no-fallthrough
 			case `fronted`:
 				return;
 		};

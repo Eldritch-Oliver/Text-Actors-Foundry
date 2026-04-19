@@ -5,6 +5,7 @@ import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
 
 // Data Models
+import { AttributeItemData } from "../data/Item/attribute.mjs";
 import { GenericItemData } from "../data/Item/generic.mjs";
 import { PlayerData } from "../data/Actor/player.mjs";
 
@@ -35,6 +36,7 @@ Hooks.on(`init`, () => {
 	// #region Data Models
 	CONFIG.Actor.dataModels.player = PlayerData;
 	CONFIG.Item.dataModels.generic = GenericItemData;
+	CONFIG.Item.dataModels.attribute = AttributeItemData;
 	// #endregion Data Models
 
 	// #region Sheets
@@ -61,6 +63,7 @@ Hooks.on(`init`, () => {
 		__ID__,
 		GenericItemSheet,
 		{
+			types: [`generic`],
 			makeDefault: true,
 			label: `taf.sheet-names.GenericItemSheet`,
 		},

@@ -45,6 +45,10 @@
 					"description"
 				],
 				"filePathFields": {}
+			},
+			"attribute": {
+				"htmlFields": [],
+				"filePathFields": {}
 			}
 		}
 	},

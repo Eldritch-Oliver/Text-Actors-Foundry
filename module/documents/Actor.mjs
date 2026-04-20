@@ -1,7 +1,7 @@
 import { __ID__ } from "../consts.mjs";
 
 const { Actor } = foundry.documents;
-const { hasProperty } = foundry.utils;
+const { hasProperty, setProperty } = foundry.utils;
 
 export class TAFActor extends Actor {
 
@@ -32,6 +32,12 @@ export class TAFActor extends Actor {
 	_onEmbeddedDocumentChange(...args) {
 		super._onEmbeddedDocumentChange(...args);
 		this.#sortedTypes = null;
+	};
+
+	static migrateData(data, ...args) {
+		if (Object.keys(data.system?.attr ?? {}).length > 0) {
+			setProperty(data, `flags.${__ID__}.convertAttributesIntoItems`, true);
+		};
 	};
 	// #endregion Lifecycle
 

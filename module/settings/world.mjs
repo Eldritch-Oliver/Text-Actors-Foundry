@@ -74,4 +74,10 @@ export function registerWorldSettings() {
 		type: Object,
 		scope: `world`,
 	});
+
+	game.settings.register(__ID__, `migrationVersion`, {
+		config: false,
+		type: String,
+		scope: `world`,
+	});
 };

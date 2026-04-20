@@ -38,6 +38,7 @@ export async function migrateTo3_0_0() {
 	// TODO: create the item documents (batch them if possible)
 	Logger.debug(`Finished v3.0.0 migration, resulting operations:`);
 	console.log(operations);
+	// Use: foundry.documents.modifyBatch
 };
 
 function handleMigratingActor(actor) {

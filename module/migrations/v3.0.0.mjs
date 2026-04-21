@@ -3,7 +3,7 @@ import { Logger } from "../utils/Logger.mjs";
 import { finishMigrationWarning, migrateCollection, shouldMigrateCompendium } from "./utils.mjs";
 
 const flag = `convertAttributesIntoItems`;
-const operations = [];
+const worldOperations = [];
 let compendiumOperations = [];
 
 export async function migrateTo3_0_0() {
@@ -22,7 +22,7 @@ export async function migrateTo3_0_0() {
 		},
 	);
 
-	operations.push(
+	worldOperations.push(
 		...await migrateCollection(
 			game.actors,
 			flag,
@@ -56,7 +56,7 @@ export async function migrateTo3_0_0() {
 
 	warning.update({ pct: 0.8 });
 
-	await foundry.documents.modifyBatch(operations);
+	await foundry.documents.modifyBatch(worldOperations);
 
 	finishMigrationWarning(warning, `3.0.0`);
 };
@@ -82,7 +82,7 @@ function handleMigratingActor(actor, options) {
 		if (actor.inCompendium) {
 			compendiumOperations.push(operation);
 		} else {
-			operations.push(operation);
+			worldOperations.push(operation);
 		};
 	};
 

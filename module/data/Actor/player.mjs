@@ -1,3 +1,5 @@
+import { __ID__ } from "../../consts.mjs";
+
 export class PlayerData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
@@ -38,12 +40,11 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 	 */
 	async _preCreate(data, options, user) {
 
-		// Assign the defaults from the world setting if they exist
-		const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? {};
-		if (!hasProperty(data, `system.attr`)) {
-			// Remove with issue: Foundry/taf#55
-			const value = game.release.generation > 13 ? _replace(defaults) : defaults;
-			this.updateSource({ "system.==attr": value });
+		// Assign the default items from the world setting if required
+		const items = this.parent._source.items;
+		if (items == null || items.length === 0) {
+			const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? [];
+			this.parent.updateSource({ items: defaults });
 		};
 
 		return super._preCreate(data, options, user);

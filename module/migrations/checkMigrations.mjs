@@ -13,7 +13,7 @@ export async function checkMigrations() {
 	const migrationVersion = game.settings.get(__ID__, `migrationVersion`);
 	let updateVersion = !migrationVersion;
 
-	if (isNewerVersion("3.0.0", migrationVersion)) {
+	if (isNewerVersion(`3.0.0`, migrationVersion)) {
 		await migrateTo3_0_0();
 		updateVersion = true;
 	};

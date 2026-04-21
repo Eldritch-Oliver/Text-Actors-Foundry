@@ -1,6 +1,10 @@
+import {
+	finishMigrationWarning,
+	migrateCollection,
+	shouldMigrateCompendium,
+} from "./utils.mjs";
 import { __ID__ } from "../consts.mjs";
 import { Logger } from "../utils/Logger.mjs";
-import { finishMigrationWarning, migrateCollection, shouldMigrateCompendium } from "./utils.mjs";
 
 const flag = `convertAttributesIntoItems`;
 const worldOperations = [];
@@ -13,7 +17,7 @@ export async function migrateTo3_0_0() {
 	);
 
 	const warning = ui.notifications.warn(
-		"taf.notifs.warn.migration-in-progress",
+		`taf.notifs.warn.migration-in-progress`,
 		{
 			localize: true,
 			format: { version: `3.0.0` },
@@ -27,29 +31,29 @@ export async function migrateTo3_0_0() {
 			game.actors,
 			flag,
 			handleMigratingActor,
-			{ update: false, },
+			{ update: false },
 		),
 	);
-	warning.update({ pct: 0.25, });
+	warning.update({ pct: 0.25 });
 
 	for (const pack of packsToMigrate) {
 		await pack.getDocuments();
 
 		const wasLocked = pack.config.locked;
-		if (wasLocked) await pack.configure({ locked: false });
+		if (wasLocked) {await pack.configure({ locked: false })}
 
 		compendiumOperations.push(
 			...await migrateCollection(
 				pack,
 				flag,
 				handleMigratingActor,
-				{ pack: pack.collection, update: false, },
+				{ pack: pack.collection, update: false },
 			),
 		);
 
 		await foundry.documents.modifyBatch(compendiumOperations);
 
-		if (wasLocked) await pack.configure({ locked: true });
+		if (wasLocked) {await pack.configure({ locked: true })}
 
 		compendiumOperations = [];
 	};
@@ -94,7 +98,7 @@ function handleMigratingActor(actor, options) {
 function convertToItem(key, attr) {
 	return {
 		name: attr.name,
-		type: "attribute",
+		type: `attribute`,
 		system: {
 			key,
 			value: attr.value,

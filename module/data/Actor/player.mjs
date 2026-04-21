@@ -26,7 +26,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 			// 		required: false,
 			// 	},
 			// ),
-			attr: new fields.ObjectField({ persisted: false, }),
+			attr: new fields.ObjectField({ persisted: false }),
 		};
 	};
 

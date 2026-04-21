@@ -20,7 +20,7 @@ export async function migrateCollection(
 	collection,
 	flag,
 	convertor,
-	options = {}
+	options = {},
 ) {
 	const toMigrate = collection
 		.filter(doc => doc.getFlag(__ID__, flag))
@@ -76,11 +76,11 @@ export async function migrateCollection(
  */
 export function shouldMigrateCompendium(pack, types = [`Actor`, `Item`]) {
 	// We only care about actor and item migrations
-	if (!types.includes(pack.documentName)) return false;
+	if (!types.includes(pack.documentName)) {return false}
 
 	// World compendiums should all be migrated, system ones should never by migrated
-	if (pack.metadata.packageType === "world") return true;
-	if (pack.metadata.packageType === "system") return false;
+	if (pack.metadata.packageType === `world`) {return true}
+	if (pack.metadata.packageType === `system`) {return false}
 
 	// Module compendiums should only be migrated if they don't have a download or manifest URL
 	const module = game.modules.get(pack.metadata.packageName);

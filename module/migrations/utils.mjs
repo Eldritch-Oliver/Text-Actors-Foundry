@@ -25,7 +25,7 @@ export async function migrateCollection(
 	const toMigrate = collection
 		.filter(doc => doc.getFlag(__ID__, flag))
 		.map(doc => {
-			const update = convertor(doc) ?? {};
+			const update = convertor(doc, options) ?? {};
 			update[`_id`] = doc._id;
 
 			// v13/v14+ compatibility shim
@@ -85,4 +85,21 @@ export function shouldMigrateCompendium(pack, types = [`Actor`, `Item`]) {
 	// Module compendiums should only be migrated if they don't have a download or manifest URL
 	const module = game.modules.get(pack.metadata.packageName);
 	return !module.download && !module.manifest;
-}
+};
+
+export function finishMigrationWarning(warning, version) {
+	warning.update({ pct: 1 });
+	setTimeout(
+		() => {
+			warning.remove();
+			ui.notifications.success(
+				`taf.notifs.success.migration-successful`,
+				{
+					localize: true,
+					format: { version },
+				},
+			);
+		},
+		3_000,
+	);
+};

@@ -1,5 +1,6 @@
+import { __ID__ } from "../consts.mjs";
 import { Logger } from "../utils/Logger.mjs";
-import { migrateCollection, shouldMigrateCompendium } from "./utils.mjs";
+import { finishMigrationWarning, migrateCollection, shouldMigrateCompendium } from "./utils.mjs";
 
 const flag = `convertAttributesIntoItems`;
 const operations = [];
@@ -10,15 +11,14 @@ export async function migrateTo3_0_0() {
 	const packsToMigrate = game.packs.filter(
 		(pack) => shouldMigrateCompendium(pack, [`Actor`]),
 	);
-	const intervalSize = 1 / (packsToMigrate.length + 1);
 
 	const warning = ui.notifications.warn(
 		"taf.notifs.warn.migration-in-progress",
 		{
-			format: { version: `v3.0.0` },
+			localize: true,
+			format: { version: `3.0.0` },
 			progress: true,
 			permanent: true,
-			console: false,
 		},
 	);
 
@@ -30,55 +30,49 @@ export async function migrateTo3_0_0() {
 			{ update: false, },
 		),
 	);
-	warning.update({ pct: warning.pct + intervalSize });
+	warning.update({ pct: 0.25, });
 
 	for (const pack of packsToMigrate) {
 		await pack.getDocuments();
 
 		const wasLocked = pack.config.locked;
-		if (wasLocked) pack.configure({ locked: false });
+		if (wasLocked) await pack.configure({ locked: false });
 
 		compendiumOperations.push(
 			...await migrateCollection(
 				pack,
 				flag,
 				handleMigratingActor,
-				{ pack, update: false, },
+				{ pack: pack.collection, update: false, },
 			),
 		);
 
-		// foundry.documents.modifyBatch(compendiumOperations);
-		console.log(`compendiumOperations`, compendiumOperations);
+		await foundry.documents.modifyBatch(compendiumOperations);
 
 		if (wasLocked) await pack.configure({ locked: true });
 
 		compendiumOperations = [];
-		warning.update({ pct: warning.pct + intervalSize });
 	};
 
-	// TODO: re-lock packs here?
+	warning.update({ pct: 0.8 });
 
-	warning.update({ pct: 1 });
+	await foundry.documents.modifyBatch(operations);
 
-	// TODO: create the item documents (batch them if possible)
-	Logger.debug(`Finished v3.0.0 migration, resulting operations:`);
-	console.log(operations);
-	// Use: foundry.documents.modifyBatch
-	// await foundry.documents.modifyBatch(operations);
+	finishMigrationWarning(warning, `3.0.0`);
 };
 
-function handleMigratingActor(actor) {
-	console.log(actor);
-
+function handleMigratingActor(actor, options) {
 	const operation = {
 		action: `create`,
+		broadcast: true,
 		documentName: `Item`,
 		parent: actor,
+		pack: options.pack,
 		noHook: true,
 		data: [],
 	};
 
-	const attrs = actor.system?.attr ?? {};
+	const attrs = actor.getFlag(__ID__, flag) ?? {};
 	for (const [ key, attr ] of Object.entries(attrs)) {
 		operation.data.push(convertToItem(key, attr));
 	};

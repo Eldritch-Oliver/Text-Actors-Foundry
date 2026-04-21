@@ -1,7 +1,7 @@
 import { __ID__ } from "../consts.mjs";
 
 const { Actor } = foundry.documents;
-const { hasProperty, setProperty } = foundry.utils;
+const { deepClone, hasProperty, setProperty } = foundry.utils;
 
 export class TAFActor extends Actor {
 
@@ -32,16 +32,6 @@ export class TAFActor extends Actor {
 	_onEmbeddedDocumentChange(...args) {
 		super._onEmbeddedDocumentChange(...args);
 		this.#sortedTypes = null;
-	};
-
-	static migrateData(data, options) {
-		if (options.partial) { return }
-		console.log(`Actor#migrateData`, foundry.utils.deepClone(data), options);
-		if (Object.keys(data.system?.attr ?? {}).length > 0) {
-			console.log(`attributes exist`)
-			setProperty(data, `flags.${__ID__}.convertAttributesIntoItems`, true);
-		};
-		return data;
 	};
 	// #endregion Lifecycle
 
@@ -116,4 +106,35 @@ export class TAFActor extends Actor {
 		return this.#sortedTypes = types;
 	};
 	// #endregion Getters
+
+	// #region Data Migration
+	/**
+	 * This checks and performs all data migrations that the system requires, some
+	 * of these are one-time only migrations, others of them will happen every time
+	 * an Actor is updated.
+	 */
+	static migrateData(data, options) {
+		this.#migrateToAttributeItems(data, options);
+		return super.migrateData(data, options);
+	};
+
+	/**
+	 * This method handles checking if the Actor has attributes within it's raw
+	 * system data model, which was where attributes were stored originally, if
+	 * it detects the need for a migration, it stores the existing attribute data
+	 * into a flag so that the v3.0.0 migration script can handle creating the
+	 * data and removing the property from the Actor.
+	 */
+	static #migrateToAttributeItems(data, options) {
+		if (options.partial) { return }
+		const attr = data.system?.attr ?? {};
+		if (Object.keys(attr).length > 0) {
+			setProperty(
+				data,
+				`flags.${__ID__}.convertAttributesIntoItems`,
+				deepClone(attr),
+			);
+		};
+	};
+	// #endregion Data Migration
 };

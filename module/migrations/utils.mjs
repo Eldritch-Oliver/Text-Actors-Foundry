@@ -23,10 +23,7 @@ export async function migrateCollection(
 	options = {}
 ) {
 	const toMigrate = collection
-		.filter(doc => {
-			console.log(`toMigrate.filter doc`, doc);
-			return doc.getFlag(__ID__, flag)
-		})
+		.filter(doc => doc.getFlag(__ID__, flag))
 		.map(doc => {
 			const update = convertor(doc) ?? {};
 			update[`_id`] = doc._id;
@@ -41,8 +38,20 @@ export async function migrateCollection(
 			return update;
 		})
 		.filter(data => !!data);
-	// update in increments of 100
-	// TODO: optionally return an array of DB operations for modifyBatch
+
+	if (!options.update) {
+		return [{
+			action: `update`,
+			broadcast: true,
+			documentName: collection.documentName,
+			updates: toMigrate,
+			noHook: true,
+			pack: options.pack,
+			parent: options.parent,
+		}];
+	};
+
+	// Modify in batches of 100
 	const batches = Math.ceil(toMigrate.length / 100);
 	for (let i = 0; i < batches; i++) {
 		const updateData = toMigrate.slice(i * 100, (i + 1) * 100);
@@ -65,9 +74,9 @@ export async function migrateCollection(
  * @param pack The CompendiumPack document
  * @returns {boolean} Whether or not the pack should be migrated
  */
-export function shouldMigrateCompendium(pack) {
+export function shouldMigrateCompendium(pack, types = [`Actor`, `Item`]) {
 	// We only care about actor and item migrations
-	if (!["Actor", "Item"].includes(pack.documentName)) return false;
+	if (!types.includes(pack.documentName)) return false;
 
 	// World compendiums should all be migrated, system ones should never by migrated
 	if (pack.metadata.packageType === "world") return true;

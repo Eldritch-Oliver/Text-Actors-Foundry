@@ -133,10 +133,13 @@
 				"missing-id": "An ID must be provided",
 				"invalid-socket": "Invalid socket data received, this means a module or system bug is present.",
 				"unknown-socket-event": "An unknown socket event was received: {event}",
-				"malformed-socket-payload": "Socket event \"{event}\" received with malformed payload. Details: {details}"
+			},
+			"warn": {
+				"migration-in-progress": "Applying data migrations for version {version}. Please do NOT refresh the window while this warning is present."
 			},
 			"success": {
-				"saved-default-attributes": "Successfully saved default Actor attributes"
+				"saved-default-attributes": "Successfully saved default Actor attributes",
+				"migration-successful": "Data migrations for version {version} were successful."
 			}
 		}
 	}

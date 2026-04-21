@@ -34,10 +34,14 @@ export class TAFActor extends Actor {
 		this.#sortedTypes = null;
 	};
 
-	static migrateData(data, ...args) {
+	static migrateData(data, options) {
+		if (options.partial) { return }
+		console.log(`Actor#migrateData`, foundry.utils.deepClone(data), options);
 		if (Object.keys(data.system?.attr ?? {}).length > 0) {
+			console.log(`attributes exist`)
 			setProperty(data, `flags.${__ID__}.convertAttributesIntoItems`, true);
 		};
+		return data;
 	};
 	// #endregion Lifecycle
 

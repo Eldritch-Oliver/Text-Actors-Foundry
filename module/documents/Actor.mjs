@@ -15,6 +15,16 @@ export class TAFActor extends Actor {
 		super._onEmbeddedDocumentChange(...args);
 		this.#sortedTypes = null;
 	};
+
+	/**
+	 * This override allows the _preCreate operations to see whether the actor is
+	 * being cloned or created from nothing. This allows for easy one-time operations
+	 * that should be performed during Actor creation but not duplication to occur.
+	 */
+	clone(data, context) {
+		context.cloning = true;
+		return super.clone(data, context);
+	};
 	// #endregion Lifecycle
 
 	// #region Token Attributes

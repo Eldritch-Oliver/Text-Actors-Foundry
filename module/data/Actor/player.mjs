@@ -42,7 +42,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 
 		// Assign the default items from the world setting if required
 		const items = this.parent._source.items;
-		if (items == null || items.length === 0) {
+		if (items.length === 0 && !options.cloning) {
 			const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? [];
 			this.parent.updateSource({ items: defaults });
 		};

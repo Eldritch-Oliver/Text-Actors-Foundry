@@ -1,29 +1,11 @@
 import { __ID__ } from "../consts.mjs";
 
 const { Actor } = foundry.documents;
-const { deepClone, hasProperty, setProperty } = foundry.utils;
+const { deepClone, setProperty } = foundry.utils;
 
 export class TAFActor extends Actor {
 
 	// #region Lifecycle
-	/**
-	 * This makes sure that the actor gets created with the global attributes if
-	 * they exist, while still allowing programmatic creation through the API with
-	 * specific attributes.
-	 */
-	async _preCreate(data, options, user) {
-
-		// Assign the defaults from the world setting if they exist
-		const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? {};
-		if (!hasProperty(data, `system.attr`)) {
-			// Remove with issue: Foundry/taf#55
-			const value = game.release.generation > 13 ? _replace(defaults) : defaults;
-			this.updateSource({ "system.==attr": value });
-		};
-
-		return super._preCreate(data, options, user);
-	};
-
 	/**
 	 * This resets the cache of the item groupings whenever a descedant document
 	 * gets changed (created, updated, deleted) so that we keep the cache as close

@@ -30,6 +30,26 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 		};
 	};
 
+	// #region Lifecycle
+	/**
+	 * This makes sure that the actor gets created with the global attributes if
+	 * they exist, while still allowing programmatic creation through the API with
+	 * specific attributes.
+	 */
+	async _preCreate(data, options, user) {
+
+		// Assign the defaults from the world setting if they exist
+		const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? {};
+		if (!hasProperty(data, `system.attr`)) {
+			// Remove with issue: Foundry/taf#55
+			const value = game.release.generation > 13 ? _replace(defaults) : defaults;
+			this.updateSource({ "system.==attr": value });
+		};
+
+		return super._preCreate(data, options, user);
+	};
+	// #endregion Lifecycle
+
 	get hasAttributes() {
 		return Object.keys(this.attr).length > 0;
 	};

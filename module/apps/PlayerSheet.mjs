@@ -343,6 +343,18 @@ export class PlayerSheet extends
 	};
 
 	async _prepareItem(item) {
+		if (item.type !== "generic") {
+			return {
+				uuid: item.uuid,
+				img: item.img,
+				name: item.name,
+				equipped: false,
+				quantity: 0,
+				weight: 0,
+				isExpanded: false,
+				canExpand: false,
+			};
+		}
 		const ctx = {
 			uuid: item.uuid,
 			img: item.img,

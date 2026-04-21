@@ -132,7 +132,7 @@
 			"error": {
 				"missing-id": "An ID must be provided",
 				"invalid-socket": "Invalid socket data received, this means a module or system bug is present.",
-				"unknown-socket-event": "An unknown socket event was received: {event}",
+				"unknown-socket-event": "An unknown socket event was received: {event}"
 			},
 			"warn": {
 				"migration-in-progress": "Applying data migrations for version {version}. Please do NOT refresh the window while this warning is present."

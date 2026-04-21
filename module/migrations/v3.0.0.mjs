@@ -26,6 +26,7 @@ export async function migrateTo3_0_0() {
 		},
 	);
 
+	// Migrating world actors
 	worldOperations.push(
 		...await migrateCollection(
 			game.actors,
@@ -36,6 +37,7 @@ export async function migrateTo3_0_0() {
 	);
 	warning.update({ pct: 0.25 });
 
+	// Migrating all of the relevant compendiums
 	for (const pack of packsToMigrate) {
 		await pack.getDocuments();
 
@@ -57,11 +59,20 @@ export async function migrateTo3_0_0() {
 
 		compendiumOperations = [];
 	};
-
 	warning.update({ pct: 0.8 });
 
-	await foundry.documents.modifyBatch(worldOperations);
+	// Migrating the world setting
+	const defaultAttrs = game.settings.get(__ID__, `actorDefaultAttributes`)?.at(0);
+	if (defaultAttrs) {
+		const itemSchemas = [];
+		for (const [key, attr] of Object.entries(defaultAttrs)) {
+			itemSchemas.push(convertToItem(key, attr));
+		};
+		await game.settings.set(__ID__, `actorDefaultAttributes`, itemSchemas);
+	};
+	warning.update({ pct: 0.9 });
 
+	await foundry.documents.modifyBatch(worldOperations);
 	finishMigrationWarning(warning, `3.0.0`);
 };
 

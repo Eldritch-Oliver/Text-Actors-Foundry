@@ -71,7 +71,7 @@ export function registerWorldSettings() {
 
 	game.settings.register(__ID__, `actorDefaultAttributes`, {
 		config: false,
-		type: Object,
+		type: Array,
 		scope: `world`,
 	});
 

@@ -32,4 +32,8 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			}),
 		};
 	};
+
+	get isRange() {
+		return this.max !== null;
+	};
 };

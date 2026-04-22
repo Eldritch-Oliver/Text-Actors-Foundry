@@ -126,8 +126,16 @@ export class PlayerSheet extends
 		return true;
 	};
 
+	get hasAttributesTab() {
+		return this.actor.itemTypes.attributes
+			.filter(attr => !attr.system.aboveTheFold)
+			.length > 0;
+	};
+
 	get hasItemsTab() {
-		return this.actor.items.size > 0;
+		return this.actor.items
+			.filter(item => item.type !== `attribute`)
+			.length > 0;
 	};
 	// #endregion Instance Data
 
@@ -321,6 +329,10 @@ export class PlayerSheet extends
 
 		ctx.itemGroups = [];
 		for (const [groupName, items] of Object.entries(this.actor.itemTypes)) {
+
+			// We don't care about attribute items here
+			if (groupName === `attribute`) { continue };
+
 			const preparedItems = [];
 
 			let summedWeight = 0;

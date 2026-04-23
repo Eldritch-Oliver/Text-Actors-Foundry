@@ -45,9 +45,10 @@ export class PlayerSheet extends
 
 	static PARTS = {
 		header: { template: filePath(`templates/PlayerSheet/header.hbs`) },
-		attributes: { template: filePath(`templates/PlayerSheet/attributes.hbs`) },
+		primaryAttributes: { template: filePath(`templates/PlayerSheet/primary-attributes.hbs`) },
 		tabs: { template: filePath(`templates/generic/tabs.hbs`) },
 		content: { template: filePath(`templates/PlayerSheet/content.hbs`) },
+		attributeTab: {},
 		items: {
 			template: filePath(`templates/PlayerSheet/item-lists.hbs`),
 			scrollable: [``],
@@ -78,6 +79,7 @@ export class PlayerSheet extends
 			labelPrefix: `taf.Apps.PlayerSheet.tab-names`,
 			tabs: [
 				{ id: `content` },
+				{ id: `attributes` },
 				{ id: `items` },
 			],
 		},
@@ -104,6 +106,10 @@ export class PlayerSheet extends
 			Logger.debug(`Asserting app "${this.id}" from tab "items" to "${initial}"`);
 			this.tabGroups.primary = initial;
 		};
+		if (this.tabGroups.primary === `attributes` && !this.hasAttributesTab) {
+			Logger.debug(`Asserting app "${this.id}" from tab "attributes" to "${initial}"`);
+			this.tabGroups.primary = initial;
+		}
 	};
 
 	/**
@@ -118,6 +124,7 @@ export class PlayerSheet extends
 		switch (tabID) {
 			case `content`: return this.hasContentTab;
 			case `items`: return this.hasItemsTab;
+			case `attributes`: return this.hasAttributesTab;
 		};
 		return false;
 	};
@@ -127,7 +134,8 @@ export class PlayerSheet extends
 	};
 
 	get hasAttributesTab() {
-		return this.actor.itemTypes.attributes
+		return this.actor.itemTypes
+			.attribute
 			.filter(attr => !attr.system.aboveTheFold)
 			.length > 0;
 	};
@@ -262,8 +270,12 @@ export class PlayerSheet extends
 
 	async _preparePartContext(partID, ctx) {
 		switch (partID) {
-			case `attributes`: {
-				await this._prepareAttributes(ctx);
+			case `primaryAttributes`: {
+				await this._preparePrimaryAttributes(ctx);
+				break;
+			};
+			case `attributeTab`: {
+				await this._prepareAttributesTab(ctx);
 				break;
 			};
 			case `tabs`: {
@@ -283,19 +295,14 @@ export class PlayerSheet extends
 		return ctx;
 	};
 
-	async _prepareAttributes(ctx) {
-		ctx.hasAttributes = this.actor.system.hasAttributes;
-
-		const attrs = [];
-		for (const [id, data] of Object.entries(this.actor.system.attr)) {
-			attrs.push({
-				...data,
-				id,
-				path: `system.attr.${id}`,
-			});
-		};
-		ctx.attrs = attrs.toSorted(attributeSorter);
+	async _preparePrimaryAttributes(ctx) {
+		const attrs = this.actor.itemTypes.attribute ?? [];
+		const filtered = attrs.filter(attr => attr.system.aboveTheFold);
+		ctx.hasAttributes = filtered.length > 0;
+		ctx.attrs = filtered;
 	};
+
+	async _prepareAttributesTab(ctx) {};
 
 	async _prepareTabList(ctx) {
 		ctx.tabs = await this._prepareTabs(`primary`);
@@ -337,8 +344,9 @@ export class PlayerSheet extends
 
 			let summedWeight = 0;
 			for (const item of items) {
-				summedWeight += item.system.quantifiedWeight;
-				preparedItems.push(await this._prepareItem(item));
+				summedWeight += item.system.quantifiedWeight ?? 0;
+				const data = await this._prepareItem(item);
+				if (data) preparedItems.push(data);
 			};
 			totalWeight += summedWeight;
 
@@ -355,18 +363,7 @@ export class PlayerSheet extends
 	};
 
 	async _prepareItem(item) {
-		if (item.type !== "generic") {
-			return {
-				uuid: item.uuid,
-				img: item.img,
-				name: item.name,
-				equipped: false,
-				quantity: 0,
-				weight: 0,
-				isExpanded: false,
-				canExpand: false,
-			};
-		}
+		if (item.type !== `generic`) { return };
 		const ctx = {
 			uuid: item.uuid,
 			img: item.img,

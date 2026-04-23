@@ -97,6 +97,7 @@
 				"toggle-item-description": "Show/Hide Item Description",
 				"tab-names": {
 					"content": "Content",
+					"attributes": "Attributes",
 					"items": "Items"
 				}
 			},

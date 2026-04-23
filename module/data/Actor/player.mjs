@@ -1,8 +1,4 @@
 import { __ID__ } from "../../consts.mjs";
-import { Logger } from "../../utils/Logger.mjs";
-import { EphemeralObjectField } from "../fields/EphemeralObjectField.mjs";
-
-const { getProperty, hasProperty } = foundry.utils;
 
 export class PlayerData extends foundry.abstract.TypeDataModel {
 	// #region Schema
@@ -19,7 +15,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 				nullable: true,
 				initial: null,
 			}),
-			attr: new EphemeralObjectField({ initial: {} }),
+			attr: new fields.ObjectField({ persisted: false, initial: {} }),
 		};
 	};
 	// #endregion Schema
@@ -43,14 +39,6 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 	};
 
 	/**
-	 * Ensures that the required data structures exist in order for the
-	 * derived data to be able to populate itself correctly.
-	 */
-	prepareBaseData() {
-		this.attr = {};
-	};
-
-	/**
 	 * For every attribute item that the character has, we want that data
 	 * accessible in the system data, so we create objects dynamically that
 	 * the rest of Foundry can read in to emulate the attributes being on
@@ -66,29 +54,6 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 				};
 			} else {
 				this.attr[attr.system.key] = attr.system.value;
-			};
-		};
-	};
-
-	/**
-	 * This handler makes it so that when a user updates the attributes
-	 * using a "system.attr.*" property they correctly get removed from the
-	 * update and are forwarded to the correct Item document instead
-	 */
-	async _preUpdate(data, options, user) {
-		if (hasProperty(data, `system.attr`)) {
-			Logger.info(`Forwarding attribute update(s) to embedded Item(s)`);
-			const items = this.parent.itemTypes?.attribute ?? [];
-			for (const attr of items) {
-				const key = `system.attr.${attr.system.key}`;
-				if (hasProperty(data, key)) {
-					let value = getProperty(data, key);
-					if (attr.system.isRange) {
-						attr.update({ system: value });
-					} else {
-						attr.update({ system: { value }});
-					};
-				};
 			};
 		};
 	};

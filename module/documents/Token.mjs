@@ -83,22 +83,12 @@ export class TAFTokenDocument extends TokenDocument {
 
 		if (`value` in data && `max` in data) {
 			let editable = hasProperty(system, `${attribute}.value`);
-			const isRange = getProperty(system, `${attribute}.isRange`);
-			if (isRange) {
-				return {
-					type: `bar`,
-					attribute,
-					value: parseInt(data.value || 0),
-					max: parseInt(data.max || 0),
-					editable,
-				};
-			} else {
-				return {
-					type: `value`,
-					attribute: `${attribute}.value`,
-					value: Number(data.value),
-					editable,
-				};
+			return {
+				type: `bar`,
+				attribute,
+				value: parseInt(data.value || 0),
+				max: parseInt(data.max || 0),
+				editable,
 			};
 		};
 

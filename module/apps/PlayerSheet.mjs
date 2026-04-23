@@ -345,7 +345,7 @@ export class PlayerSheet extends
 			ctx.itemGroups.push({
 				name: groupName.titleCase(),
 				items: preparedItems,
-				weight: config.weightFormatter(totalWeight),
+				weight: config.weightFormatter(summedWeight),
 			});
 		};
 

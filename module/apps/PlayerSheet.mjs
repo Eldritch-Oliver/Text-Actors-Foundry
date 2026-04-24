@@ -248,6 +248,32 @@ export class PlayerSheet extends
 			],
 			{ jQuery: false, fixed: true },
 		);
+
+		new ContextMenu.implementation(
+			this.element,
+			`fieldset.attribute`,
+			[
+				{
+					label: _loc(`taf.misc.edit`),
+					condition: (el) => {
+						const itemUuid = el.dataset.itemUuid;
+						const itemExists = itemUuid != null && itemUuid !== ``;
+						return this.isEditable && itemExists;
+					},
+					onClick: editItemFromElement,
+				},
+				{
+					label: _loc(`taf.misc.delete`),
+					condition: (el) => {
+						const itemUuid = el.dataset.itemUuid;
+						const itemExists = itemUuid != null && itemUuid !== ``;
+						return this.isEditable && itemExists;
+					},
+					onClick: deleteItemFromElement,
+				},
+			],
+			{ jQuery: false, fixed: true },
+		);
 	};
 
 	async close() {

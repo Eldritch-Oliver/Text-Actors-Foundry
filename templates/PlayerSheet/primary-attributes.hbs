@@ -1,7 +1,11 @@
 {{#if hasAttributes}}
 	<div class="attributes">
 		{{#each attrs as | attr |}}
-			<fieldset data-foreign-uuid="{{ attr.uuid }}">
+			<fieldset
+				class="attribute"
+				data-item-uuid="{{ attr.uuid }}"
+				data-foreign-uuid="{{ attr.uuid }}"
+			>
 				<legend>
 					{{ attr.name }}
 				</legend>

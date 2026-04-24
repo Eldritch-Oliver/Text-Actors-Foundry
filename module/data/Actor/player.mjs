@@ -59,9 +59,9 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 	};
 	// #endregion Lifecycle
 
-	// #region Getters
+	// #region Methods
 	get hasAttributes() {
 		return Object.keys(this.attr).length > 0;
 	};
-	// #endregion Getters
+	// #endregion Methods
 };

@@ -1,7 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
-import { attributeSorter } from "../utils/attributeSort.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";

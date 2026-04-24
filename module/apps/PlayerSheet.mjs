@@ -138,7 +138,7 @@ export class PlayerSheet extends
 	get hasAttributesTab() {
 		return this.actor.itemTypes
 			.attribute
-			.filter(attr => !attr.system.aboveTheFold)
+			?.filter(attr => !attr.system.aboveTheFold)
 			.length > 0;
 	};
 

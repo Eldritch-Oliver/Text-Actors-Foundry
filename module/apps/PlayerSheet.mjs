@@ -48,7 +48,9 @@ export class PlayerSheet extends
 		primaryAttributes: { template: filePath(`templates/PlayerSheet/primary-attributes.hbs`) },
 		tabs: { template: filePath(`templates/generic/tabs.hbs`) },
 		content: { template: filePath(`templates/PlayerSheet/content.hbs`) },
-		attributeTab: {},
+		attributeTab: {
+			template: filePath(`templates/PlayerSheet/attributes-tab.hbs`),
+		},
 		items: {
 			template: filePath(`templates/PlayerSheet/item-lists.hbs`),
 			scrollable: [``],
@@ -302,7 +304,9 @@ export class PlayerSheet extends
 		ctx.attrs = filtered;
 	};
 
-	async _prepareAttributesTab(ctx) {};
+	async _prepareAttributesTab(ctx) {
+		ctx.tabActive = this.tabGroups.primary === `attributes`;
+	};
 
 	async _prepareTabList(ctx) {
 		ctx.tabs = await this._prepareTabs(`primary`);

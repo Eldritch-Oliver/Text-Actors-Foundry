@@ -110,7 +110,7 @@ export class PlayerSheet extends
 		if (this.tabGroups.primary === `attributes` && !this.hasAttributesTab) {
 			Logger.debug(`Asserting app "${this.id}" from tab "attributes" to "${initial}"`);
 			this.tabGroups.primary = initial;
-		}
+		};
 	};
 
 	/**
@@ -224,33 +224,7 @@ export class PlayerSheet extends
 
 		new ContextMenu.implementation(
 			this.element,
-			`li.item`,
-			[
-				{
-					label: _loc(`taf.misc.edit`),
-					condition: (el) => {
-						const itemUuid = el.dataset.itemUuid;
-						const itemExists = itemUuid != null && itemUuid !== ``;
-						return this.isEditable && itemExists;
-					},
-					onClick: editItemFromElement,
-				},
-				{
-					label: _loc(`taf.misc.delete`),
-					condition: (el) => {
-						const itemUuid = el.dataset.itemUuid;
-						const itemExists = itemUuid != null && itemUuid !== ``;
-						return this.isEditable && itemExists;
-					},
-					onClick: deleteItemFromElement,
-				},
-			],
-			{ jQuery: false, fixed: true },
-		);
-
-		new ContextMenu.implementation(
-			this.element,
-			`fieldset.attribute`,
+			`[data-item-uuid]`,
 			[
 				{
 					label: _loc(`taf.misc.edit`),

@@ -48,13 +48,17 @@ export class PlayerSheet extends
 		tabs: { template: filePath(`templates/generic/tabs.hbs`) },
 		content: { template: filePath(`templates/PlayerSheet/content.hbs`) },
 		attributeTab: {
-			template: filePath(`templates/PlayerSheet/attributes-tab.hbs`),
-		},
-		items: {
-			template: filePath(`templates/PlayerSheet/item-lists.hbs`),
+			template: filePath(`templates/PlayerSheet/tabs/attributes/lists.hbs`),
 			scrollable: [``],
 			templates: [
-				filePath(`templates/PlayerSheet/item.hbs`),
+				filePath(`templates/PlayerSheet/tabs/attributes/attribute.hbs`),
+			],
+		},
+		items: {
+			template: filePath(`templates/PlayerSheet/tabs/items/lists.hbs`),
+			scrollable: [``],
+			templates: [
+				filePath(`templates/PlayerSheet/tabs/items/item.hbs`),
 			],
 		},
 	};

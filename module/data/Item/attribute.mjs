@@ -1,3 +1,7 @@
+import { isValidID, toID } from "../../utils/toID.mjs";
+
+const { hasProperty } = foundry.utils;
+
 export class AttributeItemData extends foundry.abstract.TypeDataModel {
 	// #region Schema
 	static defineSchema() {
@@ -37,6 +41,17 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 
 	// #region Lifecycle
 	async _preCreate(data, options, user) {
+		// Assign the key as the ID'd name if isn't provided, or validate if
+		// it is provided.
+		if (!this.key) {
+			this.updateSource({ key: toID(this.parent.name) });
+		} else if (!isValidID(this.key)) {
+			ui.notifications.error(_loc(
+				`taf.notifs.error.invalid-attribute-key`,
+				{ key: this.key },
+			));
+			return false;
+		};
 
 		// Prevent duplicate Attribute keys from existing on a single Actor
 		if (this.parent.isEmbedded) {
@@ -54,6 +69,19 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 		};
 
 		return super._preCreate(data, options, user);
+	};
+
+	async _preUpdate(data, options, user) {
+		// Prevent invalid IDs
+		if (hasProperty(data, `system.key`) && !isValidID(data.system.key)) {
+			ui.notifications.error(_loc(
+				`taf.notifs.error.invalid-attribute-key`,
+				{ key: data.system.key },
+			));
+			delete data.system?.key;
+		};
+
+		return super._preUpdate(data, options, user);
 	};
 	// #endregion Lifecycle
 

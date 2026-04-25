@@ -134,7 +134,8 @@
 				"missing-id": "An ID must be provided",
 				"invalid-socket": "Invalid socket data received, this means a module or system bug is present.",
 				"unknown-socket-event": "An unknown socket event was received: {event}",
-				"duplicate-attribute-key": "Cannot create an Attribute with a key (\"{key}\") that already exists on the Actor"
+				"duplicate-attribute-key": "Cannot create an Attribute with a key (\"{key}\") that already exists on the Actor",
+				"invalid-attribute-key": "Attribute keys must be alphanumeric (a-z, 0-9) with underscores, invalid key provided: \"{key}\""
 			},
 			"warn": {
 				"migration-in-progress": "Applying data migrations for version {version}. Please do NOT refresh the window while this warning is present."

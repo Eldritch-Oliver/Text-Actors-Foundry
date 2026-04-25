@@ -4,7 +4,8 @@
 			"player": "Player"
 		},
 		"Item": {
-			"generic": "Generic Item"
+			"generic": "Item",
+			"attribute": "Attribute"
 		}
 	},
 	"taf": {

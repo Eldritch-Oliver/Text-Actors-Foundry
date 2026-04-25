@@ -38,7 +38,7 @@
 	</section>
 	{{#each itemGroups as | group |}}
 		<section>
-			<div class="item-list-header">
+			<div class="embedded-list-header">
 				{{#if @root.meta.editable}}
 					<button
 						data-action="createEmbeddedItem"
@@ -59,7 +59,7 @@
 					{{ group.weight }}
 				</span>
 			</div>
-			<ul class="item-list">
+			<ul class="embedded-list">
 				{{#each group.items as |item|}}
 					{{> (systemFilePath "templates/PlayerSheet/tabs/items/item.hbs") item }}
 				{{/each}}

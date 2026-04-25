@@ -98,6 +98,7 @@ export class PlayerSheet extends
 	 * they occur.
 	 */
 	#expandedItems = new Set();
+	#collapsedAttributeGroups = new Set();
 
 	/**
 	 * This method is used in order to ensure that when we hide specific
@@ -309,6 +310,23 @@ export class PlayerSheet extends
 
 	async _prepareAttributesTab(ctx) {
 		ctx.tabActive = this.tabGroups.primary === `attributes`;
+
+		const groups = new Map();
+		const attrs = this.actor.itemTypes.attribute ?? [];
+		for (const attr of attrs) {
+			const groupName = attr.system.group ?? "Attributes";
+			if (!groups.has(groupName)) {
+				groups.set(groupName, {
+					name: groupName.titleCase(),
+					attrs: [],
+					collapsed: false,
+				});
+			};
+			const group = groups.get(groupName);
+
+			group.attrs.push(attr);
+		};
+		ctx.attrGroups = [...groups.values()];
 	};
 
 	async _prepareTabList(ctx) {

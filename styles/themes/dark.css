@@ -19,10 +19,16 @@
 	--inventory-input-colour: var(--steel-100);
 	--inventory-input-disabled-colour: var(--steel-350);
 
-	--item-list-header-background: var(--steel-800);
-	--item-list-header-colour: var(--steel-100);
-	--item-list-header-input-background: var(--steel-650);
-	--item-list-header-input-colour: var(--steel-100);
+	--embedded-list-header-background: var(--steel-800);
+	--embedded-list-header-colour: var(--steel-100);
+	--embedded-list-header-input-background: var(--steel-650);
+	--embedded-list-header-input-colour: var(--steel-100);
+
+	--attribute-background: var(--steel-700);
+	--attribute-colour: var(--steel-100);
+	--attribute-input-background: var(--steel-650);
+	--attribute-input-colour: var(--steel-100);
+	--attribute-disabled-input-colour: var(--steel-350);
 
 	--item-card-background: #1d262f;
 	--item-card-colour: var(--steel-100);

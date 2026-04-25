@@ -3,5 +3,18 @@
 	data-group="primary"
 	data-tab="attributes"
 >
-	Attribute Tab
+	{{#each attrGroups as |group|}}
+		<section>
+			<div class="embedded-list-header">
+				<h3 class="grow">
+					{{ group.name }}
+				</h3>
+			</div>
+			<ul class="embedded-list">
+				{{#each group.attrs as |attr|}}
+					{{> (systemFilePath "templates/PlayerSheet/tabs/attributes/attribute.hbs") attr }}
+				{{/each}}
+			</ul>
+		</section>
+	{{/each}}
 </div>

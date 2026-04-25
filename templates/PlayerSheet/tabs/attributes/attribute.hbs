@@ -1,10 +1,16 @@
 <li
-	class="item"
+	class="attribute"
 	data-item-uuid="{{uuid}}"
 >
-	<div class="summary">
-		<div class="title">
-			<span class="name">{{ name }}</span>
-		</div>
+	<div class="title grow">
+		<span class="name">{{ name }}</span>
 	</div>
+	<input
+		type="number"
+		id="{{uuid}}-value"
+		data-foreign-name="system.value"
+		value="{{ system.value }}"
+		min="{{ system.min }}"
+		max="{{ system.max }}"
+	>
 </li>

@@ -49,7 +49,8 @@
 			"PlayerSheet": "Player Sheet",
 			"SingleModePlayerSheet": "Player Sheet (Always Editing)",
 			"AttributeOnlyPlayerSheet": "Player Sheet (Attributes Only)",
-			"GenericItemSheet": "System Item Sheet"
+			"GenericItemSheet": "System Item Sheet",
+			"AttributeItemSheet": "Attribute Sheet"
 		},
 		"misc": {
 			"Key": "Key",
@@ -68,6 +69,15 @@
 				"quantity": "Quantity",
 				"equipped": "Equipped",
 				"group": "Group"
+			},
+			"attribute": {
+				"key": {
+					"hint": "This is the computer-friendly identifier for the attribute. When accessing the attribute in rolls, this is the name you will need to use. Changing this WILL break any existing macros you have."
+				},
+				"always-visible": "Always Visible",
+				"minimum": "Minimum",
+				"current-value": "Current Value",
+				"maximum": "Maximum"
 			}
 		},
 		"Apps": {

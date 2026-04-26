@@ -1,7 +1,7 @@
 <div>
 	<div class="property">
 		<label for="{{meta.idp}}-key">
-			Key
+			{{ localize "taf.misc.key" }}
 		</label>
 		<input
 			type="text"
@@ -10,14 +10,12 @@
 			value="{{system.key}}"
 		>
 		<p class="hint">
-			This is the computer-friendly identifier for the attribute.
-			When accessing the attribute in rolls, this is the name you will
-			need to use. Changing this WILL break any existing macros you have.
+			{{ localize "taf.misc.attribute.key.hint" }}
 		</p>
 	</div>
 	<div class="property">
 		<label for="{{meta.idp}}-aboveTheFold">
-			Always Visible?
+			{{ localize "taf.misc.attribute.always-visible" }}
 		</label>
 		<taf-toggle
 			id="{{meta.idp}}-aboveTheFold"
@@ -28,7 +26,7 @@
 	{{#if (not system.aboveTheFold)}}
 		<div class="property">
 			<label for="{{meta.idp}}-group">
-				Group
+				{{ localize "taf.misc.item.group" }}
 			</label>
 			<input
 				type="text"

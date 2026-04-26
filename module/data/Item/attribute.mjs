@@ -1,6 +1,7 @@
 import { isValidID, toID } from "../../utils/toID.mjs";
+import { clamp } from "../../utils/clamp.mjs";
 
-const { hasProperty } = foundry.utils;
+const { getProperty, hasProperty, setProperty } = foundry.utils;
 
 export class AttributeItemData extends foundry.abstract.TypeDataModel {
 	// #region Schema
@@ -78,6 +79,17 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 				{ key: data.system.key },
 			));
 			delete data.system?.key;
+		};
+
+		// Prevent value going out of the bounds of min/max
+		if (hasProperty(data, `system.value`)) {
+			const value = getProperty(data, `system.value`);
+			const max = getProperty(data, `system.max`) ?? this.max;
+
+			let min = getProperty(data, `system.min`) ?? this.min;
+			if (max != null) { min ??= 0; };
+
+			setProperty(data, `system.value`, clamp(min, value, max));
 		};
 
 		return super._preUpdate(data, options, user);

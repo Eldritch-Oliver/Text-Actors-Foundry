@@ -72,6 +72,9 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 	};
 
 	async _preUpdate(data, options, user) {
+		const allowed = await super._preUpdate(data, options, user);
+		if (allowed === false) { return false };
+
 		// Prevent invalid IDs
 		if (hasProperty(data, `system.key`) && !isValidID(data.system.key)) {
 			ui.notifications.error(_loc(
@@ -91,8 +94,6 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 
 			setProperty(data, `system.value`, clamp(min, value, max));
 		};
-
-		return super._preUpdate(data, options, user);
 	};
 	// #endregion Lifecycle
 

@@ -312,7 +312,8 @@ export class PlayerSheet extends
 		ctx.tabActive = this.tabGroups.primary === `attributes`;
 
 		const groups = new Map();
-		const attrs = this.actor.itemTypes.attribute ?? [];
+		const attrs = (this.actor.itemTypes.attribute ?? [])
+			.toSorted((a, b) => a.name.localeCompare(b.name));
 		for (const attr of attrs) {
 			if (attr.system.aboveTheFold) { continue };
 
@@ -328,7 +329,7 @@ export class PlayerSheet extends
 
 			group.attrs.push(attr);
 		};
-		ctx.attrGroups = [...groups.values()];
+		ctx.attrGroups = [...groups.values()].toSorted((a, b) => a.name.localeCompare(b.name));
 	};
 
 	async _prepareTabList(ctx) {

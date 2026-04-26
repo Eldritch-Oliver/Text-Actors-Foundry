@@ -1,0 +1,41 @@
+<div>
+	<div class="property">
+		<label for="{{meta.idp}}-key">
+			Key
+		</label>
+		<input
+			type="text"
+			id="{{meta.idp}}-key"
+			name="system.key"
+			value="{{system.key}}"
+		>
+		<p class="hint">
+			This is the computer-friendly identifier for the attribute.
+			When accessing the attribute in rolls, this is the name you will
+			need to use. Changing this WILL break any existing macros you have.
+		</p>
+	</div>
+	<div class="property">
+		<label for="{{meta.idp}}-aboveTheFold">
+			Always Visible?
+		</label>
+		<taf-toggle
+			id="{{meta.idp}}-aboveTheFold"
+			name="system.aboveTheFold"
+			{{checked system.aboveTheFold}}
+		></taf-toggle>
+	</div>
+	{{#if (not system.aboveTheFold)}}
+		<div class="property">
+			<label for="{{meta.idp}}-group">
+				Group
+			</label>
+			<input
+				type="text"
+				id="{{meta.idp}}-group"
+				name="system.group"
+				value="{{system.group}}"
+			>
+		</div>
+	{{/if}}
+</div>

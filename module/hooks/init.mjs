@@ -1,4 +1,5 @@
 // Apps
+import { AttributeItemSheet } from "../apps/AttributeItemSheet.mjs";
 import { AttributeOnlyPlayerSheet } from "../apps/AttributeOnlyPlayerSheet.mjs";
 import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
@@ -66,6 +67,15 @@ Hooks.on(`init`, () => {
 			types: [`generic`],
 			makeDefault: true,
 			label: `taf.sheet-names.GenericItemSheet`,
+		},
+	);
+	foundry.documents.collections.Items.registerSheet(
+		__ID__,
+		AttributeItemSheet,
+		{
+			types: [`attribute`],
+			makeDefault: true,
+			label: `taf.sheet-names.AttributeItemSheet`,
 		},
 	);
 	// #endregion Sheets

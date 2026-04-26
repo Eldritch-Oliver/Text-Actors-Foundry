@@ -16,8 +16,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			key: new fields.StringField({
 				blank: false,
 				trim: true,
-				nullable: true,
-				initial: null,
+				nullable: false,
 			}),
 			aboveTheFold: new fields.BooleanField({
 				initial: false,

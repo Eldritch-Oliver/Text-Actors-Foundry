@@ -314,6 +314,8 @@ export class PlayerSheet extends
 		const groups = new Map();
 		const attrs = this.actor.itemTypes.attribute ?? [];
 		for (const attr of attrs) {
+			if (attr.system.aboveTheFold) { continue };
+
 			const groupName = attr.system.group ?? "Attributes";
 			if (!groups.has(groupName)) {
 				groups.set(groupName, {

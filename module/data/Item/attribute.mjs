@@ -101,5 +101,11 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 	get isRange() {
 		return this.max !== null;
 	};
+
+	get inferredMinimum() {
+		if (this.isRange) {
+			return this.min ?? 0;
+		};
+	};
 	// #endregion Methods
 };

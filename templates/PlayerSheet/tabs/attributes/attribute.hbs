@@ -8,9 +8,10 @@
 	<input
 		type="number"
 		id="{{uuid}}-value"
+		data-foreign-uuid="{{uuid}}"
 		data-foreign-name="system.value"
 		value="{{ system.value }}"
-		min="{{ system.min }}"
+		min="{{ system.inferredMinimum }}"
 		max="{{ system.max }}"
 	>
 </li>

@@ -10,7 +10,7 @@
 					{{ group.name }}
 				</h3>
 			</div>
-			<ul class="embedded-list">
+			<ul class="embedded-list two-col">
 				{{#each group.attrs as |attr|}}
 					{{> (systemFilePath "templates/PlayerSheet/tabs/attributes/attribute.hbs") attr }}
 				{{/each}}

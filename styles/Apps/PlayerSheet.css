@@ -97,6 +97,11 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
+
+		&.two-col {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	.item {
@@ -181,6 +186,7 @@
 		background: var(--attribute-background);
 		color: var(--attribute-colour);
 		padding: 4px;
+		margin: 0;
 
 		.name {
 			font-size: 1.1rem;
@@ -200,8 +206,15 @@
 			}
 		}
 
-		&:last-child {
+		&:last-child:nth-child(odd) {
+			grid-column: 1 / -1;
 			border-radius: 0 0 6px 6px;
+		}
+		&:nth-last-child(2):has( + &:nth-child(even)) {
+			border-radius: 0 0 0 6px;
+		}
+		&:last-child:nth-child(even) {
+			border-radius: 0 0 6px 0;
 		}
 	}
 

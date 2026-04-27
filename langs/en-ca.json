@@ -129,7 +129,7 @@
 			}
 		},
 		"sockets": {
-			"user-list-required": "A list fo users must be provided"
+			"user-list-required": "A list of users must be provided"
 		},
 		"notifs": {
 			"error": {

@@ -1,0 +1,17 @@
+<li
+	class="attribute"
+	data-item-uuid="{{uuid}}"
+>
+	<div class="title grow">
+		<span class="name">{{ name }}</span>
+	</div>
+	<input
+		type="number"
+		id="{{uuid}}-value"
+		data-foreign-uuid="{{uuid}}"
+		data-foreign-name="system.value"
+		value="{{ system.value }}"
+		min="{{ system.inferredMinimum }}"
+		max="{{ system.max }}"
+	>
+</li>

@@ -1,0 +1,37 @@
+<div class="value-controls">
+	<label for="{{meta.idp}}-min">
+		{{ localize "taf.misc.attribute.minimum" }}
+	</label>
+	<input
+		type="number"
+		id="{{meta.idp}}-min"
+		name="system.min"
+		value="{{system.min}}"
+		{{#if system.isRange}}placeholder="0"{{/if}}
+		{{disabled (not meta.editable)}}
+	>
+
+	<label for="{{meta.idp}}-value">
+		{{ localize "taf.misc.attribute.current-value" }}
+	</label>
+	<input
+		type="number"
+		id="{{meta.idp}}-value"
+		name="system.value"
+		value="{{system.value}}"
+		min="{{system.min}}"
+		max="{{system.max}}"
+		{{disabled (not meta.editable)}}
+	>
+
+	<label for="{{meta.idp}}-max">
+		{{ localize "taf.misc.attribute.maximum" }}
+	</label>
+	<input
+		type="number"
+		id="{{meta.idp}}-max"
+		name="system.max"
+		value="{{system.max}}"
+		{{disabled (not meta.editable)}}
+	>
+</div>

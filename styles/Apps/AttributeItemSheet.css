@@ -1,0 +1,56 @@
+.taf.AttributeItemSheet {
+	min-width: 300px;
+
+	> .window-content {
+		padding: 0;
+		color: var(--attribute-sheet-colour);
+		background: var(--attribute-sheet-background);
+	}
+
+	.sheet-header {
+		padding: 0.5rem;
+		border-bottom: 1px solid var(--attribute-sheet-divider-colour);
+	}
+
+	.value-controls {
+		display: grid;
+		align-items: center;
+		grid-auto-flow: column;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(2, auto);
+		gap: 2px 4px;
+		padding: 0 8px;
+	}
+
+	.property {
+		display: grid;
+		align-items: center;
+		justify-items: left;
+		grid-template-columns: 2fr 1fr;
+		gap: 2px 8px;
+		margin: 0 8px 8px;
+
+		.hint {
+			grid-column: 1 / -1;
+			margin: 0;
+			color: var(--attribute-sheet-hint-colour);
+		}
+	}
+
+	input {
+		color: var(--attribute-sheet-input-colour);
+		background: var(--attribute-sheet-input-background);
+
+		&:disabled {
+			color: var(--attribute-sheet-disabled-input-colour);
+			cursor: not-allowed;
+		}
+	}
+
+	taf-toggle {
+		--toggle-background: var(--attribute-sheet-input-background);
+		--slider-checked-colour: var(--attribute-sheet-toggle-slider-enabled-colour);
+		--slider-unchecked-colour: var(--attribute-sheet-toggle-slider-disabled-colour);
+		justify-self: right;
+	}
+}

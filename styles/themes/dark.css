@@ -19,10 +19,16 @@
 	--inventory-input-colour: var(--steel-100);
 	--inventory-input-disabled-colour: var(--steel-350);
 
-	--item-list-header-background: var(--steel-800);
-	--item-list-header-colour: var(--steel-100);
-	--item-list-header-input-background: var(--steel-650);
-	--item-list-header-input-colour: var(--steel-100);
+	--embedded-list-header-background: var(--steel-800);
+	--embedded-list-header-colour: var(--steel-100);
+	--embedded-list-header-input-background: var(--steel-650);
+	--embedded-list-header-input-colour: var(--steel-100);
+
+	--attribute-background: var(--steel-700);
+	--attribute-colour: var(--steel-100);
+	--attribute-input-background: var(--steel-650);
+	--attribute-input-colour: var(--steel-100);
+	--attribute-disabled-input-colour: var(--steel-350);
 
 	--item-card-background: #1d262f;
 	--item-card-colour: var(--steel-100);
@@ -43,6 +49,17 @@
 	--item-sheet-description-menu-colour: var(--steel-100);
 	--item-sheet-description-menu-background: var(--steel-700);
 	--item-sheet-description-content-background: var(--steel-650);
+
+	/* Attribute Sheet Variables */
+	--attribute-sheet-colour: var(--item-sheet-colour);
+	--attribute-sheet-background: var(--item-sheet-background);
+	--attribute-sheet-divider-colour: var(--item-sheet-divider);
+	--attribute-sheet-hint-colour: var(--steel-250);
+	--attribute-sheet-input-colour: var(--item-sheet-input-colour);
+	--attribute-sheet-input-background: var(--item-sheet-input-background);
+	--attribute-sheet-disabled-input-colour: var(--steel-350);
+	--attribute-sheet-toggle-slider-enabled-colour: var(--item-sheet-toggle-slider-enabled-colour);
+	--attribute-sheet-toggle-slider-disabled-colour: 	var(--item-sheet-toggle-slider-disabled-colour);
 
 	/* Chip Variables */
 	--chip-colour: #fff7ed;

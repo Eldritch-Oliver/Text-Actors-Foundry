@@ -1,0 +1,20 @@
+<div
+	class="tab attributes-tab {{ifThen tabActive "active" ""}}"
+	data-group="primary"
+	data-tab="attributes"
+>
+	{{#each attrGroups as |group|}}
+		<section>
+			<div class="embedded-list-header">
+				<h3 class="grow">
+					{{ group.name }}
+				</h3>
+			</div>
+			<ul class="embedded-list two-col">
+				{{#each group.attrs as |attr|}}
+					{{> (systemFilePath "templates/PlayerSheet/tabs/attributes/attribute.hbs") attr }}
+				{{/each}}
+			</ul>
+		</section>
+	{{/each}}
+</div>

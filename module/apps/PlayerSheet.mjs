@@ -1,7 +1,6 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { AttributeManager } from "./AttributeManager.mjs";
-import { attributeSorter } from "../utils/attributeSort.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
@@ -45,14 +44,21 @@ export class PlayerSheet extends
 
 	static PARTS = {
 		header: { template: filePath(`templates/PlayerSheet/header.hbs`) },
-		attributes: { template: filePath(`templates/PlayerSheet/attributes.hbs`) },
+		primaryAttributes: { template: filePath(`templates/PlayerSheet/primary-attributes.hbs`) },
 		tabs: { template: filePath(`templates/generic/tabs.hbs`) },
 		content: { template: filePath(`templates/PlayerSheet/content.hbs`) },
-		items: {
-			template: filePath(`templates/PlayerSheet/item-lists.hbs`),
+		attributeTab: {
+			template: filePath(`templates/PlayerSheet/tabs/attributes/lists.hbs`),
 			scrollable: [``],
 			templates: [
-				filePath(`templates/PlayerSheet/item.hbs`),
+				filePath(`templates/PlayerSheet/tabs/attributes/attribute.hbs`),
+			],
+		},
+		items: {
+			template: filePath(`templates/PlayerSheet/tabs/items/lists.hbs`),
+			scrollable: [``],
+			templates: [
+				filePath(`templates/PlayerSheet/tabs/items/item.hbs`),
 			],
 		},
 	};
@@ -78,6 +84,7 @@ export class PlayerSheet extends
 			labelPrefix: `taf.Apps.PlayerSheet.tab-names`,
 			tabs: [
 				{ id: `content` },
+				{ id: `attributes` },
 				{ id: `items` },
 			],
 		},
@@ -104,6 +111,10 @@ export class PlayerSheet extends
 			Logger.debug(`Asserting app "${this.id}" from tab "items" to "${initial}"`);
 			this.tabGroups.primary = initial;
 		};
+		if (this.tabGroups.primary === `attributes` && !this.hasAttributesTab) {
+			Logger.debug(`Asserting app "${this.id}" from tab "attributes" to "${initial}"`);
+			this.tabGroups.primary = initial;
+		};
 	};
 
 	/**
@@ -118,6 +129,7 @@ export class PlayerSheet extends
 		switch (tabID) {
 			case `content`: return this.hasContentTab;
 			case `items`: return this.hasItemsTab;
+			case `attributes`: return this.hasAttributesTab;
 		};
 		return false;
 	};
@@ -126,8 +138,17 @@ export class PlayerSheet extends
 		return true;
 	};
 
+	get hasAttributesTab() {
+		return this.actor.itemTypes
+			.attribute
+			?.filter(attr => !attr.system.aboveTheFold)
+			.length > 0;
+	};
+
 	get hasItemsTab() {
-		return this.actor.items.size > 0;
+		return this.actor.items
+			.filter(item => item.type !== `attribute`)
+			.length > 0;
 	};
 	// #endregion Instance Data
 
@@ -207,7 +228,7 @@ export class PlayerSheet extends
 
 		new ContextMenu.implementation(
 			this.element,
-			`li.item`,
+			`[data-item-uuid]`,
 			[
 				{
 					label: _loc(`taf.misc.edit`),
@@ -254,8 +275,12 @@ export class PlayerSheet extends
 
 	async _preparePartContext(partID, ctx) {
 		switch (partID) {
-			case `attributes`: {
-				await this._prepareAttributes(ctx);
+			case `primaryAttributes`: {
+				await this._preparePrimaryAttributes(ctx);
+				break;
+			};
+			case `attributeTab`: {
+				await this._prepareAttributesTab(ctx);
 				break;
 			};
 			case `tabs`: {
@@ -275,18 +300,35 @@ export class PlayerSheet extends
 		return ctx;
 	};
 
-	async _prepareAttributes(ctx) {
-		ctx.hasAttributes = this.actor.system.hasAttributes;
+	async _preparePrimaryAttributes(ctx) {
+		const attrs = this.actor.itemTypes.attribute ?? [];
+		const filtered = attrs.filter(attr => attr.system.aboveTheFold);
+		ctx.hasAttributes = filtered.length > 0;
+		ctx.attrs = filtered;
+	};
 
-		const attrs = [];
-		for (const [id, data] of Object.entries(this.actor.system.attr)) {
-			attrs.push({
-				...data,
-				id,
-				path: `system.attr.${id}`,
-			});
+	async _prepareAttributesTab(ctx) {
+		ctx.tabActive = this.tabGroups.primary === `attributes`;
+
+		const groups = new Map();
+		const attrs = (this.actor.itemTypes.attribute ?? [])
+			.toSorted((a, b) => a.name.localeCompare(b.name));
+		for (const attr of attrs) {
+			if (attr.system.aboveTheFold) { continue };
+
+			const groupName = attr.system.group ?? `Attributes`;
+			if (!groups.has(groupName)) {
+				groups.set(groupName, {
+					name: groupName.titleCase(),
+					attrs: [],
+					collapsed: false,
+				});
+			};
+			const group = groups.get(groupName);
+
+			group.attrs.push(attr);
 		};
-		ctx.attrs = attrs.toSorted(attributeSorter);
+		ctx.attrGroups = [...groups.values()].toSorted((a, b) => a.name.localeCompare(b.name));
 	};
 
 	async _prepareTabList(ctx) {
@@ -321,19 +363,24 @@ export class PlayerSheet extends
 
 		ctx.itemGroups = [];
 		for (const [groupName, items] of Object.entries(this.actor.itemTypes)) {
+
+			// We don't care about attribute items here
+			if (groupName === `attribute`) { continue };
+
 			const preparedItems = [];
 
 			let summedWeight = 0;
 			for (const item of items) {
-				summedWeight += item.system.quantifiedWeight;
-				preparedItems.push(await this._prepareItem(item));
+				summedWeight += item.system.quantifiedWeight ?? 0;
+				const data = await this._prepareItem(item);
+				if (data) { preparedItems.push(data) };
 			};
 			totalWeight += summedWeight;
 
 			ctx.itemGroups.push({
 				name: groupName.titleCase(),
 				items: preparedItems,
-				weight: config.weightFormatter(totalWeight),
+				weight: config.weightFormatter(summedWeight),
 			});
 		};
 
@@ -343,6 +390,7 @@ export class PlayerSheet extends
 	};
 
 	async _prepareItem(item) {
+		if (item.type !== `generic`) { return };
 		const ctx = {
 			uuid: item.uuid,
 			img: item.img,

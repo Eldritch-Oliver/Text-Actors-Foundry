@@ -1,0 +1,54 @@
+{{#if hasAttributes}}
+	<div class="attributes">
+		{{#each attrs as | attr |}}
+			<fieldset
+				data-item-uuid="{{ attr.uuid }}"
+				data-foreign-uuid="{{ attr.uuid }}"
+			>
+				<legend>
+					{{ attr.name }}
+				</legend>
+				<div class="attr-range">
+					{{#if attr.system.isRange }}
+						<input
+							type="number"
+							id="{{attr.uuid}}-value"
+							class="attr-range__value"
+							data-foreign-name="system.value"
+							value="{{attr.system.value}}"
+							min="{{attr.system.min}}"
+							max="{{attr.system.max}}"
+							aria-label="{{localize "taf.Apps.PlayerSheet.current-value"}}"
+							data-tooltip="@{{ attr.system.key }}.value"
+						>
+						<span aria-hidden="true">/</span>
+						<input
+							type="number"
+							id="{{attr.uuid}}-max"
+							class="attr-range__max"
+							data-foreign-name="system.max"
+							value="{{attr.system.max}}"
+							min="{{attr.system.min}}"
+							aria-label="{{localize "taf.Apps.PlayerSheet.max-value"}}"
+							data-tooltip="@{{ attr.system.key }}.max"
+						>
+					{{else}}
+						<input
+							type="number"
+							id="{{attr.uuid}}-value"
+							class="attr-range__value"
+							data-foreign-name="system.value"
+							value="{{attr.system.value}}"
+							min="{{attr.system.min}}"
+							max="{{attr.system.max}}"
+							aria-label="{{localize "taf.Apps.PlayerSheet.current-value"}}"
+							data-tooltip="@{{ attr.system.key }}"
+						>
+					{{/if}}
+				</div>
+			</fieldset>
+		{{/each}}
+	</div>
+{{else}}
+	<template />
+{{/if}}

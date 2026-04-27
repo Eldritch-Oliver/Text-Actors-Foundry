@@ -1,0 +1,11 @@
+<header class="sheet-header bordered">
+	<input
+		type="text"
+		class="large"
+		name="name"
+		value="{{item.name}}"
+		title="{{item.name}}"
+		{{disabled (not meta.editable)}}
+		placeholder="{{localize "Name"}}"
+	>
+</header>

@@ -1,0 +1,39 @@
+<div>
+	<div class="property">
+		<label for="{{meta.idp}}-key">
+			{{ localize "taf.misc.key" }}
+		</label>
+		<input
+			type="text"
+			id="{{meta.idp}}-key"
+			name="system.key"
+			value="{{system.key}}"
+		>
+		<p class="hint">
+			{{ localize "taf.misc.attribute.key.hint" }}
+		</p>
+	</div>
+	<div class="property">
+		<label for="{{meta.idp}}-aboveTheFold">
+			{{ localize "taf.misc.attribute.always-visible" }}
+		</label>
+		<taf-toggle
+			id="{{meta.idp}}-aboveTheFold"
+			name="system.aboveTheFold"
+			{{checked system.aboveTheFold}}
+		></taf-toggle>
+	</div>
+	{{#if (not system.aboveTheFold)}}
+		<div class="property">
+			<label for="{{meta.idp}}-group">
+				{{ localize "taf.misc.item.group" }}
+			</label>
+			<input
+				type="text"
+				id="{{meta.idp}}-group"
+				name="system.group"
+				value="{{system.group}}"
+			>
+		</div>
+	{{/if}}
+</div>

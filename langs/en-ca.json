@@ -85,16 +85,7 @@
 				"title": "Questions",
 				"invalid-input-type": "Invalid input type provided: {type}"
 			},
-			"AttributeManager": {
-				"title": "Attributes: {name}",
-				"has-max": "Has Maximum?",
-				"name-placeholder": "Attribute Name...",
-				"no-attributes": "No attributes yet",
-				"add-new-attribute": "Add New Attribute",
-				"default-attribute-values": "Default Attribute Values"
-			},
 			"PlayerSheet": {
-				"manage-attributes": "Manage Attributes",
 				"create-item": "Create Embedded Item",
 				"current-value": "Current value",
 				"max-value": "Maximum value",

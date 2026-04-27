@@ -1,6 +1,5 @@
 // Apps
 import { Ask } from "./apps/Ask.mjs";
-import { AttributeManager } from "./apps/AttributeManager.mjs";
 import { PlayerSheet } from "./apps/PlayerSheet.mjs";
 import { QueryStatus } from "./apps/QueryStatus.mjs";
 
@@ -18,7 +17,6 @@ export const api = deepFreeze({
 	QueryManager,
 	Apps: {
 		Ask,
-		AttributeManager,
 		PlayerSheet,
 		QueryStatus,
 	},

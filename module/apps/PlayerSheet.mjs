@@ -1,6 +1,5 @@
 import { __ID__, filePath } from "../consts.mjs";
 import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
-import { AttributeManager } from "./AttributeManager.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
@@ -36,7 +35,6 @@ export class PlayerSheet extends
 		},
 		actions: {
 			createEmbeddedItem: this.#createEmbeddedItem,
-			manageAttributes: this.#manageAttributes,
 			configureSheet: this.#configureSheet,
 			toggleExpand: this.#toggleExpand,
 		},
@@ -195,17 +193,6 @@ export class PlayerSheet extends
 
 		controls.push(
 			{
-				icon: `fa-solid fa-at`,
-				label: `taf.Apps.PlayerSheet.manage-attributes`,
-				action: `manageAttributes`,
-				visible: () => {
-					const isGM = game.user.isGM;
-					const allowPlayerEdits = game.settings.get(__ID__, `canPlayersManageAttributes`);
-					const editable = this.isEditable;
-					return isGM || (allowPlayerEdits && editable);
-				},
-			},
-			{
 				icon: `fa-solid fa-suitcase`,
 				label: `taf.Apps.PlayerSheet.create-item`,
 				action: `createEmbeddedItem`,
@@ -251,12 +238,6 @@ export class PlayerSheet extends
 			],
 			{ jQuery: false, fixed: true },
 		);
-	};
-
-	async close() {
-		this.#attributeManager?.close();
-		this.#attributeManager = null;
-		return super.close();
 	};
 	// #endregion Lifecycle
 
@@ -412,28 +393,6 @@ export class PlayerSheet extends
 	// #endregion Data Prep
 
 	// #region Actions
-	#attributeManager = null;
-
-	/**
-	 * This action opens an instance of the AttributeManager application
-	 * so that the user can edit and update all of the attributes for the
-	 * actor. This persists the application instance for the duration of
-	 * the ActorSheet's lifespan.
-	 *
-	 * @this {PlayerSheet}
-	 */
-	static async #manageAttributes() {
-		this.#attributeManager ??= new AttributeManager({ document: this.actor });
-		if (this.#attributeManager.rendered) {
-			await this.#attributeManager.bringToFront();
-		} else {
-			await this.#attributeManager.render({
-				force: true,
-				window: { windowId: this.window.windowId },
-			});
-		};
-	};
-
 	/**
 	 * This action overrides the default Foundry action in order to tell
 	 * it to open my custom DocumentSheetConfig application instead of

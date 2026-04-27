@@ -27,7 +27,6 @@
 @import url("./Apps/common.css") layer(apps);
 @import url("./Apps/Ask.css") layer(apps);
 @import url("./Apps/AttributeItemSheet.css") layer(apps);
-@import url("./Apps/AttributeManager.css") layer(apps);
 @import url("./Apps/GenericItemSheet.css") layer(apps);
 @import url("./Apps/PlayerSheet.css") layer(apps);
 @import url("./Apps/QueryStatus.css") layer(apps);

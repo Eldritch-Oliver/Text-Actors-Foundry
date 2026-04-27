@@ -47,7 +47,7 @@ export class TAFActor extends Actor {
 				`modifyTokenAttribute`,
 				{ attribute, value, isDelta, isBar, isEmbedded: true },
 				updates,
-				this
+				this,
 			);
 
 			return allowed !== false ? await attr.update(updates) : this;

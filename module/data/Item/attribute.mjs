@@ -90,7 +90,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			const max = getProperty(data, `system.max`) ?? this.max;
 
 			let min = getProperty(data, `system.min`) ?? this.min;
-			if (max != null) { min ??= 0; };
+			if (max != null) { min ??= 0 };
 
 			setProperty(data, `system.value`, clamp(min, value, max));
 		};
@@ -106,6 +106,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 		if (this.isRange) {
 			return this.min ?? 0;
 		};
+		return null;
 	};
 	// #endregion Methods
 };

@@ -98,7 +98,6 @@ export class PlayerSheet extends
 	 * they occur.
 	 */
 	#expandedItems = new Set();
-	#collapsedAttributeGroups = new Set();
 
 	/**
 	 * This method is used in order to ensure that when we hide specific
@@ -317,7 +316,7 @@ export class PlayerSheet extends
 		for (const attr of attrs) {
 			if (attr.system.aboveTheFold) { continue };
 
-			const groupName = attr.system.group ?? "Attributes";
+			const groupName = attr.system.group ?? `Attributes`;
 			if (!groups.has(groupName)) {
 				groups.set(groupName, {
 					name: groupName.titleCase(),
@@ -374,7 +373,7 @@ export class PlayerSheet extends
 			for (const item of items) {
 				summedWeight += item.system.quantifiedWeight ?? 0;
 				const data = await this._prepareItem(item);
-				if (data) preparedItems.push(data);
+				if (data) { preparedItems.push(data) };
 			};
 			totalWeight += summedWeight;
 

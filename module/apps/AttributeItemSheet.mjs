@@ -3,7 +3,6 @@ import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
-const { setProperty } = foundry.utils;
 
 export class AttributeItemSheet extends
 	TAFDocumentSheetMixin(

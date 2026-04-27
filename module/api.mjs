@@ -5,7 +5,7 @@ import { PlayerSheet } from "./apps/PlayerSheet.mjs";
 import { QueryStatus } from "./apps/QueryStatus.mjs";
 
 // Utils
-import { toID, isValidID, } from "./utils/toID.mjs";
+import { isValidID, toID } from "./utils/toID.mjs";
 import { attributeSorter } from "./utils/attributeSort.mjs";
 import { DialogManager } from "./utils/DialogManager.mjs";
 import { localizer } from "./utils/localizer.mjs";

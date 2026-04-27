@@ -1,4 +1,5 @@
 import { isValidID, toID } from "../../utils/toID.mjs";
+import { __ID__ } from "../../consts.mjs";
 import { clamp } from "../../utils/clamp.mjs";
 
 const { getProperty, hasProperty, setProperty } = foundry.utils;
@@ -41,6 +42,15 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 
 	// #region Lifecycle
 	async _preCreate(data, options, user) {
+		// Prevent users from creating attributes if disallowed
+		if (
+			!game.settings.get(__ID__, `canPlayersManageAttributes`)
+			&& !user.isGM
+		) {
+			ui.notifications.error(_loc(`taf.notifs.error.cant-manage-attributes`));
+			return false;
+		};
+
 		// Assign the key as the ID'd name if isn't provided, or validate if
 		// it is provided.
 		if (!this.key) {

@@ -22,6 +22,11 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 			equipped: new fields.BooleanField({
 				initial: true,
 			}),
+			trigger: new fields.DocumentUUIDField({
+				embedded: false,
+				relative: false,
+				type: foundry.documents.Macro.documentName,
+			}),
 			description: new fields.HTMLField({
 				blank: true,
 				trim: true,

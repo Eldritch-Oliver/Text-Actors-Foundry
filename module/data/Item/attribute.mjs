@@ -23,6 +23,11 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			aboveTheFold: new fields.BooleanField({
 				initial: false,
 			}),
+			trigger: new fields.DocumentUUIDField({
+				embedded: false,
+				relative: false,
+				type: foundry.documents.Macro.documentName,
+			}),
 
 			/* The attributes current value */
 			value: new fields.NumberField({

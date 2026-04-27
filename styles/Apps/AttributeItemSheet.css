@@ -30,6 +30,10 @@
 		gap: 2px 8px;
 		margin: 0 8px 8px;
 
+		&.wide-input {
+			grid-template-columns: 1fr 1fr;
+		}
+
 		.hint {
 			grid-column: 1 / -1;
 			margin: 0;

@@ -18,7 +18,7 @@ export class GenericItemSheet extends
 		],
 		position: {
 			width: 400,
-			height: 450,
+			height: 550,
 		},
 		window: {
 			resizable: true,

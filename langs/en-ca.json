@@ -68,7 +68,8 @@
 				"weight": "Weight",
 				"quantity": "Quantity",
 				"equipped": "Equipped",
-				"group": "Group"
+				"group": "Group",
+				"trigger": "Macro to Execute"
 			},
 			"attribute": {
 				"key": {

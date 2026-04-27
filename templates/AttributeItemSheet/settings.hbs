@@ -36,4 +36,16 @@
 			>
 		</div>
 	{{/if}}
+	<div class="property wide-input">
+		<label for="{{meta.idp}}-trigger">
+			{{ localize "taf.misc.item.trigger" }}
+		</label>
+		<document-tags
+			id="{{meta.idp}}-trigger"
+			single
+			type="Macro"
+			name="system.trigger"
+			value="{{system.trigger}}"
+		></document-tags>
+	</div>
 </div>

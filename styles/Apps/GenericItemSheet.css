@@ -33,6 +33,10 @@
 		justify-items: left;
 		gap: 8px;
 
+		&.wide-input {
+			grid-template-columns: 1fr 1fr;
+		}
+
 		taf-toggle {
 			justify-self: end;
 		}

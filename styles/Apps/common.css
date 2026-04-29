@@ -12,19 +12,27 @@
 		flex-direction: row;
 		justify-content: left;
 		align-items: center;
-		gap: 8px;
+		margin: 0 -0.5rem;
+		border-bottom: 1px solid var(--tab-nav-divider-colour);
 
 		button {
+			color: var(--tab-button-colour);
 			border: none;
 			text-shadow: none;
 			box-shadow: none;
-
-			&.active {
-				outline: 1px solid var(--tab-button-active-border);
-			}
+			outline: none;
+			background: transparent;
+			border-radius: 0;
+			border: 2px solid transparent;
 
 			&:hover {
-				background: var(--tab-button-hover-bg);
+				color: var(--tab-button-hover-colour);
+			}
+
+			&.active {
+				color: var(--tab-button-active-colour);
+				border-bottom: 2px solid currentColor;
+				outline: none;
 			}
 		}
 	}

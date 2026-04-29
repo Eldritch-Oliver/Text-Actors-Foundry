@@ -1,5 +1,12 @@
 .theme-dark {
-	--prosemirror-background: var(--color-cool-5);
+	/* Prose Mirror Elements */
+	--prosemirror-colour: var(--steel-100);
+	--prosemirror-background: var(--steel-650);
+	--prosemirror-toggle-background: var(--steel-700);
+	--prosemirror-toggle-hover-background: var(--steel-600);
+	--prosemirror-menu-colour: var(--steel-100);
+	--prosemirror-menu-background: var(--steel-750);
+	--prosemirror-divider-colour: var(--steel-250);
 
 	--spinner-outer-colour: white;
 	--spinner-inner-colour: #FF3D00;
@@ -8,26 +15,36 @@
 	--toggle-slider-unchecked-colour: maroon;
 	--toggle-slider-checked-colour: green;
 
-	--tab-button-active-border: rebeccapurple;
-	--tab-button-hover-bg: var(--color-cool-3);
+	--tab-nav-divider-colour: var(--steel-750);
+	--tab-button-colour: var(--steel-200);
+	--tab-button-hover-colour: var(--steel-100);
+	--tab-button-active-colour: white;
 
 	/* Actor Sheet Variables */
-	/* Use --steel-850 as the main sheet background */
-	--inventory-summary-background: var(--steel-800);
+	--actor-sheet-colour: var(--steel-100);
+	--actor-sheet-background: var(--steel-850);
+	--actor-sheet-divider-colour: var(--steel-700);
+	--actor-sheet-header-colour: var(--steel-100);
+	--actor-sheet-header-background: var(--steel-900);
+	--actor-sheet-header-input-colour: var(--steel-100);
+	--actor-sheet-header-input-background: var(--steel-650);
+
+	--inventory-summary-background: var(--steel-750);
 	--inventory-summary-colour: var(--steel-100);
 	--inventory-input-background: var(--steel-650);
 	--inventory-input-colour: var(--steel-100);
 	--inventory-input-disabled-colour: var(--steel-350);
 
-	--embedded-list-header-background: var(--steel-800);
+	--embedded-list-header-background: var(--steel-750);
 	--embedded-list-header-colour: var(--steel-100);
 	--embedded-list-header-input-background: var(--steel-650);
 	--embedded-list-header-input-colour: var(--steel-100);
 
 	--attribute-background: var(--steel-700);
 	--attribute-colour: var(--steel-100);
-	--attribute-input-background: var(--steel-650);
+	--attribute-input-background: var(--steel-600);
 	--attribute-input-colour: var(--steel-100);
+	--attribute-input-focus-colour: var(--zinc-250);
 	--attribute-disabled-input-colour: var(--steel-350);
 
 	--item-card-background: #1d262f;
@@ -36,6 +53,7 @@
 	--item-card-header-colour: var(--steel-100);
 	--item-card-header-input-background: var(--steel-650);
 	--item-card-header-input-colour: var(--steel-100);
+	--item-card-header-input-focus-colour: var(--zinc-250);
 	--item-card-header-disabled-input-colour: var(--steel-350);
 
 	/* Item Sheet Variables */

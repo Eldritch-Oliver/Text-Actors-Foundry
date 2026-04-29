@@ -5,7 +5,7 @@ import { clamp } from "../../utils/clamp.mjs";
 const { getProperty, hasProperty, setProperty } = foundry.utils;
 
 export class AttributeItemData extends foundry.abstract.TypeDataModel {
-	// #region Schema
+	// MARK: Schema
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {
@@ -43,7 +43,6 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			}),
 		};
 	};
-	// #endregion Schema
 
 	// #region Lifecycle
 	async _preCreate(data, options, user) {
@@ -122,6 +121,31 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			return this.min ?? 0;
 		};
 		return null;
+	};
+
+	/**
+	 * Executes the macro associated with this item, if the macro cannot be
+	 * found or if the user does not permission to execute it, it will not be
+	 * executed. This also provides some extra context into the roll data for chat
+	 * macros, so that they can refer to the min/value/max properties of this
+	 * specific item without actually needing to know which item called the macro.
+	 */
+	async execute() {
+		const macro = await fromUuid(this.trigger);
+		if (!macro || !macro.canExecute) { return };
+
+		// Provide the chat-specific context when required
+		if (macro.type === `chat`) {
+			Hooks.once(`taf.getRollData`, (data) => {
+				data.active = {
+					min: this.min,
+					value: this.value,
+					max: this.max,
+				};
+			});
+		};
+
+		await macro?.execute({ item });
 	};
 	// #endregion Methods
 };

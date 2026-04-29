@@ -66,28 +66,12 @@ export class TAFActor extends Actor {
 
 	// #region Roll Data
 	getRollData() {
-		/*
-		All properties assigned during this phase of the roll data prep can potentially
-		be overridden by users creating attributes of the same key, if users shouldn't
-		be able to override, assign the property before the return of this function.
-		*/
 		const data = {
 			carryCapacity: this.system.carryCapacity ?? null,
+			...this.system.attr,
 		};
 
-		if (`attr` in this.system) {
-			for (const attrID in this.system.attr) {
-				const attr = this.system.attr[attrID];
-				if (attr.isRange) {
-					data[attrID] = {
-						value: attr.value,
-						max: attr.max,
-					};
-				} else {
-					data[attrID] = attr.value;
-				};
-			};
-		};
+		Hooks.call(`taf.getRollData`, data, this);
 
 		return data;
 	};

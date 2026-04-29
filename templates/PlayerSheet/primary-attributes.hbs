@@ -6,7 +6,16 @@
 				data-foreign-uuid="{{ attr.uuid }}"
 			>
 				<legend>
-					{{ attr.name }}
+					{{#if attr.system.trigger}}
+						<button
+							type="button"
+							data-action="executeTrigger"
+						>
+							{{ attr.name }}
+						</button>
+					{{else}}
+						{{ attr.name }}
+					{{/if}}
 				</legend>
 				<div class="attr-range">
 					{{#if attr.system.isRange }}

@@ -1,6 +1,7 @@
 import { toPrecision } from "../../utils/roundToPrecision.mjs";
 
 export class GenericItemData extends foundry.abstract.TypeDataModel {
+	// MARK: Schema
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {
@@ -35,6 +36,7 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 		};
 	};
 
+	// #region Methods
 	/**
 	 * Calculates the total weight of the item based on the quantity of it, this
 	 * rounds the number to the nearest 2 decimal places.
@@ -43,4 +45,29 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 		const value = this.weight * this.quantity;
 		return toPrecision(Math.max(value, 0), 2);
 	};
+
+	/**
+	 * Executes the macro associated with this item, if the macro cannot be
+	 * found or if the user does not permission to execute it, it will not be
+	 * executed. This also provides some extra context into the roll data for chat
+	 * macros, so that they can refer to some properties of this specific item
+	 * without actually needing to know which item called the macro.
+	 */
+	async execute() {
+		const macro = await fromUuid(this.trigger);
+		if (!macro || !macro.canExecute) { return };
+
+		// Provide the chat-specific context when required
+		if (macro.type === `chat`) {
+			Hooks.once(`taf.getRollData`, (data) => {
+				data.active = {
+					quantity: this.quantity,
+					equipped: this.equipped ? 1 : 0,
+				};
+			});
+		};
+
+		await macro?.execute({ item });
+	};
+	// #endregion Methods
 };

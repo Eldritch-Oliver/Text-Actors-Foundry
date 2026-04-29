@@ -37,6 +37,7 @@ export class PlayerSheet extends
 			createEmbeddedItem: this.#createEmbeddedItem,
 			configureSheet: this.#configureSheet,
 			toggleExpand: this.#toggleExpand,
+			executeTrigger: this.#executeTrigger,
 		},
 	};
 
@@ -461,6 +462,17 @@ export class PlayerSheet extends
 
 		const item = await Item.create(data, { parent: this.actor });
 		item?.sheet?.render({ force: true });
+	};
+
+	/**
+	 * Executes an embedded item's triggering Macro if it has one attached to it.
+	 *
+	 * @this {PlayerSheet}
+	 */
+	static async #executeTrigger(event, target) {
+		const { itemUuid } = target.closest(`[data-item-uuid]`)?.dataset ?? {};
+		const item = await fromUuid(itemUuid);
+		await item?.system.execute?.();
 	};
 	// #endregion Actions
 };

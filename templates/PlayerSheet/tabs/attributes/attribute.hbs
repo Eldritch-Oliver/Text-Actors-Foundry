@@ -5,6 +5,14 @@
 	<div class="title grow">
 		<span class="name">{{ name }}</span>
 	</div>
+	{{#if system.trigger}}
+		<button
+			type="button"
+			data-action="executeTrigger"
+		>
+			Roll
+		</button>
+	{{/if}}
 	<input
 		type="number"
 		id="{{uuid}}-value"

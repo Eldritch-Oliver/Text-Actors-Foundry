@@ -10,7 +10,8 @@
 		"*.lock": true,
 		"node_modules": true,
 		"packs": true,
-		"foundry": true
+		"foundry": true,
+		"scripts": true,
 	},
 	"html.customData": [
 		"./.vscode/components.html-data.json"

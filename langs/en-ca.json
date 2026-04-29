@@ -73,7 +73,8 @@
 			},
 			"attribute": {
 				"key": {
-					"hint": "This is the computer-friendly identifier for the attribute. When accessing the attribute in rolls, this is the name you will need to use. Changing this WILL break any existing macros you have."
+					"label": "Identifier",
+					"hint": "This is the computer-friendly name for the attribute. When accessing the attribute in rolls, this is the name you will need to use. Changing this will most likely break any existing macros you have."
 				},
 				"always-visible": "Always Visible",
 				"minimum": "Minimum",

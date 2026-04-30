@@ -136,11 +136,28 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 
 		// Provide the chat-specific context when required
 		if (macro.type === `chat`) {
+			const extraContext = {
+				name: this.parent.name,
+				min: this.min,
+				value: this.value,
+				max: this.max,
+			};
+
 			Hooks.once(`taf.getRollData`, (data) => {
-				data.active = {
-					min: this.min,
-					value: this.value,
-					max: this.max,
+				data.active = extraContext;
+			});
+
+			// Apply any roll data additions to the message flavour as well
+			// since that doesn't get formatted by the ChatLog
+			Hooks.once(`preCreateChatMessage`, (message) => {
+				if (message.flavor.includes(`@active`)) {
+					const flavor = message.flavor.replaceAll(
+						/@active\.(\w+)/g,
+						(fullMatch, key) => {
+							return extraContext[key] || fullMatch;
+						},
+					);
+					message.updateSource({ flavor, });
 				};
 			});
 		};

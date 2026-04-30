@@ -59,10 +59,27 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 
 		// Provide the chat-specific context when required
 		if (macro.type === `chat`) {
+			const extraContext = {
+				name: this.parent.name,
+				quantity: this.quantity,
+				equipped: this.equipped ? 1 : 0,
+			};
+
 			Hooks.once(`taf.getRollData`, (data) => {
-				data.active = {
-					quantity: this.quantity,
-					equipped: this.equipped ? 1 : 0,
+				data.active = extraContext;
+			});
+
+			// Apply any roll data additions to the message flavour as well
+			// since that doesn't get formatted by the ChatLog
+			Hooks.once(`preCreateChatMessage`, (message) => {
+				if (message.flavor.includes(`@active`)) {
+					const flavor = message.flavor.replaceAll(
+						/@active\.(\w+)/g,
+						(fullMatch, key) => {
+							return extraContext[key] || fullMatch;
+						},
+					);
+					message.updateSource({ flavor, });
 				};
 			});
 		};

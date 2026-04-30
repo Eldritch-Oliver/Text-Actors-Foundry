@@ -24,9 +24,16 @@
 			background: transparent;
 			border-radius: 0;
 			border: 2px solid transparent;
+			transition: unset;
 
 			&:hover {
 				color: var(--tab-button-hover-colour);
+			}
+
+			&:focus-visible {
+				color: var(--tab-button-focus-colour);
+				border-color: var(--tab-button-focus-colour);
+				border-radius: 4px;
 			}
 
 			&.active {

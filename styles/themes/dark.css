@@ -17,6 +17,7 @@
 
 	--tab-nav-divider-colour: var(--steel-750);
 	--tab-button-colour: var(--steel-200);
+	--tab-button-focus-colour: var(--steel-200);
 	--tab-button-hover-colour: var(--steel-100);
 	--tab-button-active-colour: white;
 
@@ -45,6 +46,7 @@
 	--attribute-input-background: var(--steel-600);
 	--attribute-input-colour: var(--steel-100);
 	--attribute-input-focus-colour: var(--zinc-250);
+	--attribute-button-active-background: var(--steel-650);
 	--attribute-disabled-input-colour: var(--steel-350);
 
 	--item-card-background: #1d262f;

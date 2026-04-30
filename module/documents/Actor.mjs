@@ -71,7 +71,7 @@ export class TAFActor extends Actor {
 			...this.system.attr,
 		};
 
-		Hooks.call(`taf.getRollData`, data, this);
+		Hooks.callAll(`taf.getRollData`, data, this);
 
 		return data;
 	};

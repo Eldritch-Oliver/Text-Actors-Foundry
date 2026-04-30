@@ -1,4 +1,19 @@
 .taf > .window-content button {
+	&.inline {
+		color: inherit;
+		min-height: unset;
+		height: auto;
+		padding: 0;
+		background: none;
+		border: none;
+		outline: none;
+		text-decoration: underline;
+
+		&:hover {
+			background: none;
+		}
+	}
+
 	&:disabled {
 		cursor: not-allowed;
 	}

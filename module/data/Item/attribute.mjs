@@ -162,7 +162,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			});
 		};
 
-		await macro?.execute({ item });
+		await macro?.execute({ item: this.parent });
 	};
 	// #endregion Methods
 };

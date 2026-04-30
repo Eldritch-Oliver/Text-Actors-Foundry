@@ -1,13 +1,55 @@
 .taf > .window-content prose-mirror {
+	color: var(--prosemirror-colour);
+	--table-row-color-odd: var(--steel-550);
+	--table-row-color-even: var(--steel-600);
 	background: var(--prosemirror-background);
 	gap: 0;
+
+	menu {
+		background: var(--prosemirror-menu-background);
+	}
+
+	button {
+		color: var(--prosemirror-menu-colour);
+
+		&.icon.toggle {
+			border: none;
+			background: var(--prosemirror-toggle-background);
+			padding: 6px;
+
+			&:hover {
+				background: var(--prosemirror-toggle-hover-background);
+			}
+		}
+	}
 
 	.editor-content {
 		padding: 8px;
 	}
 
+	p {
+		color: inherit;
+	}
+
 	.tableWrapper th,
-	.tableWrapper td {
-		border-color: rebeccapurple;
+	.tableWrapper td,
+	table th,
+	table td {
+		border-color: var(--prosemirror-divider-colour);
+	}
+
+	table td, table th {
+		border: 1px solid var(--prosemirror-divider-colour);
+	}
+
+	pre:has(> code), code:not(pre > code) {
+		padding: 4px 6px;
+		background: var(--steel-700);
+		color: var(--steel-200);
+	}
+
+	blockquote {
+		color: inherit;
+		border-left: 2px solid var(--steel-200);
 	}
 }

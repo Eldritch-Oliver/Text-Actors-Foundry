@@ -13,6 +13,7 @@ import { PlayerData } from "../data/Actor/player.mjs";
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";
 import { TAFCombatant } from "../documents/Combatant.mjs";
+import { TAFItem } from "../documents/Item.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
@@ -29,9 +30,10 @@ Hooks.on(`init`, () => {
 	Logger.debug(`Initializing`);
 
 	// #region Documents
-	CONFIG.Token.documentClass = TAFTokenDocument;
 	CONFIG.Actor.documentClass = TAFActor;
 	CONFIG.Combatant.documentClass = TAFCombatant;
+	CONFIG.Item.documentClass = TAFItem;
+	CONFIG.Token.documentClass = TAFTokenDocument;
 	// #endregion Documents
 
 	// #region Data Models

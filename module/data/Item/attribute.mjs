@@ -157,7 +157,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 							return extraContext[key] || fullMatch;
 						},
 					);
-					message.updateSource({ flavor, });
+					message.updateSource({ flavor });
 				};
 			});
 		};

@@ -79,12 +79,12 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 							return extraContext[key] || fullMatch;
 						},
 					);
-					message.updateSource({ flavor, });
+					message.updateSource({ flavor });
 				};
 			});
 		};
 
-		await macro?.execute({ item });
+		await macro?.execute({ item: this.parent });
 	};
 	// #endregion Methods
 };

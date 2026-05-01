@@ -3,7 +3,6 @@
 		display: inline flex;
 		color: var(--chip-colour);
 		background: var(--chip-background);
-		border: 1px solid var(--chip-border-colour);
 		border-radius: 4px;
 
 		.key {

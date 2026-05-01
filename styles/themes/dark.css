@@ -81,10 +81,23 @@
 	--attribute-sheet-toggle-slider-enabled-colour: var(--item-sheet-toggle-slider-enabled-colour);
 	--attribute-sheet-toggle-slider-disabled-colour: 	var(--item-sheet-toggle-slider-disabled-colour);
 
+	/* Query Status App Variables */
+	--query-status-colour: var(--steel-100);
+	--query-status-background: var(--steel-800);
+	--query-status-user-colour: var(--steel-100);
+	--query-status-user-background: var(--steel-700);
+	--query-status-user-button-colour: var(--steel-100);
+	--query-status-user-button-background: var(--steel-600);
+	--query-status-user-button-focus: var(--zinc-100);
+	--query-status-user-button-hover-background: var(--steel-650);
+	--query-status-control-colour: var(--steel-100);
+	--query-status-control-background: var(--steel-600);
+	--query-status-control-focus: var(--zinc-100);
+	--query-status-control-hover-background: var(--steel-650);
+
 	/* Chip Variables */
-	--chip-colour: #fff7ed;
-	--chip-background: #2b3642;
-	--chip-value-colour: #fff7ed;
-	--chip-value-background: #10161d;
-	--chip-border-colour: var(--chip-value-background);
+	--chip-colour: var(--steel-100);
+	--chip-background: var(--steel-600);
+	--chip-value-colour: var(--steel-100);
+	--chip-value-background: var(--steel-500);
 }

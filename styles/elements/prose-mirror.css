@@ -1,7 +1,7 @@
 .taf > .window-content prose-mirror {
 	color: var(--prosemirror-colour);
-	--table-row-color-odd: var(--steel-550);
-	--table-row-color-even: var(--steel-600);
+	--table-row-color-odd: var(--prosemirror-table-row-color-odd);
+	--table-row-color-even: var(--prosemirror-table-row-color-even);
 	background: var(--prosemirror-background);
 	gap: 0;
 
@@ -44,12 +44,12 @@
 
 	pre:has(> code), code:not(pre > code) {
 		padding: 4px 6px;
-		background: var(--steel-700);
-		color: var(--steel-200);
+		background: var(--prosemirror-code-background);
+		color: var(--prosemirror-code-colour);
 	}
 
 	blockquote {
 		color: inherit;
-		border-left: 2px solid var(--steel-200);
+		border-left: 2px solid var(--prosemirror-blockquote-border);
 	}
 }

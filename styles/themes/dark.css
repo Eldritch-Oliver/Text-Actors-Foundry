@@ -7,6 +7,11 @@
 	--prosemirror-menu-colour: var(--steel-100);
 	--prosemirror-menu-background: var(--steel-750);
 	--prosemirror-divider-colour: var(--steel-250);
+	--prosemirror-table-row-color-odd: var(--steel-550);
+	--prosemirror-table-row-color-even: var(--steel-600);
+	--prosemirror-code-colour: var(--steel-200);
+	--prosemirror-code-background: var(--steel-700);
+	--prosemirror-blockquote-border: var(--steel-200);
 
 	--spinner-outer-colour: white;
 	--spinner-inner-colour: #FF3D00;

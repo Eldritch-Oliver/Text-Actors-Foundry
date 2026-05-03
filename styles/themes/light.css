@@ -1,16 +1,108 @@
 .theme-light {
-	--prosemirror-background: white;
+	/* Prose Mirror Elements */
+	--prosemirror-colour: var(--zinc-700);
+	--prosemirror-background: var(--zinc-300);
+	--prosemirror-toggle-background: var(--zinc-350);
+	--prosemirror-toggle-hover-background: var(--zinc-400);
+	--prosemirror-menu-colour: var(--zinc-700);
+	--prosemirror-menu-background: var(--zinc-350);
+	--prosemirror-divider-colour: var(--zinc-600);
+	--prosemirror-table-row-color-odd: var(--zinc-350);
+	--prosemirror-table-row-color-even: var(--zinc-400);
+	--prosemirror-code-colour: var(--zinc-800);
+	--prosemirror-code-background: var(--zinc-400);
+	--prosemirror-blockquote-border: var(--zinc-500);
 
-	--spinner-outer-colour: black;
+	--spinner-outer-colour: var(--steel-600);
 	--spinner-inner-colour: #FF3D00;
 
-	--tab-button-active: rebeccapurple;
-	--tab-button-hover-bg: var(--color-light-3);
+	--toggle-background-colour: var(--zinc-350);
+	--toggle-slider-unchecked-colour: red;
+	--toggle-slider-checked-colour: green;
+
+	--tab-nav-divider-colour: var(--zinc-300);
+	--tab-button-colour: var(--zinc-550);
+	--tab-button-focus-colour: var(--zinc-750);
+	--tab-button-hover-colour: var(--zinc-800);
+	--tab-button-active-colour: var(--zinc-900);
+
+	/* Actor Sheet Variables */
+	--actor-sheet-colour: var(--zinc-800);
+	--actor-sheet-background: var(--zinc-200);
+	--actor-sheet-divider-colour: var(--zinc-300);
+	--actor-sheet-header-colour: var(--zinc-800);
+	--actor-sheet-header-background:var(--zinc-100);
+	--actor-sheet-header-input-colour: var(--zinc-800);
+	--actor-sheet-header-input-background: var(--zinc-250);
+
+	--inventory-summary-colour: var(--zinc-600);
+	--inventory-summary-background: var(--zinc-100);
+	--inventory-input-colour: var(--zinc-700);
+	--inventory-input-background: var(--zinc-250);
+	--inventory-input-disabled-colour: var(--zinc-500);
+
+	--embedded-list-header-colour: var(--inventory-summary-colour);
+	--embedded-list-header-background: var(--inventory-summary-background);
+	--embedded-list-header-input-colour: var(--inventory-input-colour);
+	--embedded-list-header-input-background: var(--inventory-input-background);
+
+	--attribute-colour: var(--zinc-700);
+	--attribute-background: var(--zinc-300);
+	--attribute-input-colour: var(--zinc-700);
+	--attribute-input-background: var(--zinc-350);
+	--attribute-input-focus-colour: var(--zinc-700);
+	--attribute-button-active-background: var(--zinc-400);
+	--attribute-disabled-input-colour: var(--zinc-500);
+
+	--item-card-colour: var(--zinc-800);
+	--item-card-background: var(--zinc-300);
+	--item-card-header-colour: var(--zinc-800);
+	--item-card-header-background: var(--zinc-300);
+	--item-card-header-input-colour: var(--zinc-700);
+	--item-card-header-input-background: var(--zinc-350);
+	--item-card-header-input-focus-colour: var(--zinc-700);
+	--item-card-header-disabled-input-colour: var(--zinc-700);
+
+	/* Item Sheet Variables */
+	--item-sheet-colour: var(--zinc-800);
+	--item-sheet-background: var(--zinc-200);
+	--item-sheet-divider-colour: var(--zinc-300);
+	--item-sheet-input-colour: var(--zinc-800);
+	--item-sheet-input-background: var(--zinc-300);
+	--item-sheet-toggle-slider-enabled-colour: green;
+	--item-sheet-toggle-slider-disabled-colour: red;
+	--item-sheet-description-menu-colour: var(--zinc-800);
+	--item-sheet-description-menu-background: var(--zinc-350);
+	--item-sheet-description-content-background: var(--zinc-300);
+
+	/* Attribute Sheet Variables */
+	--attribute-sheet-colour: var(--item-sheet-colour);
+	--attribute-sheet-background: var(--item-sheet-background);
+	--attribute-sheet-divider-colour: var(--item-sheet-divider);
+	--attribute-sheet-hint-colour: var(--zinc-550);
+	--attribute-sheet-input-colour: var(--item-sheet-input-colour);
+	--attribute-sheet-input-background: var(--item-sheet-input-background);
+	--attribute-sheet-disabled-input-colour: var(--zinc-550);
+	--attribute-sheet-toggle-slider-enabled-colour: var(--item-sheet-toggle-slider-enabled-colour);
+	--attribute-sheet-toggle-slider-disabled-colour: var(--item-sheet-toggle-slider-disabled-colour);
+
+	/* Query Status App Variables */
+	--query-status-colour: var(--zinc-800);
+	--query-status-background: var(--zinc-200);
+	--query-status-user-colour: var(--zinc-800);
+	--query-status-user-background: var(--zinc-300);
+	--query-status-user-button-colour: var(--steel-700);
+	--query-status-user-button-background: var(--zinc-350);
+	--query-status-user-button-focus: var(--steel-700);
+	--query-status-user-button-hover-background: var(--zinc-400);
+	--query-status-control-colour: var(--steel-700);
+	--query-status-control-background: var(--zinc-350);
+	--query-status-control-focus: var(--steel-700);
+	--query-status-control-hover-background: var(--zinc-400);
 
 	/* Chip Variables */
-	--chip-colour: #18181b;
-	--chip-background: #fafafa;
-	--chip-value-colour: #18181b;
-	--chip-value-background: #d4d4d8aa;
-	--chip-border-colour: var(--chip-value-background);
+	--chip-colour: ;
+	--chip-background: ;
+	--chip-value-colour: ;
+	--chip-value-background: ;
 }

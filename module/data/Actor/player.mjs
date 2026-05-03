@@ -1,7 +1,7 @@
 import { __ID__ } from "../../consts.mjs";
 
 export class PlayerData extends foundry.abstract.TypeDataModel {
-	// #region Schema
+	// MARK: Schema
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {
@@ -18,7 +18,6 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 			attr: new fields.ObjectField({ persisted: false, initial: {} }),
 		};
 	};
-	// #endregion Schema
 
 	// #region Lifecycle
 	/**

@@ -135,8 +135,8 @@
 		margin-bottom: 0;
 
 		.summary {
-			display: grid;
-			grid-template-columns: min-content auto 1fr 50px auto;
+			display: flex;
+			flex-direction: row;
 			align-items: center;
 			gap: 8px;
 			background: var(--item-card-header-background);
@@ -154,6 +154,7 @@
 				display: flex;
 				flex-direction: column;
 				gap: 4px;
+				flex-grow: 1;
 			}
 
 			.name {
@@ -164,10 +165,15 @@
 				opacity: 90%;
 			}
 
+			input {
+				width: 50px;
+			}
+
 			input, button {
 				background: var(--item-card-header-input-background);
 				color: var(--item-card-header-input-colour);
 				text-align: center;
+				height: 32px;
 
 				&:disabled {
 					color: var(--item-card-header-disabled-input-colour);
@@ -175,14 +181,17 @@
 			}
 		}
 
-		.expand-button {
+		button {
 			border: none;
-			aspect-ratio: 1;
 
 			&:focus-visible {
 				filter: brightness(150%);
 				outline: none;
 			}
+		}
+
+		.expand-button {
+			aspect-ratio: 1;
 
 			&[data-expanded="true"] {
 				rotate: 180deg;

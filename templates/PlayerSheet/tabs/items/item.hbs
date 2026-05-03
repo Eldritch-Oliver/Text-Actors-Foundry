@@ -18,6 +18,14 @@
 			<span class="name">{{ name }}</span>
 			<span class="subtitle">{{ weight }}</span>
 		</div>
+		{{#if trigger}}
+			<button
+				type="button"
+				data-action="executeTrigger"
+			>
+				{{ localize "taf.misc.use" }}
+			</button>
+		{{/if}}
 		<input
 			id="{{uuid}}-quantity"
 			type="number"

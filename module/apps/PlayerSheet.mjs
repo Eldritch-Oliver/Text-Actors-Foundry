@@ -382,6 +382,7 @@ export class PlayerSheet extends
 			weight: config.weightFormatter(item.system.quantifiedWeight),
 			isExpanded: this.#expandedItems.has(item.uuid),
 			canExpand: item.system.description.length > 0,
+			trigger: item.system.trigger,
 		};
 
 		ctx.description = ``;

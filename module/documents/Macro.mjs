@@ -5,7 +5,6 @@ export class TAFMacro extends foundry.documents.Macro {
 		// Check Items on Actors
 		game.actors.forEach(actor => {
 			actor.items.forEach(item => {
-				console.log(item.uuid, `owned by`, actor.uuid);
 				if (item.system.trigger === this.uuid) {
 					itemsUsingMacro.add(item.uuid);
 				};

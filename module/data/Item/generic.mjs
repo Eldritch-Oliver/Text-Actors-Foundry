@@ -84,6 +84,13 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 			});
 		};
 
+		// Get the speaker so that Foundry has the correct context to be able to call
+		// the Actor's getData method, letting us augment the context dynamically for
+		// the @active roll context
+		const speaker = foundry.documents.ChatMessage.implementation.getSpeaker({
+			actor: this.parent.parent
+		});
+
 		await macro?.execute({ item: this.parent });
 	};
 	// #endregion Methods

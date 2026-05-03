@@ -155,4 +155,30 @@ export class TAFActor extends Actor {
 		};
 	};
 	// #endregion Data Migration
+
+	// #region Static API
+	/**
+	 * Sets the default attributes that are created when a new Actor is created,
+	 * this uses all of the existing values that are a part of the items, it does
+	 * not prompt for default values.
+	 */
+	static async setDefaultAttributes(actor) {
+		if (!game.user.isGM) { return };
+		const minifiedData = [];
+
+		const attrs = actor.itemTypes.attribute ?? [];
+		for (const attr of attrs) {
+			const raw = attr.toObject();
+			minifiedData.push({
+				img: raw.img, // doesn't really matter but ¯\_(ツ)_/¯
+				name: raw.name,
+				type: raw.type,
+				system: raw.system,
+			});
+		};
+
+		game.settings.set(__ID__, `actorDefaultAttributes`, minifiedData);
+		ui.notifications.success(_loc(`taf.notifs.success.saved-default-attributes`));
+	};
+	// #endregion Static API
 };

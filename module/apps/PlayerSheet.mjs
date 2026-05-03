@@ -4,6 +4,7 @@ import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
+import { TAFActor } from "../documents/Actor.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -38,6 +39,7 @@ export class PlayerSheet extends
 			configureSheet: this.#configureSheet,
 			toggleExpand: this.#toggleExpand,
 			executeTrigger: this.#executeTrigger,
+			saveDefaultAttrs: this.#saveDefaultAttrs,
 		},
 	};
 
@@ -193,6 +195,12 @@ export class PlayerSheet extends
 		const controls = super._getHeaderControls();
 
 		controls.push(
+			{
+				icon: `fa-solid fa-globe`,
+				label: `taf.Apps.PlayerSheet.save-attributes-as-defaults`,
+				action: `saveDefaultAttrs`,
+				visible: () => game.user.isGM,
+			},
 			{
 				icon: `fa-solid fa-suitcase`,
 				label: `taf.Apps.PlayerSheet.create-item`,
@@ -474,6 +482,16 @@ export class PlayerSheet extends
 		const { itemUuid } = target.closest(`[data-item-uuid]`)?.dataset ?? {};
 		const item = await fromUuid(itemUuid);
 		await item?.system.execute?.();
+	};
+
+	/**
+	 * Saves the Actor's current attribute items into the world setting for newly
+	 * created Actors to have the same attribute list.
+	 *
+	 * @this {PlayerSheet}
+	 */
+	static async #saveDefaultAttrs() {
+		TAFActor.setDefaultAttributes(this.actor);
 	};
 	// #endregion Actions
 };

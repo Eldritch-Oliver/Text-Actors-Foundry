@@ -91,6 +91,7 @@
 				"invalid-input-type": "Invalid input type provided: {type}"
 			},
 			"PlayerSheet": {
+				"save-attributes-as-defaults": "Save Attributes as Defaults",
 				"create-item": "Create Embedded Item",
 				"current-value": "Current value",
 				"max-value": "Maximum value",

@@ -14,6 +14,7 @@ import { PlayerData } from "../data/Actor/player.mjs";
 import { TAFActor } from "../documents/Actor.mjs";
 import { TAFCombatant } from "../documents/Combatant.mjs";
 import { TAFItem } from "../documents/Item.mjs";
+import { TAFMacro } from "../documents/Macro.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
@@ -33,6 +34,7 @@ Hooks.on(`init`, () => {
 	CONFIG.Actor.documentClass = TAFActor;
 	CONFIG.Combatant.documentClass = TAFCombatant;
 	CONFIG.Item.documentClass = TAFItem;
+	CONFIG.Macro.documentClass = TAFMacro;
 	CONFIG.Token.documentClass = TAFTokenDocument;
 	// #endregion Documents
 

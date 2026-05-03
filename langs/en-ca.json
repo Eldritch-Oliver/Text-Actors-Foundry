@@ -64,6 +64,7 @@
 			"edit": "Edit",
 			"resizable": "Resizable",
 			"not-resizable": "Not Resizable",
+			"macro-is-in-use": "The Macro is used by {count} items/attributes in the world or Actors, the items will lose their ability to use the macro.",
 			"item": {
 				"weight": "Weight",
 				"quantity": "Quantity",

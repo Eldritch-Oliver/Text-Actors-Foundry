@@ -64,7 +64,7 @@ jobs:
           token: ${{forgejo.token}}
 
       - name: "Install dependencies"
-        run: "pwd; npm i"
+        run: "npm i"
 
       - name: "Remove development folders"
         run: "rm -rf .git .vscode"

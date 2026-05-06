@@ -130,8 +130,11 @@ export class TAFActor extends Actor {
 	 * This checks and performs all data migrations that the system requires, some
 	 * of these are one-time only migrations, others of them will happen every time
 	 * an Actor is updated.
+	 *
+	 * The defaulting of options is provided to ensure that the migration doesn't
+	 * cause errors in Foundry v13
 	 */
-	static migrateData(data, options) {
+	static migrateData(data, options = {}) {
 		this.#migrateToAttributeItems(data, options);
 		return super.migrateData(data, options);
 	};

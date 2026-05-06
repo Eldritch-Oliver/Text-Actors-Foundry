@@ -66,8 +66,8 @@ jobs:
       - name: "Install dependencies"
         run: "npm i"
 
-      - name: "Remove development folders"
-        run: "rm -rf .git .vscode"
+      - name: "Remove development/web folders"
+        run: "rm -rf .git .vscode _*"
         working-directory: "wiki"
 
       - name: "Compress wiki folder"

@@ -4,6 +4,25 @@ DRYer
 */
 
 /**
+ * A helper function that takes a v14-compatible ContextMenuEntry option
+ * and adjusts it for v13 if required
+ *
+ * @param {ContextMenuEntry} option The v14+ compatible menu entry option
+ * @returns {ContextMenuEntry} The v14+ or <v13 menu option object
+ */
+export function createContextMenuOption(option) {
+	if (game.release.generation < 14) {
+		return {
+			name: option.label,
+			visible: option.condition,
+			callback: (target) => option.onClick(null, target),
+		};
+	};
+
+	return option;
+};
+
+/**
  * @param {Event} _event The click event
  * @param {HTMLElement} target The element to operate on
  */

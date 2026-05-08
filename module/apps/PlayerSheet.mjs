@@ -1,5 +1,5 @@
 import { __ID__, filePath } from "../consts.mjs";
-import { deleteItemFromElement, editItemFromElement } from "./utils.mjs";
+import { createContextMenuOption, deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
@@ -226,7 +226,7 @@ export class PlayerSheet extends
 			this.element,
 			`[data-item-uuid]`,
 			[
-				{
+				createContextMenuOption({
 					label: _loc(`taf.misc.edit`),
 					condition: (el) => {
 						const itemUuid = el.dataset.itemUuid;
@@ -234,8 +234,8 @@ export class PlayerSheet extends
 						return this.isEditable && itemExists;
 					},
 					onClick: editItemFromElement,
-				},
-				{
+				}),
+				createContextMenuOption({
 					label: _loc(`taf.misc.delete`),
 					condition: (el) => {
 						const itemUuid = el.dataset.itemUuid;
@@ -243,7 +243,7 @@ export class PlayerSheet extends
 						return this.isEditable && itemExists;
 					},
 					onClick: deleteItemFromElement,
-				},
+				}),
 			],
 			{ jQuery: false, fixed: true },
 		);

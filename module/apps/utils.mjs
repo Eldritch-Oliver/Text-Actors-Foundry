@@ -14,7 +14,7 @@ export function createContextMenuOption(option) {
 	if (game.release.generation < 14) {
 		return {
 			name: option.label,
-			visible: option.condition,
+			condition: option.visible,
 			callback: (target) => option.onClick(null, target),
 		};
 	};

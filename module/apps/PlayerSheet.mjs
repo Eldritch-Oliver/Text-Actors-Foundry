@@ -228,7 +228,7 @@ export class PlayerSheet extends
 			[
 				createContextMenuOption({
 					label: _loc(`taf.misc.edit`),
-					condition: (el) => {
+					visible: (el) => {
 						const itemUuid = el.dataset.itemUuid;
 						const itemExists = itemUuid != null && itemUuid !== ``;
 						return this.isEditable && itemExists;
@@ -237,7 +237,7 @@ export class PlayerSheet extends
 				}),
 				createContextMenuOption({
 					label: _loc(`taf.misc.delete`),
-					condition: (el) => {
+					visible: (el) => {
 						const itemUuid = el.dataset.itemUuid;
 						const itemExists = itemUuid != null && itemUuid !== ``;
 						return this.isEditable && itemExists;

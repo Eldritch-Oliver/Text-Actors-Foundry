@@ -15,7 +15,8 @@
 		{ "name": "Oliver" }
 	],
 	"esmodules": [
-		"module/main.mjs"
+		"module/main.mjs",
+		"dev/dev.mjs"
 	],
 	"styles": [
 		{

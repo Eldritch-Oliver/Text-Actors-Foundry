@@ -1,0 +1,1 @@
+import "./hooks/renderSettings.mjs";

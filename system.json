@@ -2,7 +2,7 @@
 	"id": "taf",
 	"title": "Text-Based Actors",
 	"description": "An intentionally minimalist system that enables you to play rules-light games without getting in your way!",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"download": "",
 	"manifest": "",
 	"url": "https://git.varify.ca/Foundry/taf",
@@ -55,6 +55,7 @@
 	},
 	"socket": true,
 	"flags": {
+		"forgejo_api": "https://git.varify.ca/api/v1",
 		"hotReload": {
 			"extensions": ["css", "hbs", "json", "js", "mjs", "svg"],
 			"paths": ["templates", "langs", "styles", "module", "assets"]

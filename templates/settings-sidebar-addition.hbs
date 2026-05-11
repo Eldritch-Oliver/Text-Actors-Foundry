@@ -1,0 +1,48 @@
+<section class="system flexcol">
+	<h4 class="divider">
+		{{ system.title }}
+	</h4>
+	<div class="version-info">
+		<span class="version">
+			{{localize "taf.misc.version" version=system.version}}
+		</span>
+		<a
+			href="{{ system.url }}/releases/tag/v{{ system.version }}"
+			class="whats-new"
+			target="_blank"
+			rel="noopener noreferrer"
+			style="font-size: smaller"
+		>
+			{{localize "taf.misc.whats-new"}}
+		</a>
+	</div>
+	<ul class="links">
+		<li>
+			<a
+				href="{{ system.url }}/releases"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{{localize "taf.misc.releases"}}
+			</a>
+		</li>
+		<li>
+			<a
+				href="{{ system.url }}/wiki"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{{localize "taf.misc.wiki"}}
+			</a>
+		</li>
+		<li>
+			<a
+				href="{{ system.url }}/issues"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{{localize "taf.misc.issues"}}
+			</a>
+		</li>
+	</ul>
+</section>

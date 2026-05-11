@@ -1,6 +1,6 @@
-import { __ID__, filePath } from "../consts.mjs";
-import { getDefaultSizing } from "../utils/getSizing.mjs";
-import { localizer } from "../utils/localizer.mjs";
+import { __ID__, filePath } from "../../consts.mjs";
+import { getDefaultSizing } from "../../utils/getSizing.mjs";
+import { localizer } from "../../utils/localizer.mjs";
 
 const { diffObject, expandObject, flattenObject } = foundry.utils;
 const { DocumentSheetConfig } = foundry.applications.apps;

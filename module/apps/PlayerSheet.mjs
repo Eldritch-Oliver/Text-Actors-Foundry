@@ -2,7 +2,7 @@ import { __ID__, filePath } from "../consts.mjs";
 import { createContextMenuOption, deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
-import { TAFDocumentSheetConfig } from "./TAFDocumentSheetConfig.mjs";
+import { TAFDocumentSheetConfig } from "./overrides/TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 import { TAFActor } from "../documents/Actor.mjs";
 

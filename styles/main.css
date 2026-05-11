@@ -31,3 +31,4 @@
 @import url("./Apps/PlayerSheet.css") layer(apps);
 @import url("./Apps/QueryStatus.css") layer(apps);
 @import url("./Apps/TAFDocumentSheetConfig.css") layer(apps);
+@import url("./Apps/TAFSettingsSidebar.css") layer(apps);

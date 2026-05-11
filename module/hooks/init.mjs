@@ -26,6 +26,7 @@ import helpers from "../handlebarsHelpers/_index.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { registerCustomComponents } from "../apps/elements/_index.mjs";
 import { registerSockets } from "../sockets/_index.mjs";
+import { TAFSettingsSidebar } from "../apps/overrides/TAFSettingsSidebar.mjs";
 
 Hooks.on(`init`, () => {
 	Logger.debug(`Initializing`);
@@ -43,6 +44,10 @@ Hooks.on(`init`, () => {
 	CONFIG.Item.dataModels.generic = GenericItemData;
 	CONFIG.Item.dataModels.attribute = AttributeItemData;
 	// #endregion Data Models
+
+	// #region App Overrides
+	CONFIG.ui.settings = TAFSettingsSidebar;
+	// #endregion App Overrides
 
 	// #region Sheets
 	foundry.documents.collections.Actors.registerSheet(

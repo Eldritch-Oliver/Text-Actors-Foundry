@@ -160,7 +160,8 @@
 				"migration-in-progress": "Applying data migrations for version {version}. Please do NOT refresh the window while this warning is present."
 			},
 			"success": {
-				"saved-default-attributes": "Successfully saved default Actor attributes",
+				"saved-default-attributes": "Successfully saved default Actor attributes.",
+				"removed-default-attributes": "The default attributes for Actors have been removed.",
 				"migration-successful": "Data migrations for version {version} were successful."
 			}
 		}

@@ -20,6 +20,8 @@ Hooks.on(`renderSettingsConfig`, (app, html) => {
 		button.innerHTML = _loc(`taf.settings.actorDefaultAttributes.label`);
 		button.addEventListener(`click`, () => {
 			game.settings.set(__ID__, `actorDefaultAttributes`, undefined);
+			formGroup.remove();
+			ui.notifications.success(_loc(`taf.notifs.success.removed-default-attributes`));
 		});
 
 		const hint = document.createElement(`p`);

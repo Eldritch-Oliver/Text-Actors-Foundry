@@ -15,6 +15,10 @@
 				"hint": "This removes the default attributes that are applied when a new actor is created, making it so that no attributes get created alongside the actor.",
 				"label": "Remove Attributes"
 			},
+			"betaChannel": {
+				"name": "Beta Release Notifications",
+				"hint": "Whether or not to receive notifications about new beta releases for the system. If left unchecked, you will still receive notifications about new versions, but only for stable versions."
+			},
 			"canPlayersManageAttributes": {
 				"name": "Players Can Manage Attributes",
 				"hint": "This allows players who have edit access to a document to be able to edit what attributes those characters have via the attribute editor"

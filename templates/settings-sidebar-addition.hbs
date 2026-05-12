@@ -45,4 +45,9 @@
 			</a>
 		</li>
 	</ul>
+	{{#if hasNewVersion}}
+		<p>
+			{{localize "taf.misc.new-version-available" version=newVersion}}
+		</p>
+	{{/if}}
 </section>

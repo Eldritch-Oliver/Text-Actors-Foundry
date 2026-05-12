@@ -26,4 +26,10 @@
 			margin: 0;
 		}
 	}
+
+	p {
+		text-align: center;
+		font-size: small;
+		margin: 0;
+	}
 }

@@ -23,6 +23,9 @@
 @import url("./elements/span.css") layer(elements);
 @import url("./elements/table.css") layer(elements);
 
+/* Partials */
+@import url("./misc.css") layer(partials);
+
 /* Apps */
 @import url("./Apps/common.css") layer(apps);
 @import url("./Apps/Ask.css") layer(apps);

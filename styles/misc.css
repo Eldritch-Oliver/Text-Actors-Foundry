@@ -1,0 +1,7 @@
+.taf-chat-version-notif {
+	h2 {
+		font-family: var(--font-body);
+		font-size: 1.5rem;
+		margin: 0;
+	}
+}

@@ -1,0 +1,17 @@
+<div class="taf-chat-version-notif">
+	<h2>
+		{{ system.title }}
+		{{ release.tag_name }}
+	</h2>
+	<p>
+		A new {{ifThen release.prerelease "beta" ""}} version of {{ system.title }} has been released.
+	</p>
+	<a
+		class="button"
+		href="{{ release.html_url }}"
+		target="_blank"
+		rel="noreferrer"
+	>
+		Release Notes
+	</a>
+</div>

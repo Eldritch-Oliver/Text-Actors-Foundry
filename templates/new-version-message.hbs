@@ -4,7 +4,11 @@
 		{{ release.tag_name }}
 	</h2>
 	<p>
-		A new {{ifThen release.prerelease "beta" ""}} version of {{ system.title }} has been released.
+		{{localize
+			"taf.misc.new-version-notification"
+			beta=(ifThen release.prerelease "beta" "")
+			title=system.title
+		}}
 	</p>
 	<a
 		class="button"
@@ -12,6 +16,6 @@
 		target="_blank"
 		rel="noreferrer"
 	>
-		Release Notes
+		{{localize "taf.misc.release-notes"}}
 	</a>
 </div>

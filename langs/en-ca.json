@@ -77,6 +77,8 @@
 			"wiki": "Wiki",
 			"issues": "Issues",
 			"new-version-available": "{version} available now!",
+			"new-version-notification": "A new {beta} version of {title} has been released.",
+			"release-notes": "Release Notes",
 			"item": {
 				"weight": "Weight",
 				"quantity": "Quantity",

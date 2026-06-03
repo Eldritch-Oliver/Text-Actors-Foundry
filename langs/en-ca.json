@@ -6,6 +6,12 @@
 		"Item": {
 			"generic": "Item",
 			"attribute": "Attribute"
+		},
+		"HINTS": {
+			"Item": {
+				"generic": "Represents all physical or conceptual items that your character may possess.",
+				"attribute": "Adds custom data into your character that can be used on tokens."
+			}
 		}
 	},
 	"taf": {

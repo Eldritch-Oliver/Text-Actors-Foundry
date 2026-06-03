@@ -53,7 +53,7 @@ export function TAFDocumentSheetMixin(HandlebarsApplication) {
 		 */
 		_toggleDisabled(disabled) {
 			const form = this.form;
-			if (!this.form) return;
+			if (!this.form) {return}
 			const framed = this.options.window.frame;
 			for (const element of form.elements) {
 
@@ -66,16 +66,16 @@ export function TAFDocumentSheetMixin(HandlebarsApplication) {
 				};
 				// end override
 
-				if (!framed || element.closest(".window-content")) {
+				if (!framed || element.closest(`.window-content`)) {
 					element.disabled = disabled;
 				};
 			};
-			const contentEl = framed ? form.querySelector(".window-content") : form;
-			for (const input of contentEl.querySelectorAll("input[type=image]") ) {
+			const contentEl = framed ? form.querySelector(`.window-content`) : form;
+			for (const input of contentEl.querySelectorAll(`input[type=image]`) ) {
 				input.disabled = disabled; // By specification, these are not included in a HTMLFormControlsCollection
 			};
-			for (const img of contentEl.querySelectorAll("img[data-edit]")) {
-				img.classList.toggle("disabled", disabled);
+			for (const img of contentEl.querySelectorAll(`img[data-edit]`)) {
+				img.classList.toggle(`disabled`, disabled);
 			};
 		};
 

@@ -1,0 +1,77 @@
+<img src="https://git.varify.ca/Foundry/taf/raw/branch/main/.promo/banner.webp" alt="">
+<p>
+	Text-Based Actors is an intentionally minimalist system designed to stay out
+	of your way to allow to get right into playing the game!
+</p>
+
+<p>
+	The guiding principle of this system is that you should be able to use it
+	instead of using a physical character sheet. So without automating stuff yourself,
+	there is no character-creation helpers and no dice automation (beyond what FoundryVTT
+	provides on it's own); you need to fill everything out yourself as if you were
+	filling in a piece of paper.
+</p>
+
+<h2>Actor Sheets</h2>
+<div style="display: flex; flex-direction: row; gap: 16px">
+	<div>
+		<h3>Default Sheet</h3>
+		<p>
+			The default sheet allows you to have both a read mode and an editing mode
+			for your characters. This is most useful if you don't need to be changing
+			your character information very often.
+		</p>
+
+		<h3>Always-Editing Player Sheet</h3>
+		<p>
+			This sheet always has the text editor in "edit mode", useful for characters
+			you'll be changing frequently.
+		</p>
+	</div>
+
+	<img src="https://git.varify.ca/Foundry/taf/raw/branch/main/.promo/base-sheet.webp" alt="A screenshot of Ganon's character sheet with three tabs, focused on the Content tab which has a description box in read-mode with some example text in it">
+</div>
+
+<h3>Textless Sheet</h3>
+<div style="display: flex; flex-direction: row; gap: 16px">
+	<div>
+		<p>
+			This sheet is helpful if your characters can be represented exclusively
+			by attributes and items without needing any custom text.
+		</p>
+		<p>
+			The main benefit of this sheet is that it is smaller than any of the other
+			sheets due to not having the big text box on it, so it can save precious
+			screen space.
+		</p>
+	</div>
+
+	<img src="https://git.varify.ca/Foundry/taf/raw/branch/main/.promo/attribute-only-sheet.webp" alt="A screenshot of Ganon's character sheet with two tabs, focused on the Items tab which has a carry capacity set to unlimited, and a single Longsword item that is currently equipped">
+</div>
+
+<h2>Attributes</h2>
+<p>
+	Attributes are a special type of item in Text-Based Actors, they are used by the
+	system to allow you to create custom data for the character (e.g. health total,
+	strength modifier). These can then be used on tokens and in macros and roll
+	commands in order to provide data that is available all of the time
+</p>
+
+<h2>Items</h2>
+<p>
+	There is a basic item system which lets you provide an inventory for your
+	character. Once an Actors owns at least one item, a new tab will appear on
+	their sheet that lists all of the items as well as how much weight they can
+	carry. These items allow providing a description as well as providing a macro
+	that can be used to have automation for specific items as desired.
+</p>
+
+<h2>Automation</h2>
+<p>
+	Due to the minimalist nature of the system, there is no automation included
+	in the system by default, if you want to add automation to Attributes or Items
+	you can do so with macros. You can read more about how that works in the
+	<a href="https://git.varify.ca/Foundry/taf/wiki/Attribute-and-Item-Automation">
+		Attribute and Item Automation wiki page
+	</a>.
+</p>

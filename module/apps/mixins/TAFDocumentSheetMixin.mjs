@@ -39,6 +39,46 @@ export function TAFDocumentSheetMixin(HandlebarsApplication) {
 			this._attachEmbeddedChangeListeners();
 		};
 
+		/**
+		 * @override
+		 * Disable or reenable all form fields in this application.
+		 *
+		 * This override is to make is to make it so that elements only get disabled
+		 * if it:
+		 *   - has no indicated permission level
+		 *   - the user does not have the required permission level indicated
+		 *
+		 * @param {boolean} disabled Should the fields be disabled?
+		 * @protected
+		 */
+		_toggleDisabled(disabled) {
+			const form = this.form;
+			if (!this.form) return;
+			const framed = this.options.window.frame;
+			for (const element of form.elements) {
+
+				// override: This is the only section that I added
+				const { requiredPermission } = element.dataset ?? {};
+				const requiredLevel = CONST.DOCUMENT_OWNERSHIP_LEVELS[requiredPermission]
+					?? CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;
+				if (requiredLevel <= this.document.permission) {
+					continue;
+				};
+				// end override
+
+				if (!framed || element.closest(".window-content")) {
+					element.disabled = disabled;
+				};
+			};
+			const contentEl = framed ? form.querySelector(".window-content") : form;
+			for (const input of contentEl.querySelectorAll("input[type=image]") ) {
+				input.disabled = disabled; // By specification, these are not included in a HTMLFormControlsCollection
+			};
+			for (const img of contentEl.querySelectorAll("img[data-edit]")) {
+				img.classList.toggle("disabled", disabled);
+			};
+		};
+
 		_attachEmbeddedChangeListeners() {
 			/** @type {HTMLElement[]} */
 			const elements = this.element.querySelectorAll(`[data-foreign-name]`);

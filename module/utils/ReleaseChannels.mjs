@@ -49,7 +49,7 @@ export async function checkForNewReleases() {
 		},
 	);
 	ChatMessage.implementation.create({
-		whisper: [ game.user.id ],
+		whisper: game.users.filter(u => u.isGM).map(u => u.id),
 		content,
 	});
 

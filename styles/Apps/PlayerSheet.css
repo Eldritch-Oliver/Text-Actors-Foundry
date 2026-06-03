@@ -274,6 +274,7 @@
 
 		&:not(:has(> prose-mirror)) {
 			padding: 0.5rem;
+			overflow: auto;
 		}
 	}
 

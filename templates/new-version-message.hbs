@@ -1,0 +1,21 @@
+<div class="taf-chat-version-notif">
+	<h2>
+		{{ system.title }}
+		{{ release.tag_name }}
+	</h2>
+	<p>
+		{{localize
+			"taf.misc.new-version-notification"
+			beta=(ifThen release.prerelease "beta" "")
+			title=system.title
+		}}
+	</p>
+	<a
+		class="button"
+		href="{{ release.html_url }}"
+		target="_blank"
+		rel="noreferrer"
+	>
+		{{localize "taf.misc.release-notes"}}
+	</a>
+</div>

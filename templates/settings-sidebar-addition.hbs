@@ -10,7 +10,7 @@
 			href="{{ system.url }}/releases/tag/v{{ system.version }}"
 			class="whats-new"
 			target="_blank"
-			rel="noopener noreferrer"
+			rel="noreferrer"
 			style="font-size: smaller"
 		>
 			{{localize "taf.misc.whats-new"}}
@@ -21,7 +21,7 @@
 			<a
 				href="{{ system.url }}/releases"
 				target="_blank"
-				rel="noopener noreferrer"
+				rel="noreferrer"
 			>
 				{{localize "taf.misc.releases"}}
 			</a>
@@ -30,7 +30,7 @@
 			<a
 				href="{{ system.url }}/wiki"
 				target="_blank"
-				rel="noopener noreferrer"
+				rel="noreferrer"
 			>
 				{{localize "taf.misc.wiki"}}
 			</a>
@@ -39,10 +39,15 @@
 			<a
 				href="{{ system.url }}/issues"
 				target="_blank"
-				rel="noopener noreferrer"
+				rel="noreferrer"
 			>
 				{{localize "taf.misc.issues"}}
 			</a>
 		</li>
 	</ul>
+	{{#if hasNewVersion}}
+		<p>
+			{{localize "taf.misc.new-version-available" version=newVersion}}
+		</p>
+	{{/if}}
 </section>

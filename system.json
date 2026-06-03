@@ -55,7 +55,6 @@
 	},
 	"socket": true,
 	"flags": {
-		"forgejo_api": "https://git.varify.ca/api/v1",
 		"hotReload": {
 			"extensions": ["css", "hbs", "json", "js", "mjs", "svg"],
 			"paths": ["templates", "langs", "styles", "module", "assets"]

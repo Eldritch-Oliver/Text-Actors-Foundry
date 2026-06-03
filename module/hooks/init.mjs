@@ -18,6 +18,7 @@ import { TAFMacro } from "../documents/Macro.mjs";
 import { TAFTokenDocument } from "../documents/Token.mjs";
 
 // Settings
+import { registerReleaseSettings } from "../utils/ReleaseChannels.mjs";
 import { registerWorldSettings } from "../settings/world.mjs";
 
 // Utils
@@ -89,6 +90,7 @@ Hooks.on(`init`, () => {
 	);
 	// #endregion Sheets
 
+	registerReleaseSettings();
 	registerWorldSettings();
 
 	registerSockets();

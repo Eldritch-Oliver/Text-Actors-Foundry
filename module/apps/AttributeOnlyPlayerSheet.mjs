@@ -1,3 +1,4 @@
+import { Logger } from "../utils/Logger.mjs";
 import { PlayerSheet } from "./PlayerSheet.mjs";
 
 const { deepClone } = foundry.utils;
@@ -29,13 +30,30 @@ export class AttributeOnlyPlayerSheet extends PlayerSheet {
 
 	// #region Instance Data
 	/**
-	 * This method is used in order to ensure that when we hide specific
-	 * tabs due to programmatic logic (e.g. having no items), that the tab
-	 * doesn't stay selected in the app if the logic for it being visible
-	 * no longer holds true.
+	 * @override
+	 * @inheritdoc
 	 */
 	_assertSelectedTabs() {
-		// Intentional No-Op Function
+		const initial = this.constructor.TABS.primary.initial;
+
+		// change off item tab
+		if (
+			this.tabGroups.primary === `items`
+			&& !this.hasItemsTab
+		) {
+			Logger.debug(`Asserting app "${this.id}" from tab "items" to "${initial}"`);
+			this.tabGroups.primary = initial;
+		}
+
+		// change to item tab
+		else if (
+			this.tabGroups.primary === `attributes`
+			&& !this.hasAttributesTab
+			&& this.hasItemsTab
+		) {
+			Logger.debug(`Asserting app "${this.id}" from tab "attributes" to "items"`);
+			this.tabGroups.primary = `items`;
+		};
 	};
 
 	get hasContentTab() {

@@ -5,6 +5,7 @@ const { debounce } = foundry.utils;
 export class TafToggle extends StyledShadowElement(HTMLElement) {
 	static elementName = `taf-toggle`;
 	static formAssociated = true;
+	static observedAttributes = [`disabled`];
 
 	static _stylePath = `toggle.css`;
 
@@ -77,6 +78,7 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 		const container = document.createElement(`div`);
 		container.classList = `toggle`;
 		container.dataset.type = `round`;
+		container.classList.toggle(`disabled`, this.disabled);
 
 		const input = this._input = document.createElement(`input`);
 		input.type = `checkbox`;
@@ -105,6 +107,15 @@ export class TafToggle extends StyledShadowElement(HTMLElement) {
 		super.disconnectedCallback();
 		if (!this._mounted) { return };
 		this._mounted = false;
+	};
+
+	/**
+	 * This method handles listening for the disabled attribute on the main custom
+	 * element so that we can forward the state into the specific input element.
+	 */
+	attributeChangedCallback(attr, oldVal, newVal) {
+		if (oldVal === newVal) { return };
+		this._input.disabled = newVal === ``;
 	};
 
 	#emitEvents = debounce(

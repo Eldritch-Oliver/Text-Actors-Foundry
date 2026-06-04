@@ -33,23 +33,31 @@ input {
 	box-sizing: border-box;
 	cursor: pointer;
 
-	/* Non-checked, clicking */
-	&:is(&:active, &.active) .slider {
-		width: calc(var(--size, 16px) * 1.5);
+	&:has(:disabled) {
+		cursor: not-allowed;
+		opacity: 75%;
 	}
 
-	/* checked, non-clicking */
-	& > :checked + .slider {
-		transform: translateX(var(--size, 16px));
-		background: var(
-			--slider-checked-colour,
-			var(--toggle-slider-checked-colour)
-		);
+	&:not(:has(input:disabled)) {
+		/* Non-checked, clicking */
+		&:is(&:active, &.active) .slider {
+			width: calc(var(--size, 16px) * 1.5);
+		}
+
+		/* checked, non-clicking */
+		& > :checked + .slider {
+			transform: translateX(var(--size, 16px));
+			background: var(
+				--slider-checked-colour,
+				var(--toggle-slider-checked-colour)
+			);
+		}
+
+		/* checked, clicking */
+		&:is(&:active, &.active) > :checked + .slider {
+			width: calc(var(--size, 16px) * 1.5);
+			transform: translateX(calc(var(--size, 16px) * 0.5));
 	}
 
-	/* checked, clicking */
-	&:is(&:active, &.active) > :checked + .slider {
-		width: calc(var(--size, 16px) * 1.5);
-		transform: translateX(calc(var(--size, 16px) * 0.5));
 	}
 }

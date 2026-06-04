@@ -2,9 +2,9 @@ import { __ID__, filePath } from "../consts.mjs";
 import { createContextMenuOption, deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
+import { TAFActor } from "../documents/Actor.mjs";
 import { TAFDocumentSheetConfig } from "./overrides/TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
-import { TAFActor } from "../documents/Actor.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -108,11 +108,15 @@ export class PlayerSheet extends
 	 */
 	_assertSelectedTabs() {
 		const initial = this.constructor.TABS.primary.initial;
+
+		// change off item tab
 		if (this.tabGroups.primary === `items` && !this.hasItemsTab) {
 			Logger.debug(`Asserting app "${this.id}" from tab "items" to "${initial}"`);
 			this.tabGroups.primary = initial;
-		};
-		if (this.tabGroups.primary === `attributes` && !this.hasAttributesTab) {
+		}
+
+		// change off attributes tab
+		else if (this.tabGroups.primary === `attributes` && !this.hasAttributesTab) {
 			Logger.debug(`Asserting app "${this.id}" from tab "attributes" to "${initial}"`);
 			this.tabGroups.primary = initial;
 		};

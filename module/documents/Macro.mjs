@@ -32,6 +32,7 @@ export class TAFMacro extends foundry.documents.Macro {
 			content += `<p style="margin: 0;">${extraInfo}</p>`;
 		};
 
+		options ??= {};
 		options.content = content;
 		return super.deleteDialog(options, operation);
 	};

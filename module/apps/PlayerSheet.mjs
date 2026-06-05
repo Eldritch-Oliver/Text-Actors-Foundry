@@ -373,7 +373,7 @@ export class PlayerSheet extends
 
 			ctx.itemGroups.push({
 				name: groupName.titleCase(),
-				items: preparedItems,
+				items: preparedItems.sort((a, b) => a.sort - b.sort),
 				weight: config.weightFormatter(summedWeight),
 			});
 		};
@@ -386,7 +386,9 @@ export class PlayerSheet extends
 	async _prepareItem(item) {
 		if (item.type !== `generic`) { return };
 		const ctx = {
+			id: item.id,
 			uuid: item.uuid,
+			sort: item.sort,
 			img: item.img,
 			name: item.name,
 			equipped: item.system.equipped,

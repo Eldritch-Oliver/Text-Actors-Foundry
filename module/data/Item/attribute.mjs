@@ -124,6 +124,34 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 	};
 
 	/**
+	 * Handle creating the required drag and drop data so that the macro can create
+	 * a shortcut to activate the item's Macro instead of opening the document sheet
+	 * for it. This is only called when the item is dropped on one the hotbar slots.
+	 *
+	 * @returns An optional drag data object used to create hotbar macros
+	 */
+	toHotbarDropData() {
+		if (!this.trigger || !this.parent.isEmbedded) { return {} };
+
+		const item = this.parent;
+		return {
+			type: `Macro`,
+			uuid: undefined,
+			data: {
+				type: `script`,
+				name: `Roll ${item.name} for ${item.parent.name}`,
+				img: item.img,
+				command: `const item = await fromUuid("${this.parent.uuid}");\nawait item.system.execute();`,
+				flags: {
+					[__ID__]: {
+						createdForHotbar: true,
+					},
+				},
+			},
+		};
+	};
+
+	/**
 	 * Executes the macro associated with this item, if the macro cannot be
 	 * found or if the user does not permission to execute it, it will not be
 	 * executed. This also provides some extra context into the roll data for chat

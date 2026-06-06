@@ -1,3 +1,7 @@
+import { __ID__ } from "../consts.mjs";
+
+const { getProperty } = foundry.utils;
+
 export class TAFMacro extends foundry.documents.Macro {
 	async deleteDialog(options, operation) {
 		const itemsUsingMacro = new Set();
@@ -35,5 +39,25 @@ export class TAFMacro extends foundry.documents.Macro {
 		options ??= {};
 		options.content = content;
 		return super.deleteDialog(options, operation);
+	};
+
+	async _preCreate(data, options, user) {
+		if (getProperty(data, `flags.${__ID__}.createdForHotbar`)) {
+			const name = _loc(`taf.misc.auto-generated-macros`);
+			let folder = game.folders.getName(name);
+			folder ??= await foundry.documents.Folder.implementation.create({ name, type: `Macro` });
+			const update = { folder: folder.id };
+
+			// Remove with issue: Foundry/taf#54
+			// v13/v14+ compatibility shim
+			if (game.release.generation > 13) {
+				update[`flags.${__ID__}.createdForHotbar`] = _del;
+			} else {
+				update[`flags.${__ID__}.-=createdForHotbar`] = null;
+			};
+
+			this.updateSource(update);
+		};
+		return super._preCreate(data, options, user);
 	};
 };

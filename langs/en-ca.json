@@ -63,6 +63,7 @@
 			"AttributeItemSheet": "Attribute Sheet"
 		},
 		"misc": {
+			"auto-generated-macros": "Auto-Generated Macros",
 			"Key": "Key",
 			"Value": "Value",
 			"no-data-submitted": "No data submitted",

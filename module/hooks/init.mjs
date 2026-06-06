@@ -4,6 +4,8 @@ import { AttributeOnlyPlayerSheet } from "../apps/AttributeOnlyPlayerSheet.mjs";
 import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
+import { TAFHotbar } from "../apps/overrides/TAFHotbar.mjs";
+import { TAFSettingsSidebar } from "../apps/overrides/TAFSettingsSidebar.mjs";
 
 // Data Models
 import { AttributeItemData } from "../data/Item/attribute.mjs";
@@ -27,7 +29,6 @@ import helpers from "../handlebarsHelpers/_index.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { registerCustomComponents } from "../apps/elements/_index.mjs";
 import { registerSockets } from "../sockets/_index.mjs";
-import { TAFSettingsSidebar } from "../apps/overrides/TAFSettingsSidebar.mjs";
 
 Hooks.on(`init`, () => {
 	Logger.debug(`Initializing`);
@@ -48,6 +49,7 @@ Hooks.on(`init`, () => {
 
 	// #region App Overrides
 	CONFIG.ui.settings = TAFSettingsSidebar;
+	CONFIG.ui.hotbar = TAFHotbar;
 	// #endregion App Overrides
 
 	// #region Sheets

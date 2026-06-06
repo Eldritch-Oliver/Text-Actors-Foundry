@@ -1,3 +1,4 @@
+import { __ID__ } from "../../consts.mjs";
 import { toPrecision } from "../../utils/roundToPrecision.mjs";
 
 export class GenericItemData extends foundry.abstract.TypeDataModel {
@@ -44,6 +45,34 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 	get quantifiedWeight() {
 		const value = this.weight * this.quantity;
 		return toPrecision(Math.max(value, 0), 2);
+	};
+
+	/**
+	 * Handle creating the required drag and drop data so that the macro can create
+	 * a shortcut to activate the item's Macro instead of opening the document sheet
+	 * for it. This is only called when the item is dropped on one the hotbar slots.
+	 *
+	 * @returns An optional drag data object used to create hotbar macros
+	 */
+	toHotbarDropData() {
+		if (!this.trigger || !this.parent.isEmbedded) { return {} };
+
+		const item = this.parent;
+		return {
+			type: `Macro`,
+			uuid: undefined,
+			data: {
+				type: `script`,
+				name: `Roll ${item.name} for ${item.parent.name}`,
+				img: item.img,
+				command: `const item = await fromUuid("${this.parent.uuid}");\nawait item.system.execute();`,
+				flags: {
+					[__ID__]: {
+						createdForHotbar: true,
+					},
+				},
+			},
+		};
 	};
 
 	/**

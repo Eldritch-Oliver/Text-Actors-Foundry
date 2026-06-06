@@ -24,6 +24,7 @@ export default [
 				foundry: `readonly`,
 				Actor: `readonly`,
 				Item: `readonly`,
+				Folder: `readonly`,
 				ChatMessage: `readonly`,
 				ActiveEffect: `readonly`,
 				fromUuid: `readonly`,

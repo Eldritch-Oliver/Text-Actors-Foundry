@@ -45,7 +45,7 @@ export class TAFMacro extends foundry.documents.Macro {
 		if (getProperty(data, `flags.${__ID__}.createdForHotbar`)) {
 			const name = _loc(`taf.misc.auto-generated-macros`);
 			let folder = game.folders.getName(name);
-			folder ??= await foundry.documents.Folder.implementation.create({ name, type: `Macro` });
+			folder ??= await Folder.create({ name, type: `Macro` });
 			const update = { folder: folder.id };
 
 			// Remove with issue: Foundry/taf#54

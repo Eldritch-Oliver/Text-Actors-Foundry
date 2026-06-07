@@ -141,7 +141,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 				type: `script`,
 				name: _loc(
 					`taf.misc.attribute-trigger-hotbar-macro-name`,
-					{ itemName: item.name, actorName: item.parent.name },
+					{ attrName: item.name, actorName: item.parent.name },
 				),
 				img: item.img,
 				command: `const item = await fromUuid("${this.parent.uuid}");\nawait item.system.execute();`,

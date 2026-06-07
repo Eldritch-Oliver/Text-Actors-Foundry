@@ -2,6 +2,8 @@
 	<div class="attributes">
 		{{#each attrs as | attr |}}
 			<fieldset
+				class="draggable"
+				data-item-id="{{id}}"
 				data-item-uuid="{{ attr.uuid }}"
 				data-foreign-uuid="{{ attr.uuid }}"
 			>

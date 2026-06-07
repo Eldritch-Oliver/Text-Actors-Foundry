@@ -2,6 +2,7 @@ import { __ID__, filePath } from "../consts.mjs";
 import { createContextMenuOption, deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
+import { SortedArray } from "../utils/SortedArray.mjs";
 import { TAFActor } from "../documents/Actor.mjs";
 import { TAFDocumentSheetConfig } from "./overrides/TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
@@ -298,15 +299,14 @@ export class PlayerSheet extends
 		const attrs = this.actor.itemTypes.attribute ?? [];
 		const filtered = attrs.filter(attr => attr.system.aboveTheFold);
 		ctx.hasAttributes = filtered.length > 0;
-		ctx.attrs = filtered;
+		ctx.attrs = filtered.sort((a, b) => a.sort - b.sort);
 	};
 
 	async _prepareAttributesTab(ctx) {
 		ctx.tabActive = this.tabGroups.primary === `attributes`;
 
 		const groups = new Map();
-		const attrs = (this.actor.itemTypes.attribute ?? [])
-			.toSorted((a, b) => a.name.localeCompare(b.name));
+		const attrs = (this.actor.itemTypes.attribute ?? []);
 		for (const attr of attrs) {
 			if (attr.system.aboveTheFold) { continue };
 
@@ -314,7 +314,7 @@ export class PlayerSheet extends
 			if (!groups.has(groupName)) {
 				groups.set(groupName, {
 					name: groupName.titleCase(),
-					attrs: [],
+					attrs: new SortedArray(),
 					collapsed: false,
 				});
 			};
@@ -322,7 +322,8 @@ export class PlayerSheet extends
 
 			group.attrs.push(attr);
 		};
-		ctx.attrGroups = [...groups.values()].toSorted((a, b) => a.name.localeCompare(b.name));
+		ctx.attrGroups = Array.from(groups.values())
+			.sort((a, b) => a.name.localeCompare(b.name));
 	};
 
 	async _prepareTabList(ctx) {

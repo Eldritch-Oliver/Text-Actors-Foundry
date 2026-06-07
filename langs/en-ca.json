@@ -64,6 +64,8 @@
 		},
 		"misc": {
 			"auto-generated-macros": "Auto-Generated Macros",
+			"item-trigger-hotbar-macro-name": "Roll {itemName} for {actorName}",
+			"attribute-trigger-hotbar-macro-name": "Roll {attrName} for {actorName}",
 			"Key": "Key",
 			"Value": "Value",
 			"no-data-submitted": "No data submitted",

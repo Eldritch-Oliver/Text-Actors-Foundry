@@ -63,7 +63,10 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 			uuid: undefined,
 			data: {
 				type: `script`,
-				name: `Roll ${item.name} for ${item.parent.name}`,
+				name: _loc(
+					`taf.misc.item-trigger-hotbar-macro-name`,
+					{ itemName: item.name, actorName: item.parent.name },
+				),
 				img: item.img,
 				command: `const item = await fromUuid("${this.parent.uuid}");\nawait item.system.execute();`,
 				flags: {

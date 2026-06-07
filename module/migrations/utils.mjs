@@ -28,6 +28,7 @@ export async function migrateCollection(
 			const update = convertor(doc, options) ?? {};
 			update[`_id`] = doc._id;
 
+			// Remove with issue: Foundry/taf#54
 			// v13/v14+ compatibility shim
 			if (game.release.generation > 13) {
 				update[`flags.${__ID__}.${flag}`] = _del;

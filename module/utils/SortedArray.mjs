@@ -38,5 +38,6 @@ export class SortedArray extends Array {
 				};
 			};
 		};
+		return this.length;
 	};
 };

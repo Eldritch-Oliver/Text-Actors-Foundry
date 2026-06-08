@@ -101,6 +101,14 @@ function handleMigratingActor(actor, options) {
 		};
 	};
 
+	// Remove with issue: Foundry/taf#54
+	// v13 compatibility shim
+	if (game.release.generation <= 13) {
+		return {
+			"system.-=attr": null,
+		};
+	};
+
 	return {
 		"system.attr": _del,
 	};

@@ -34,7 +34,7 @@ jobs:
         run: node scripts/src/prepareManifest.mjs
         env:
           DOWNLOAD_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/v${{steps.version.outputs.version}}/release.zip"
-          LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/latest/system.json"
+          LATEST_URL: "${{forgejo.server_url}}/${{forgejo.repository}}/releases/download/latest/${{env.MANIFEST}}"
 
       - name: Compress files
         run: zip -r release.zip langs module styles templates README.md assets LICENSE ${{env.MANIFEST}}

@@ -23,6 +23,9 @@ import { TAFTokenDocument } from "../documents/Token.mjs";
 import { registerReleaseSettings } from "../utils/ReleaseChannels.mjs";
 import { registerWorldSettings } from "../settings/world.mjs";
 
+// Enrichers
+import * as Trigger from "../enrichers/trigger.mjs";
+
 // Utils
 import { __ID__ } from "../consts.mjs";
 import helpers from "../handlebarsHelpers/_index.mjs";
@@ -51,6 +54,12 @@ Hooks.on(`init`, () => {
 	CONFIG.ui.settings = TAFSettingsSidebar;
 	CONFIG.ui.hotbar = TAFHotbar;
 	// #endregion App Overrides
+
+	// #region Enrichers
+	CONFIG.TextEditor.enrichers = [
+		Trigger,
+	];
+	// #endregion Enrichers
 
 	// #region Sheets
 	foundry.documents.collections.Actors.registerSheet(

@@ -1,6 +1,7 @@
 import { __ID__ } from "../consts.mjs";
+import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 
-const { NumberField, StringField } = foundry.data.fields;
+const { ArrayField, NumberField, StringField } = foundry.data.fields;
 
 export function registerWorldSettings() {
 
@@ -67,6 +68,19 @@ export function registerWorldSettings() {
 			},
 		}),
 		scope: `world`,
+	});
+
+	game.settings.register(__ID__, `itemGroupOrder`, {
+		config: false,
+		type: new ArrayField(new StringField({ blank: false, trim: true })),
+		scope: `world`,
+		onChange() {
+			for (const [_id, app] of foundry.applications.instances) {
+				if (app instanceof PlayerSheet) {
+					app.render({parts: [`items`]});
+				};
+			};
+		},
 	});
 
 	game.settings.register(__ID__, `actorDefaultAttributes`, {

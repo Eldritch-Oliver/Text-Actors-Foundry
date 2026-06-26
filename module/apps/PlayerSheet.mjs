@@ -356,7 +356,7 @@ export class PlayerSheet extends
 
 		let totalWeight = 0;
 
-		ctx.itemGroups = [];
+		const groups = {};
 		for (const [groupName, items] of Object.entries(this.actor.itemTypes)) {
 
 			// We don't care about attribute items here
@@ -372,13 +372,29 @@ export class PlayerSheet extends
 			};
 			totalWeight += summedWeight;
 
-			ctx.itemGroups.push({
+			groups[groupName.toLowerCase()] = {
 				name: groupName.titleCase(),
 				items: preparedItems.sort((a, b) => a.sort - b.sort),
 				weight: config.weightFormatter(summedWeight),
-			});
+			};
 		};
 
+		const sortedGroups = [];
+		/** @type {Array<string>} */
+		const groupOrder = game.settings.get(__ID__, `itemGroupOrder`);
+		for (const groupName of groupOrder) {
+			const group = groups[groupName.toLowerCase()];
+			if (group) {
+				sortedGroups.push(group);
+			};
+			delete groups[groupName.toLowerCase()];
+		};
+		sortedGroups.push(
+			...Object.values(groups)
+				.sort((a, b) => a.name.localeCompare(b.name)),
+		);
+
+		ctx.itemGroups = sortedGroups;
 		ctx.totalWeight = config.weightFormatter(totalWeight);
 		ctx.hasCarryingCapacity = this.actor.system.carryCapacity != null;
 		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);

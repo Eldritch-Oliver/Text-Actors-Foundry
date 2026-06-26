@@ -253,6 +253,10 @@ export class PlayerSheet extends
 			{ jQuery: false, fixed: true },
 		);
 	};
+
+	_canDragStart() {
+		return this.isEditable;
+	};
 	// #endregion Lifecycle
 
 	// #region Data Prep

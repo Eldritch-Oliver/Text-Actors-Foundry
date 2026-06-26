@@ -164,7 +164,7 @@
 				"missing-id": "An ID must be provided",
 				"invalid-socket": "Invalid socket data received, this means a module or system bug is present.",
 				"unknown-socket-event": "An unknown socket event was received: {event}",
-				"duplicate-attribute-key": "Cannot create an Attribute with a key (\"{key}\") that already exists on the Actor",
+				"duplicate-attribute-key": "Cannot {action} Attribute with a key (\"{key}\") that already exists on the Actor.",
 				"invalid-attribute-key": "Attribute keys must be alphanumeric (a-z, 0-9) with underscores, invalid key provided: \"{key}\"",
 				"cant-manage-attributes": "You aren't allowed to manage attributes. Talk to your GM for permission or to get them to add the attribute for you."
 			},

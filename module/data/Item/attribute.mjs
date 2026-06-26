@@ -75,13 +75,10 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 		if (this.parent.isEmbedded) {
 			const attr = this.parent.parent?.getAttribute(this.key);
 			if (attr) {
-				ui.notifications.error(
+				ui.notifications.error(_loc(
 					`taf.notifs.error.duplicate-attribute-key`,
-					{
-						localize: true,
-						format: { key: this.key },
-					},
-				);
+					{ action: `create`, key: this.key },
+				));
 				return false;
 			};
 		};
@@ -94,12 +91,26 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 		if (allowed === false) { return false };
 
 		// Prevent invalid IDs
-		if (hasProperty(data, `system.key`) && !isValidID(data.system.key)) {
-			ui.notifications.error(_loc(
-				`taf.notifs.error.invalid-attribute-key`,
-				{ key: data.system.key },
-			));
-			delete data.system?.key;
+		if (hasProperty(data, `system.key`)) {
+			if (!isValidID(data.system.key)) {
+				ui.notifications.error(_loc(
+					`taf.notifs.error.invalid-attribute-key`,
+					{ key: data.system.key },
+				));
+				delete data.system?.key;
+			};
+
+			// We only care about preventing duplicate keys when it's on an actor
+			if (this.isOwned) {
+				const attr = this.parent.parent.getAttribute(data.system.key);
+				if (attr.id !== this.parent.id) {
+					ui.notifications.error(_loc(
+						`taf.notifs.error.duplicate-attribute-key`,
+						{ action: `update`, key: data.system.key },
+					));
+					delete data.system?.key;
+				};
+			};
 		};
 
 		// Prevent value going out of the bounds of min/max

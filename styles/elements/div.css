@@ -16,4 +16,8 @@
 			background: var(--chip-value-background);
 		}
 	}
+
+	&.contents-only {
+		display: contents;
+	}
 }

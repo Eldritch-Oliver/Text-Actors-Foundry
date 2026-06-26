@@ -23,4 +23,14 @@
 		min="{{ system.inferredMinimum }}"
 		max="{{ system.max }}"
 	>
+	{{#if system.showMax}}
+		<span aria-hidden="true">/</span>
+		<input
+			type="number"
+			id="{{uuid}}-max"
+			data-foreign-uuid="{{uuid}}"
+			data-foreign-name="system.max"
+			value="{{ system.max }}"
+		>
+	{{/if}}
 </li>

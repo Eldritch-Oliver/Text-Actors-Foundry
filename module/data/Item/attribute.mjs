@@ -41,6 +41,10 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 			max: new fields.NumberField({
 				integer: true,
 			}),
+			/* Whether or not the maximum number input is shown on the sheet */
+			showMax: new fields.BooleanField({
+				initial: false,
+			}),
 		};
 	};
 

@@ -100,6 +100,7 @@
 					"label": "Identifier",
 					"hint": "This is the computer-friendly name for the attribute. When accessing the attribute in rolls, this is the name you will need to use. Changing this will most likely break any existing macros you have."
 				},
+				"show-maximum": "Show Maximum on Actor",
 				"always-visible": "Always Visible",
 				"minimum": "Minimum",
 				"current-value": "Current Value",

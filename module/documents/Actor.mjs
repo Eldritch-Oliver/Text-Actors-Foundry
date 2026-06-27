@@ -1,12 +1,34 @@
 import { __ID__ } from "../consts.mjs";
+import { ask } from "../utils/DialogManager.mjs";
 import { clamp } from "../utils/clamp.mjs";
 
 const { Actor } = foundry.documents;
-const { deepClone, setProperty } = foundry.utils;
+const { deepClone, diffObject, hasProperty, setProperty } = foundry.utils;
 
 export class TAFActor extends Actor {
 
 	// #region Lifecycle
+	/**
+	 * Ensure that the relevant prototype token properties get updated whenever
+	 * the actor properties are updated so that they stay in sync UNLESS the
+	 * prototype token already differs from the actor's value.
+	 */
+	async _preUpdate(data, options, user) {
+		const diff = diffObject(this._source, data);
+
+		// Name
+		if (hasProperty(diff, `name`) && this.prototypeToken.name === this.name) {
+			setProperty(data, `prototypeToken.name`, diff.name);
+		};
+
+		// Image
+		if (hasProperty(diff, `img`) && this.prototypeToken.texture.src === this.img) {
+			setProperty(data, `prototypeToken.texture.src`, diff.img);
+		};
+
+		return super._preUpdate(data, options, user);
+	};
+
 	/**
 	 * This resets the cache of the item groupings whenever a descedant document
 	 * gets changed (created, updated, deleted) so that we keep the cache as close
@@ -22,8 +44,40 @@ export class TAFActor extends Actor {
 	 * being cloned or created from nothing. This allows for easy one-time operations
 	 * that should be performed during Actor creation but not duplication to occur.
 	 */
-	clone(data, context) {
+	async clone(data, context) {
 		context.cloning = true;
+
+		const response = await ask(
+			{
+				id: `cloning-${this.id}`,
+				window: {
+					title: _loc(
+						`taf.misc.duplicate-type`,
+						{ type: _loc(this.constructor.metadata.label) },
+					),
+				},
+				inputs: [
+					{
+						key: `name`,
+						type: `input`,
+						inputType: `text`,
+						label: _loc(`DOCUMENT.FIELDS.name.label`),
+						defaultValue: data.name ?? ``,
+					},
+				],
+			},
+			{
+				onlyOneWaiting: true,
+				alwaysUseAnswerObject: true,
+			},
+		);
+		if (response.state !== `prompted` || !response.answers) { return };
+
+		const newName = response.answers.name;
+		data.name = newName;
+		data.prototypeToken ??= {};
+		data.prototypeToken.name = newName;
+
 		return super.clone(data, context);
 	};
 	// #endregion Lifecycle

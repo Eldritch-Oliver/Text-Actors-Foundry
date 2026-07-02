@@ -3,6 +3,8 @@ This is an intentionally bare-bones system that features a text-only character
 sheet, allowing the playing of games that may not otherwise have a Foundry system
 implementation.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O1R222FSP7)
+
 ## Unlisted Releases
 Some of the versions of Text-Based Actors are not available in the [Releases list](https://git.varify.ca/Foundry/taf/releases),
 these versions are installable manually by using the appropriate manifest link

@@ -32,4 +32,9 @@
 		font-size: small;
 		margin: 0;
 	}
+
+	.tip-me {
+		text-align: center;
+		font-size: small;
+	}
 }

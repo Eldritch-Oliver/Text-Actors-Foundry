@@ -31,7 +31,7 @@
 	--actor-sheet-background: var(--zinc-200);
 	--actor-sheet-divider-colour: var(--zinc-300);
 	--actor-sheet-header-colour: var(--zinc-800);
-	--actor-sheet-header-background:var(--zinc-100);
+	--actor-sheet-header-background: var(--zinc-100);
 	--actor-sheet-header-input-colour: var(--zinc-800);
 	--actor-sheet-header-input-background: var(--zinc-250);
 
@@ -66,6 +66,8 @@
 	/* Item Sheet Variables */
 	--item-sheet-colour: var(--zinc-800);
 	--item-sheet-background: var(--zinc-200);
+	--item-sheet-header-colour: var(--zinc-800);
+	--item-sheet-header-background: var(--zinc-100);
 	--item-sheet-divider-colour: var(--zinc-300);
 	--item-sheet-input-colour: var(--zinc-800);
 	--item-sheet-input-background: var(--zinc-300);
@@ -78,6 +80,8 @@
 	/* Attribute Sheet Variables */
 	--attribute-sheet-colour: var(--item-sheet-colour);
 	--attribute-sheet-background: var(--item-sheet-background);
+	--attribute-sheet-header-colour: var(--item-sheet-header-colour);
+	--attribute-sheet-header-background: var(--item-sheet-header-background);
 	--attribute-sheet-divider-colour: var(--item-sheet-divider);
 	--attribute-sheet-hint-colour: var(--zinc-550);
 	--attribute-sheet-input-colour: var(--item-sheet-input-colour);

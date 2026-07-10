@@ -11,6 +11,8 @@
 		gap: 4px;
 		align-items: center;
 		padding: 0.5rem;
+		color: var(--item-sheet-header-colour);
+		background: var(--item-sheet-header-background);
 		border-bottom: 1px solid var(--item-sheet-divider-colour);
 
 		img {

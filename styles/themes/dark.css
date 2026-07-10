@@ -66,6 +66,8 @@
 	/* Item Sheet Variables */
 	--item-sheet-colour: var(--steel-100);
 	--item-sheet-background: var(--steel-800);
+	--item-sheet-header-colour: var(--steel-100);
+	--item-sheet-header-background: var(--steel-900);
 	--item-sheet-divider-colour: var(--steel-700);
 	--item-sheet-input-colour: var(--steel-100);
 	--item-sheet-input-background: var(--steel-650);
@@ -78,7 +80,9 @@
 	/* Attribute Sheet Variables */
 	--attribute-sheet-colour: var(--item-sheet-colour);
 	--attribute-sheet-background: var(--item-sheet-background);
-	--attribute-sheet-divider-colour: var(--item-sheet-divider);
+	--attribute-sheet-header-colour: var(--item-sheet-header-colour);
+	--attribute-sheet-header-background: var(--item-sheet-header-background);
+	--attribute-sheet-divider-colour: var(--item-sheet-divider-colour);
 	--attribute-sheet-hint-colour: var(--steel-250);
 	--attribute-sheet-input-colour: var(--item-sheet-input-colour);
 	--attribute-sheet-input-background: var(--item-sheet-input-background);

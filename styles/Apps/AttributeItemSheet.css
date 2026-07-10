@@ -9,6 +9,8 @@
 
 	.sheet-header {
 		padding: 0.5rem;
+		color: var(--attribute-sheet-header-colour);
+		background: var(--attribute-sheet-header-background);
 		border-bottom: 1px solid var(--attribute-sheet-divider-colour);
 	}
 

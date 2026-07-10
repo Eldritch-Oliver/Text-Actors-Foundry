@@ -2,12 +2,14 @@
 	<div class="attributes">
 		{{#each attrs as | attr |}}
 			<fieldset
-				class="draggable"
-				data-item-id="{{id}}"
 				data-item-uuid="{{ attr.uuid }}"
 				data-foreign-uuid="{{ attr.uuid }}"
 			>
-				<legend>
+				<legend
+					class="draggable"
+					name="icons/drag-handle"
+					data-item-id="{{ id }}"
+				>
 					{{#if attr.system.trigger}}
 						<button
 							type="button"

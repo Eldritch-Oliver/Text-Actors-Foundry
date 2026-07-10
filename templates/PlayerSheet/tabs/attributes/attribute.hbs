@@ -1,8 +1,13 @@
 <li
-	class="attribute draggable"
-	data-item-id="{{id}}"
+	class="attribute"
 	data-item-uuid="{{uuid}}"
 >
+	<taf-icon
+		class="draggable"
+		name="icons/drag-handle"
+		var:fill="currentColor"
+		data-item-id="{{id}}"
+	></taf-icon>
 	<div class="title grow">
 		<span class="name">{{ name }}</span>
 	</div>

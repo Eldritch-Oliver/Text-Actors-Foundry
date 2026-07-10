@@ -1,9 +1,14 @@
 <li
-	class="item draggable"
-	data-item-id="{{id}}"
+	class="item"
 	data-item-uuid="{{uuid}}"
 >
 	<div class="summary">
+		<taf-icon
+			class="draggable"
+			name="icons/drag-handle"
+			var:fill="currentColor"
+			data-item-id="{{ id }}"
+		></taf-icon>
 		<taf-toggle
 			data-foreign-name="system.equipped"
 			data-foreign-uuid="{{uuid}}"

@@ -521,4 +521,13 @@ export class PlayerSheet extends
 		TAFActor.setDefaultAttributes(this.actor);
 	};
 	// #endregion Actions
+
+	// #region Drag & Drop
+	_onDragStart(event) {
+		super._onDragStart(event);
+
+		const target = event.currentTarget.parentElement;
+		event.dataTransfer.setDragImage(target, 16, 23);
+	};
+	// #endregion Drag & Drop
 };

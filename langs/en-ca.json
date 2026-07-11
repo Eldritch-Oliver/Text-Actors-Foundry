@@ -89,6 +89,7 @@
 			"new-version-available": "{version} available now!",
 			"new-version-notification": "A new {beta} version of {title} has been released.",
 			"release-notes": "Release Notes",
+			"tip-the-dev": "Tip the Dev on Ko-Fi",
 			"item": {
 				"weight": "Weight",
 				"quantity": "Quantity",

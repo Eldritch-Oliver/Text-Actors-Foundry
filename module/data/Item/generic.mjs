@@ -17,6 +17,7 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 				initial: 0,
 				nullable: false,
 			}),
+			includeWeightInGrandTotal: new fields.BooleanField({ initial: true }),
 			quantity: new fields.NumberField({
 				integer: true,
 				initial: 1,

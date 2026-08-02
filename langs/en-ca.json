@@ -95,7 +95,11 @@
 				"quantity": "Quantity",
 				"equipped": "Equipped",
 				"group": "Group",
-				"trigger": "Macro to Execute"
+				"trigger": "Macro to Execute",
+				"includeWeightInGrandTotal": {
+					"label": "Include Weight in Grand Total",
+					"hint": "This determines whether the system should include this item's weight in the total character-carrying weight. This is useful for putting items in magical containers or items that may not be physical items."
+				}
 			},
 			"attribute": {
 				"key": {

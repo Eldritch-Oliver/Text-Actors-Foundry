@@ -371,11 +371,16 @@ export class PlayerSheet extends
 
 			let summedWeight = 0;
 			for (const item of items) {
-				summedWeight += item.system.quantifiedWeight ?? 0;
+
+				const quantifiedWeight = item.system.quantifiedWeight ?? 0;
+				summedWeight += quantifiedWeight;
+				if (item.system.includeWeightInGrandTotal) {
+					totalWeight += quantifiedWeight;
+				};
+
 				const data = await this._prepareItem(item);
 				if (data) { preparedItems.push(data) };
 			};
-			totalWeight += summedWeight;
 
 			const capacityKey = toID(groupName);
 			const maxWeight = this.actor.system.carryCapacity[capacityKey];

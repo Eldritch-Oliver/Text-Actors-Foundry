@@ -12,6 +12,19 @@
 		>
 	</div>
 	<div class="property">
+		<label for="{{meta.idp}}-include-weight">
+			{{localize "taf.misc.item.includeWeightInGrandTotal.label"}}
+		</label>
+		<taf-toggle
+			id="{{meta.idp}}-include-weight"
+			name="system.includeWeightInGrandTotal"
+			{{checked system.includeWeightInGrandTotal}}
+		></taf-toggle>
+		<p class="hint">
+			{{localize "taf.misc.item.includeWeightInGrandTotal.hint"}}
+		</p>
+	</div>
+	<div class="property">
 		<label for="{{meta.idp}}-group">
 			{{localize "taf.misc.item.group"}}
 		</label>

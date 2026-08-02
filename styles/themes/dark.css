@@ -69,6 +69,7 @@
 	--item-sheet-header-colour: var(--steel-100);
 	--item-sheet-header-background: var(--steel-900);
 	--item-sheet-divider-colour: var(--steel-700);
+	--item-sheet-hint-colour: var(--steel-250);
 	--item-sheet-input-colour: var(--steel-100);
 	--item-sheet-input-background: var(--steel-650);
 	--item-sheet-toggle-slider-enabled-colour: green;

@@ -1,5 +1,7 @@
 import { __ID__ } from "../../consts.mjs";
 
+const { getType } = foundry.utils;
+
 export class PlayerData extends foundry.abstract.TypeDataModel {
 	// MARK: Schema
 	static defineSchema() {
@@ -10,16 +12,24 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 				trim: true,
 				initial: ``,
 			}),
-			carryCapacity: new fields.NumberField({
-				min: 0,
-				nullable: true,
-				initial: null,
-			}),
+			carryCapacity: new fields.TypedObjectField(
+				new fields.NumberField({ min: 0, nullable: true, initial: null }),
+				{ initial: { default: null } },
+			),
 			attr: new fields.ObjectField({ persisted: false, initial: {} }),
 		};
 	};
 
 	// #region Lifecycle
+	static migrateData(source) {
+		if (getType(source.carryCapacity) === `number`) {
+			source.carryCapacity = {
+				default: source.carryCapacity,
+			};
+		};
+		return source;
+	};
+
 	/**
 	 * This makes sure that the actor gets created with the global
 	 * attributes if they exist, while still allowing programmatic

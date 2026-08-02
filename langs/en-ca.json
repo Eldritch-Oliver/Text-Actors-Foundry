@@ -123,7 +123,8 @@
 				"carrying-capacity": {
 					"placeholder": "Unlimited",
 					"title": "Carrying Capacity:",
-					"label": "Maximum carrying weight"
+					"label": "Maximum carrying weight",
+					"group-label": "Group maximum carrying weight"
 				},
 				"total-weight": "Total weight",
 				"toggle-item-description": "Show/Hide Item Description",

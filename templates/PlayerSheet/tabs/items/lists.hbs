@@ -28,8 +28,8 @@
 		</div>
 		<input
 			type="number"
-			name="system.carryCapacity"
-			value="{{system.carryCapacity}}"
+			name="system.carryCapacity.default"
+			value="{{system.carryCapacity.default}}"
 			placeholder="{{localize "taf.Apps.PlayerSheet.carrying-capacity.placeholder"}}"
 			aria-label="{{localize "taf.Apps.PlayerSheet.carrying-capacity.label"}}"
 			data-tooltip
@@ -56,9 +56,27 @@
 				<h3 class="grow">
 					{{ group.name }}
 				</h3>
+				{{#if group.hasCapacity}}
+					<div>
+						{{localize
+							"taf.Apps.PlayerSheet.carry-capacity-used"
+							percent=group.usedPercent
+						}}
+					</div>
+				{{/if}}
 				<span class="weight">
 					{{ group.weight }}
 				</span>
+				<span aria-hidden="true">/</span>
+				<input
+					type="number"
+					name="system.carryCapacity.{{group.capacityKey}}"
+					value="{{group.maxWeight}}"
+					placeholder="{{localize "taf.Apps.PlayerSheet.carrying-capacity.placeholder"}}"
+					aria-label="{{localize "taf.Apps.PlayerSheet.carrying-capacity.group-label"}}"
+					data-tooltip
+					data-tooltip-direction="UP"
+				>
 			</div>
 			<ul class="embedded-list">
 				{{#each group.items as |item|}}

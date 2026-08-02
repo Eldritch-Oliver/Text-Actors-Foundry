@@ -6,6 +6,7 @@ import { SortedArray } from "../utils/SortedArray.mjs";
 import { TAFActor } from "../documents/Actor.mjs";
 import { TAFDocumentSheetConfig } from "./overrides/TAFDocumentSheetConfig.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
+import { toID } from "../utils/toID.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -376,10 +377,16 @@ export class PlayerSheet extends
 			};
 			totalWeight += summedWeight;
 
+			const capacityKey = toID(groupName);
+			const maxWeight = this.actor.system.carryCapacity[capacityKey];
 			groups[groupName.toLowerCase()] = {
 				name: groupName.titleCase(),
 				items: preparedItems.sort((a, b) => a.sort - b.sort),
 				weight: config.weightFormatter(summedWeight),
+				capacityKey,
+				hasCapacity: maxWeight !== null,
+				maxWeight,
+				usedPercent: Math.round(summedWeight / maxWeight * 100),
 			};
 		};
 
@@ -400,8 +407,8 @@ export class PlayerSheet extends
 
 		ctx.itemGroups = sortedGroups;
 		ctx.totalWeight = config.weightFormatter(totalWeight);
-		ctx.hasCarryingCapacity = this.actor.system.carryCapacity != null;
-		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity * 100);
+		ctx.hasCarryingCapacity = this.actor.system.carryCapacity.default != null;
+		ctx.carryCapacityPercent = Math.round(totalWeight / this.actor.system.carryCapacity.default * 100);
 	};
 
 	async _prepareItem(item) {

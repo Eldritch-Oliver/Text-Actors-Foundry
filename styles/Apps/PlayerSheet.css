@@ -112,6 +112,15 @@
 			background: var(--embedded-list-header-input-background);
 			color: var(--embedded-list-header-input-colour);
 		}
+
+		input {
+			width: 75px;
+			height: 1.25rem;
+			text-align: center;
+			background: var(--embedded-list-header-input-background);
+			color: var(--embedded-list-header-input-colour);
+			text-align: center;
+		}
 	}
 
 	.embedded-list {

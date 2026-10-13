@@ -9,6 +9,7 @@ import { TAFSettingsSidebar } from "../apps/overrides/TAFSettingsSidebar.mjs";
 
 // Data Models
 import { AttributeItemData } from "../data/Item/attribute.mjs";
+import { BaseChatMessageData } from "../data/ChatMessage/base.mjs";
 import { GenericItemData } from "../data/Item/generic.mjs";
 import { PlayerData } from "../data/Actor/player.mjs";
 
@@ -43,6 +44,7 @@ Hooks.on(`init`, () => {
 
 	// #region Data Models
 	CONFIG.Actor.dataModels.player = PlayerData;
+	CONFIG.ChatMessage.dataModels.base = BaseChatMessageData;
 	CONFIG.Item.dataModels.generic = GenericItemData;
 	CONFIG.Item.dataModels.attribute = AttributeItemData;
 	// #endregion Data Models

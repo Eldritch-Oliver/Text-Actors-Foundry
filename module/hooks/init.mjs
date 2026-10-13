@@ -4,6 +4,7 @@ import { AttributeOnlyPlayerSheet } from "../apps/AttributeOnlyPlayerSheet.mjs";
 import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
+import { TAFChatLog } from "../apps/overrides/TAFChatLog.mjs";
 import { TAFHotbar } from "../apps/overrides/TAFHotbar.mjs";
 import { TAFSettingsSidebar } from "../apps/overrides/TAFSettingsSidebar.mjs";
 
@@ -52,8 +53,9 @@ Hooks.on(`init`, () => {
 	// #endregion Data Models
 
 	// #region App Overrides
-	CONFIG.ui.settings = TAFSettingsSidebar;
+	CONFIG.ui.chat = TAFChatLog;
 	CONFIG.ui.hotbar = TAFHotbar;
+	CONFIG.ui.settings = TAFSettingsSidebar;
 	// #endregion App Overrides
 
 	// #region Sheets

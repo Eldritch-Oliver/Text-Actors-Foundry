@@ -15,6 +15,7 @@ import { PlayerData } from "../data/Actor/player.mjs";
 
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";
+import { TAFChatMessage } from "../documents/ChatMessage.mjs";
 import { TAFCombatant } from "../documents/Combatant.mjs";
 import { TAFItem } from "../documents/Item.mjs";
 import { TAFMacro } from "../documents/Macro.mjs";
@@ -36,6 +37,7 @@ Hooks.on(`init`, () => {
 
 	// #region Documents
 	CONFIG.Actor.documentClass = TAFActor;
+	CONFIG.ChatMessage.documentClass = TAFChatMessage;
 	CONFIG.Combatant.documentClass = TAFCombatant;
 	CONFIG.Item.documentClass = TAFItem;
 	CONFIG.Macro.documentClass = TAFMacro;

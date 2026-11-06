@@ -1,0 +1,15 @@
+<div class="taf-chat-buttons">
+	{{#each buttons as | btn |}}
+		<button
+			data-action="tafChatAction"
+			data-chat-action-id="{{btn.id}}"
+			style="grid-column: span {{btn.width}}"
+		>
+			{{ btn.label }}
+		</button>
+	{{else}}
+		<p class="placeholder">
+			{{localize "taf.misc.no-chat-buttons-visible"}}
+		</p>
+	{{/each}}
+</div>

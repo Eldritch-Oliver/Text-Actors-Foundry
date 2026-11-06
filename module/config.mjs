@@ -1,7 +1,6 @@
 import { formatWeight } from "./utils/formatWeight.mjs";
 
-const { deepSeal } = foundry.utils;
-
-export const config = deepSeal({
+export const config = Object.seal({
 	weightFormatter: formatWeight,
+	chatActions: {},
 });

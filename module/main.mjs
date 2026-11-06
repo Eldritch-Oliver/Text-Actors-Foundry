@@ -1,5 +1,6 @@
 import "./hooks/init.mjs";
 import "./hooks/ready.mjs";
+import "./hooks/setup.mjs";
 import "./hooks/hotbarDrop.mjs";
 import "./hooks/userConnected.mjs";
 import "./hooks/renderSettingsConfig.mjs";

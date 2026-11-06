@@ -70,6 +70,7 @@
 			"Key": "Key",
 			"Value": "Value",
 			"no-data-submitted": "No data submitted",
+			"no-chat-buttons-visible": "No buttons visible to you",
 			"data-query-notif-header": "Data Query Notification",
 			"cancel": "Cancel",
 			"confirm-and-close": "Confirm and Close",
@@ -173,7 +174,8 @@
 				"unknown-socket-event": "An unknown socket event was received: {event}",
 				"duplicate-attribute-key": "Cannot {action} Attribute with a key (\"{key}\") that already exists on the Actor.",
 				"invalid-attribute-key": "Attribute keys must be alphanumeric (a-z, 0-9) with underscores, invalid key provided: \"{key}\"",
-				"cant-manage-attributes": "You aren't allowed to manage attributes. Talk to your GM for permission or to get them to add the attribute for you."
+				"cant-manage-attributes": "You aren't allowed to manage attributes. Talk to your GM for permission or to get them to add the attribute for you.",
+				"missing-macro": "The macro \"{uuid}\" was unable to be found."
 			},
 			"warn": {
 				"migration-in-progress": "Applying data migrations for version {version}. Please do NOT refresh the window while this warning is present."

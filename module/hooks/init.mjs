@@ -4,16 +4,19 @@ import { AttributeOnlyPlayerSheet } from "../apps/AttributeOnlyPlayerSheet.mjs";
 import { GenericItemSheet } from "../apps/GenericItemSheet.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 import { SingleModePlayerSheet } from "../apps/SingleModePlayerSheet.mjs";
+import { TAFChatLog } from "../apps/overrides/TAFChatLog.mjs";
 import { TAFHotbar } from "../apps/overrides/TAFHotbar.mjs";
 import { TAFSettingsSidebar } from "../apps/overrides/TAFSettingsSidebar.mjs";
 
 // Data Models
 import { AttributeItemData } from "../data/Item/attribute.mjs";
+import { BaseChatMessageData } from "../data/ChatMessage/base.mjs";
 import { GenericItemData } from "../data/Item/generic.mjs";
 import { PlayerData } from "../data/Actor/player.mjs";
 
 // Documents
 import { TAFActor } from "../documents/Actor.mjs";
+import { TAFChatMessage } from "../documents/ChatMessage.mjs";
 import { TAFCombatant } from "../documents/Combatant.mjs";
 import { TAFItem } from "../documents/Item.mjs";
 import { TAFMacro } from "../documents/Macro.mjs";
@@ -35,6 +38,7 @@ Hooks.on(`init`, () => {
 
 	// #region Documents
 	CONFIG.Actor.documentClass = TAFActor;
+	CONFIG.ChatMessage.documentClass = TAFChatMessage;
 	CONFIG.Combatant.documentClass = TAFCombatant;
 	CONFIG.Item.documentClass = TAFItem;
 	CONFIG.Macro.documentClass = TAFMacro;
@@ -43,13 +47,15 @@ Hooks.on(`init`, () => {
 
 	// #region Data Models
 	CONFIG.Actor.dataModels.player = PlayerData;
+	CONFIG.ChatMessage.dataModels.base = BaseChatMessageData;
 	CONFIG.Item.dataModels.generic = GenericItemData;
 	CONFIG.Item.dataModels.attribute = AttributeItemData;
 	// #endregion Data Models
 
 	// #region App Overrides
-	CONFIG.ui.settings = TAFSettingsSidebar;
+	CONFIG.ui.chat = TAFChatLog;
 	CONFIG.ui.hotbar = TAFHotbar;
+	CONFIG.ui.settings = TAFSettingsSidebar;
 	// #endregion App Overrides
 
 	// #region Sheets

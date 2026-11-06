@@ -14,7 +14,7 @@ export class BaseChatMessageData extends foundry.abstract.TypeDataModel {
 			visibility: new fields.StringField({
 				blank: false,
 				required: false,
-				initial: `private`,
+				initial: `self`,
 				choices: [
 					`blind`, // Only the GM-ranked users can see
 					`gm`, // All GM-ranked users, and the AUTHOR can see

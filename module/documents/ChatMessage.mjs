@@ -17,17 +17,17 @@ export class TAFChatMessage extends foundry.documents.ChatMessage {
 			return super.renderHTML(opts);
 		};
 		const html = await super.renderHTML(opts);
-		if (this.system.buttons == null) return html;
+		if (this.system.buttons == null) { return html }
 
 		const buttons = this.system.visibleButtons ?? [];
-		if (this.content.length && !buttons.length) return html;
+		if (this.content.length && !buttons.length) { return html }
 
 		for (const btn of buttons) {
 			btn.label = _loc(btn.label);
 		};
 
 		// Add my custom button rendering at the bottom of the template
-		const ctx = { buttons, };
+		const ctx = { buttons };
 		const footerString = await renderTemplate(filePath(`templates/ChatMessage/base/buttons.hbs`), ctx);
 		const footer = parseHTML(footerString);
 		html.appendChild(footer);

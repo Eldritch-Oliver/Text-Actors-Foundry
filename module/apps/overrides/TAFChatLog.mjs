@@ -16,15 +16,15 @@ export class TAFChatLog extends ChatLog {
 	static async #chatButtonClick(event, target) {
 		const msgID = target.closest(`[data-message-id]`)?.dataset.messageId;
 		const chatActionID = target.dataset.chatActionId;
-		if (!msgID || !chatActionID) return;
+		if (!msgID || !chatActionID) { return }
 
 		const msg = game.messages.get(msgID);
 		const btn = msg?.system.buttons?.find(b => b.id === chatActionID);
-		if (!msg || !btn) return;
+		if (!msg || !btn) { return }
 
 		// Execute the chat action
 		if (btn.callback in config.chatActions) {
-			await config.chatActions[btn.callback]?.(message, ...btn.args);
+			await config.chatActions[btn.callback]?.(msg, ...btn.args);
 		} else {
 			const macro = await fromUuid(btn.callback);
 			if (!macro) {

@@ -8,6 +8,20 @@
 		align-items: center;
 	}
 
+	fieldset.prompt {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		border-radius: 6px;
+		border-color: var(--color-fieldset-border);
+
+		label {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+	}
+
 	.window-content {
 		gap: 1rem;
 		overflow: auto;

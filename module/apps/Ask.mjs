@@ -11,6 +11,7 @@ const validInputTypes = [
 	`error`,
 	`input`,
 	`select`,
+	`radio`,
 ];
 
 export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {

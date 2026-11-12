@@ -1,0 +1,16 @@
+<fieldset class="prompt">
+	<legend>
+		{{ label }}
+	</legend>
+	{{#each options as |option|}}
+		<label>
+			<input
+				type="radio"
+				name="{{ ../key }}"
+				value="{{ option.value }}"
+				{{#if (eq ../defaultValue option.value)}}checked{{/if}}
+			>
+			{{ option.label }}
+		</label>
+	{{/each}}
+</fieldset>

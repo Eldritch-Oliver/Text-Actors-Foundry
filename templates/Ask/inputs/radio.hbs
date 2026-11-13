@@ -9,6 +9,7 @@
 				name="{{ ../key }}"
 				value="{{ option.value }}"
 				{{#if (eq ../defaultValue option.value)}}checked{{/if}}
+				{{disabled option.disabled}}
 			>
 			{{ option.label }}
 		</label>

@@ -1,5 +1,4 @@
 import { __ID__ } from "../consts.mjs";
-import { ask } from "../utils/DialogManager.mjs";
 import { clamp } from "../utils/clamp.mjs";
 
 const { Actor } = foundry.documents;
@@ -44,40 +43,8 @@ export class TAFActor extends Actor {
 	 * being cloned or created from nothing. This allows for easy one-time operations
 	 * that should be performed during Actor creation but not duplication to occur.
 	 */
-	async clone(data, context) {
+	clone(data, context) {
 		context.cloning = true;
-
-		const response = await ask(
-			{
-				id: `cloning-${this.id}`,
-				window: {
-					title: _loc(
-						`taf.misc.duplicate-type`,
-						{ type: _loc(this.constructor.metadata.label) },
-					),
-				},
-				inputs: [
-					{
-						key: `name`,
-						type: `input`,
-						inputType: `text`,
-						label: _loc(`DOCUMENT.FIELDS.name.label`),
-						defaultValue: data.name ?? ``,
-					},
-				],
-			},
-			{
-				onlyOneWaiting: true,
-				alwaysUseAnswerObject: true,
-			},
-		);
-		if (response.state !== `prompted` || !response.answers) { return };
-
-		const newName = response.answers.name;
-		data.name = newName;
-		data.prototypeToken ??= {};
-		data.prototypeToken.name = newName;
-
 		return super.clone(data, context);
 	};
 	// #endregion Lifecycle

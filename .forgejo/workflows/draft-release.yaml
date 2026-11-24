@@ -16,7 +16,8 @@ jobs:
       - name: Install dependencies
         run: npm clean-install
 
-      - id: version
+      - name: Get version
+        id: version
         run: cat system.json | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
 
       - name: Assert that the tag doesn't exist

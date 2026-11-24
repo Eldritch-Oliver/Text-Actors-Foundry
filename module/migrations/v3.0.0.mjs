@@ -3,7 +3,6 @@ import {
 	migrateCollection,
 	shouldMigrateCompendium,
 } from "./utils.mjs";
-import { __ID__ } from "../consts.mjs";
 import { Logger } from "../utils/Logger.mjs";
 
 const flag = `convertAttributesIntoItems`;
@@ -62,13 +61,13 @@ export async function migrateTo3_0_0() {
 	warning.update({ pct: 0.8 });
 
 	// Migrating the world setting
-	const defaultAttrs = game.settings.get(__ID__, `actorDefaultAttributes`)?.at(0);
+	const defaultAttrs = game.settings.get(`taf`, `actorDefaultAttributes`)?.at(0);
 	if (defaultAttrs) {
 		const itemSchemas = [];
 		for (const [key, attr] of Object.entries(defaultAttrs)) {
 			itemSchemas.push(convertToItem(key, attr));
 		};
-		await game.settings.set(__ID__, `actorDefaultAttributes`, itemSchemas);
+		await game.settings.set(`taf`, `actorDefaultAttributes`, itemSchemas);
 	};
 	warning.update({ pct: 0.9 });
 
@@ -87,7 +86,7 @@ function handleMigratingActor(actor, options) {
 		data: [],
 	};
 
-	const attrs = actor.getFlag(__ID__, flag) ?? {};
+	const attrs = actor.getFlag(`taf`, flag) ?? {};
 	for (const [ key, attr ] of Object.entries(attrs)) {
 		operation.data.push(convertToItem(key, attr));
 	};

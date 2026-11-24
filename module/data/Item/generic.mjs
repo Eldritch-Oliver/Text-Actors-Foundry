@@ -1,4 +1,3 @@
-import { __ID__ } from "../../consts.mjs";
 import { toPrecision } from "../../utils/roundToPrecision.mjs";
 
 export class GenericItemData extends foundry.abstract.TypeDataModel {
@@ -71,7 +70,7 @@ export class GenericItemData extends foundry.abstract.TypeDataModel {
 				img: item.img,
 				command: `const item = await fromUuid("${this.parent.uuid}");\nawait item.system.execute();`,
 				flags: {
-					[__ID__]: {
+					taf: {
 						createdForHotbar: true,
 					},
 				},

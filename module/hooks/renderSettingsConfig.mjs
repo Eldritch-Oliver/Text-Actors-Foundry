@@ -1,11 +1,9 @@
-import { __ID__ } from "../consts.mjs";
-
 Hooks.on(`renderSettingsConfig`, (app, html) => {
 	/*
 	This section is used to insert a button into the settings config that unsets
 	a world setting when it exists but doesn't allow any other form of editing it.
 	*/
-	if (game.user.isGM && game.settings.get(__ID__, `actorDefaultAttributes`)) {
+	if (game.user.isGM && game.settings.get(`taf`, `actorDefaultAttributes`)) {
 		const formGroup = document.createElement(`div`);
 		formGroup.classList = `form-group`;
 
@@ -19,7 +17,7 @@ Hooks.on(`renderSettingsConfig`, (app, html) => {
 		button.type = `button`;
 		button.innerHTML = _loc(`taf.settings.actorDefaultAttributes.label`);
 		button.addEventListener(`click`, () => {
-			game.settings.set(__ID__, `actorDefaultAttributes`, undefined);
+			game.settings.set(`taf`, `actorDefaultAttributes`, undefined);
 			formGroup.remove();
 			ui.notifications.success(_loc(`taf.notifs.success.removed-default-attributes`));
 		});

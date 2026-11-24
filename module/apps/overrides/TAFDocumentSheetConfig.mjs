@@ -1,4 +1,4 @@
-import { __ID__, filePath } from "../../consts.mjs";
+import { filePath } from "../../consts.mjs";
 import { getDefaultSizing } from "../../utils/getSizing.mjs";
 import { localizer } from "../../utils/localizer.mjs";
 
@@ -81,7 +81,7 @@ export class TAFDocumentSheetConfig extends DocumentSheetConfig {
 		};
 
 		// Custom values from document itself
-		const sheetConfig = this.document.getFlag(__ID__, `PlayerSheet`) ?? {};
+		const sheetConfig = this.document.getFlag(`taf`, `PlayerSheet`) ?? {};
 		const sizing = sheetConfig.size ?? {};
 		context.values = {
 			width: sizing.width,

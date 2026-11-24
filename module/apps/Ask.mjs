@@ -1,4 +1,4 @@
-import { __ID__, filePath } from "../consts.mjs";
+import { filePath } from "../consts.mjs";
 import { localizer } from "../utils/localizer.mjs";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -19,7 +19,7 @@ export class Ask extends HandlebarsApplicationMixin(ApplicationV2) {
 	static DEFAULT_OPTIONS = {
 		tag: `dialog`,
 		classes: [
-			__ID__,
+			`taf`,
 			`dialog`, // accesses some Foundry-provided styling
 			`Ask`,
 		],

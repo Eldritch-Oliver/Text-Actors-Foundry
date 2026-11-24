@@ -1,5 +1,4 @@
 import { isValidID, toID } from "../../utils/toID.mjs";
-import { __ID__ } from "../../consts.mjs";
 import { clamp } from "../../utils/clamp.mjs";
 
 const { getProperty, hasProperty, setProperty } = foundry.utils;
@@ -52,7 +51,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 	async _preCreate(data, options, user) {
 		// Prevent users from creating attributes if disallowed
 		if (
-			!game.settings.get(__ID__, `canPlayersManageAttributes`)
+			!game.settings.get(`taf`, `canPlayersManageAttributes`)
 			&& !user.isGM
 		) {
 			ui.notifications.error(_loc(`taf.notifs.error.cant-manage-attributes`));
@@ -161,7 +160,7 @@ export class AttributeItemData extends foundry.abstract.TypeDataModel {
 				img: item.img,
 				command: `const item = await fromUuid("${this.parent.uuid}");\nawait item.system.execute();`,
 				flags: {
-					[__ID__]: {
+					taf: {
 						createdForHotbar: true,
 					},
 				},

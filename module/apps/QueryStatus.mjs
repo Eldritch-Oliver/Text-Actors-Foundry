@@ -1,4 +1,4 @@
-import { __ID__, filePath } from "../consts.mjs";
+import { filePath } from "../consts.mjs";
 import { cancel, finish, get as getQuery, requery } from "../utils/QueryManager.mjs";
 import { Logger } from "../utils/Logger.mjs";
 
@@ -8,7 +8,7 @@ export class QueryStatus extends HandlebarsApplicationMixin(ApplicationV2) {
 	// #region Options
 	static DEFAULT_OPTIONS = {
 		classes: [
-			__ID__,
+			`taf`,
 			`QueryStatus`,
 		],
 		position: {

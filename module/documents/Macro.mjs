@@ -1,5 +1,3 @@
-import { __ID__ } from "../consts.mjs";
-
 const { getProperty } = foundry.utils;
 
 export class TAFMacro extends foundry.documents.Macro {
@@ -42,7 +40,7 @@ export class TAFMacro extends foundry.documents.Macro {
 	};
 
 	async _preCreate(data, options, user) {
-		if (getProperty(data, `flags.${__ID__}.createdForHotbar`)) {
+		if (getProperty(data, `flags.taf.createdForHotbar`)) {
 			const name = _loc(`taf.misc.auto-generated-macros`);
 			let folder = game.folders.getName(name);
 			folder ??= await Folder.create({ name, type: `Macro` });
@@ -51,9 +49,9 @@ export class TAFMacro extends foundry.documents.Macro {
 			// Remove with issue: Foundry/taf#54
 			// v13/v14+ compatibility shim
 			if (game.release.generation > 13) {
-				update[`flags.${__ID__}.createdForHotbar`] = _del;
+				update[`flags.taf.createdForHotbar`] = _del;
 			} else {
-				update[`flags.${__ID__}.-=createdForHotbar`] = null;
+				update[`flags.taf.-=createdForHotbar`] = null;
 			};
 
 			this.updateSource(update);

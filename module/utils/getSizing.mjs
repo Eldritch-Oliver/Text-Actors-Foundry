@@ -1,4 +1,3 @@
-import { __ID__ } from "../consts.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 
 /**
@@ -22,9 +21,9 @@ export function getDefaultSizing() {
 		resizable: undefined,
 	};
 
-	sizing.height ||= game.settings.get(__ID__, `sheetDefaultHeight`);
-	sizing.width ||= game.settings.get(__ID__, `sheetDefaultWidth`);
-	const globalResizable = game.settings.get(__ID__, `sheetDefaultResizable`);
+	sizing.height ||= game.settings.get(`taf`, `sheetDefaultHeight`);
+	sizing.width ||= game.settings.get(`taf`, `sheetDefaultWidth`);
+	const globalResizable = game.settings.get(`taf`, `sheetDefaultResizable`);
 	if (globalResizable !== ``) {
 		sizing.resizable = globalResizable == `true`;
 	};

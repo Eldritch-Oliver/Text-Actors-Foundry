@@ -1,4 +1,3 @@
-import { __ID__ } from "../consts.mjs";
 import { toPrecision } from "./roundToPrecision.mjs";
 
 /**
@@ -7,6 +6,6 @@ import { toPrecision } from "./roundToPrecision.mjs";
  * @param {number} weight The numerical weight to format
  */
 export function formatWeight(weight) {
-	const unit = game.settings.get(__ID__, `weightUnit`);
+	const unit = game.settings.get(`taf`, `weightUnit`);
 	return toPrecision(weight, 2) + unit;
 };

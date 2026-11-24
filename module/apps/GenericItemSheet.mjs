@@ -1,4 +1,4 @@
-import { __ID__, filePath } from "../consts.mjs";
+import { filePath } from "../consts.mjs";
 import { TAFDocumentSheetMixin } from "./mixins/TAFDocumentSheetMixin.mjs";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -13,7 +13,7 @@ export class GenericItemSheet extends
 	// #region Options
 	static DEFAULT_OPTIONS = {
 		classes: [
-			__ID__,
+			`taf`,
 			`GenericItemSheet`,
 		],
 		position: {

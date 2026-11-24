@@ -27,7 +27,6 @@ import { registerReleaseSettings } from "../utils/ReleaseChannels.mjs";
 import { registerWorldSettings } from "../settings/world.mjs";
 
 // Utils
-import { __ID__ } from "../consts.mjs";
 import helpers from "../handlebarsHelpers/_index.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { registerCustomComponents } from "../apps/elements/_index.mjs";
@@ -60,7 +59,7 @@ Hooks.on(`init`, () => {
 
 	// #region Sheets
 	foundry.documents.collections.Actors.registerSheet(
-		__ID__,
+		`taf`,
 		PlayerSheet,
 		{
 			makeDefault: true,
@@ -68,18 +67,18 @@ Hooks.on(`init`, () => {
 		},
 	);
 	foundry.documents.collections.Actors.registerSheet(
-		__ID__,
+		`taf`,
 		SingleModePlayerSheet,
 		{ label: `taf.sheet-names.SingleModePlayerSheet` },
 	);
 	foundry.documents.collections.Actors.registerSheet(
-		__ID__,
+		`taf`,
 		AttributeOnlyPlayerSheet,
 		{ label: `taf.sheet-names.AttributeOnlyPlayerSheet` },
 	);
 
 	foundry.documents.collections.Items.registerSheet(
-		__ID__,
+		`taf`,
 		GenericItemSheet,
 		{
 			types: [`generic`],
@@ -88,7 +87,7 @@ Hooks.on(`init`, () => {
 		},
 	);
 	foundry.documents.collections.Items.registerSheet(
-		__ID__,
+		`taf`,
 		AttributeItemSheet,
 		{
 			types: [`attribute`],

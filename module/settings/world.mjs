@@ -1,11 +1,10 @@
-import { __ID__ } from "../consts.mjs";
 import { PlayerSheet } from "../apps/PlayerSheet.mjs";
 
 const { ArrayField, NumberField, StringField } = foundry.data.fields;
 
 export function registerWorldSettings() {
 
-	game.settings.register(__ID__, `initiativeFormula`, {
+	game.settings.register(`taf`, `initiativeFormula`, {
 		name: `taf.settings.initiativeFormula.name`,
 		hint: `taf.settings.initiativeFormula.hint`,
 		config: true,
@@ -14,7 +13,7 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `weightUnit`, {
+	game.settings.register(`taf`, `weightUnit`, {
 		name: `taf.settings.weightUnit.name`,
 		hint: `taf.settings.weightUnit.hint`,
 		config: true,
@@ -23,7 +22,7 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `canPlayersManageAttributes`, {
+	game.settings.register(`taf`, `canPlayersManageAttributes`, {
 		name: `taf.settings.canPlayersManageAttributes.name`,
 		hint: `taf.settings.canPlayersManageAttributes.hint`,
 		config: true,
@@ -32,7 +31,7 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `sheetDefaultWidth`, {
+	game.settings.register(`taf`, `sheetDefaultWidth`, {
 		name: `taf.settings.sheetDefaultWidth.name`,
 		hint: `taf.settings.sheetDefaultWidth.hint`,
 		config: true,
@@ -43,7 +42,7 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `sheetDefaultHeight`, {
+	game.settings.register(`taf`, `sheetDefaultHeight`, {
 		name: `taf.settings.sheetDefaultHeight.name`,
 		hint: `taf.settings.sheetDefaultHeight.hint`,
 		config: true,
@@ -54,7 +53,7 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `sheetDefaultResizable`, {
+	game.settings.register(`taf`, `sheetDefaultResizable`, {
 		name: `taf.settings.sheetDefaultResizable.name`,
 		hint: `taf.settings.sheetDefaultResizable.hint`,
 		config: true,
@@ -70,7 +69,7 @@ export function registerWorldSettings() {
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `itemGroupOrder`, {
+	game.settings.register(`taf`, `itemGroupOrder`, {
 		config: false,
 		type: new ArrayField(new StringField({ blank: false, trim: true })),
 		scope: `world`,
@@ -83,13 +82,13 @@ export function registerWorldSettings() {
 		},
 	});
 
-	game.settings.register(__ID__, `actorDefaultAttributes`, {
+	game.settings.register(`taf`, `actorDefaultAttributes`, {
 		config: false,
 		type: Array,
 		scope: `world`,
 	});
 
-	game.settings.register(__ID__, `migrationVersion`, {
+	game.settings.register(`taf`, `migrationVersion`, {
 		config: false,
 		type: String,
 		scope: `world`,

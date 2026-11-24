@@ -1,5 +1,3 @@
-import { __ID__ } from "../consts.mjs";
-
 /**
  * Migrate the documents within a collection based on what
  *
@@ -23,7 +21,7 @@ export async function migrateCollection(
 	options = {},
 ) {
 	const toMigrate = collection
-		.filter(doc => doc.getFlag(__ID__, flag))
+		.filter(doc => doc.getFlag(`taf`, flag))
 		.map(doc => {
 			const update = convertor(doc, options) ?? {};
 			update[`_id`] = doc._id;
@@ -31,9 +29,9 @@ export async function migrateCollection(
 			// Remove with issue: Foundry/taf#54
 			// v13/v14+ compatibility shim
 			if (game.release.generation > 13) {
-				update[`flags.${__ID__}.${flag}`] = _del;
+				update[`flags.taf.${flag}`] = _del;
 			} else {
-				update[`flags.${__ID__}.-=${flag}`] = null;
+				update[`flags.taf.-=${flag}`] = null;
 			};
 
 			return update;

@@ -1,4 +1,4 @@
-import { __ID__, filePath } from "../consts.mjs";
+import { filePath } from "../consts.mjs";
 import { createContextMenuOption, deleteItemFromElement, editItemFromElement } from "./utils.mjs";
 import { config } from "../config.mjs";
 import { Logger } from "../utils/Logger.mjs";
@@ -22,7 +22,7 @@ export class PlayerSheet extends
 	// #region Options
 	static DEFAULT_OPTIONS = {
 		classes: [
-			__ID__,
+			`taf`,
 			`PlayerSheet`,
 		],
 		position: {
@@ -161,11 +161,11 @@ export class PlayerSheet extends
 
 	// #region Lifecycle
 	_initializeApplicationOptions(options) {
-		const sizing = getProperty(options.document, `flags.${__ID__}.PlayerSheet.size`) ?? {};
+		const sizing = getProperty(options.document, `flags.taf.PlayerSheet.size`) ?? {};
 		const setting = {
-			width: game.settings.get(__ID__, `sheetDefaultWidth`),
-			height: game.settings.get(__ID__, `sheetDefaultHeight`),
-			resizable: game.settings.get(__ID__, `sheetDefaultResizable`),
+			width: game.settings.get(`taf`, `sheetDefaultWidth`),
+			height: game.settings.get(`taf`, `sheetDefaultHeight`),
+			resizable: game.settings.get(`taf`, `sheetDefaultResizable`),
 		};
 
 		options.window ??= {};
@@ -397,7 +397,7 @@ export class PlayerSheet extends
 
 		const sortedGroups = [];
 		/** @type {Array<string>} */
-		const groupOrder = game.settings.get(__ID__, `itemGroupOrder`);
+		const groupOrder = game.settings.get(`taf`, `itemGroupOrder`);
 		for (const groupName of groupOrder) {
 			const group = groups[groupName.toLowerCase()];
 			if (group) {

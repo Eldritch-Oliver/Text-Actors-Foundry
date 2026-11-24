@@ -1,5 +1,3 @@
-import { __ID__ } from "../../consts.mjs";
-
 const { getType } = foundry.utils;
 
 export class PlayerData extends foundry.abstract.TypeDataModel {
@@ -40,7 +38,7 @@ export class PlayerData extends foundry.abstract.TypeDataModel {
 		// Assign the default items from the world setting if required
 		const items = this.parent._source.items;
 		if (items.length === 0 && !options.cloning) {
-			const defaults = game.settings.get(__ID__, `actorDefaultAttributes`) ?? [];
+			const defaults = game.settings.get(`taf`, `actorDefaultAttributes`) ?? [];
 			this.parent.updateSource({ items: defaults });
 		};
 

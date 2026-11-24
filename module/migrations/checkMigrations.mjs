@@ -1,4 +1,3 @@
-import { __ID__ } from "../consts.mjs";
 import { Logger } from "../utils/Logger.mjs";
 import { migrateTo3_0_0 } from "./v3.0.0.mjs";
 
@@ -10,7 +9,7 @@ export async function checkMigrations() {
 		return;
 	};
 
-	const migrationVersion = game.settings.get(__ID__, `migrationVersion`);
+	const migrationVersion = game.settings.get(`taf`, `migrationVersion`);
 	let updateVersion = !migrationVersion;
 
 	if (isNewerVersion(`3.0.0`, migrationVersion)) {
@@ -19,6 +18,6 @@ export async function checkMigrations() {
 	};
 
 	if (updateVersion) {
-		game.settings.set(__ID__, `migrationVersion`, game.system.version);
+		game.settings.set(`taf`, `migrationVersion`, game.system.version);
 	};
 };

@@ -1,4 +1,3 @@
-import { __ID__ } from "../consts.mjs";
 import { clamp } from "../utils/clamp.mjs";
 
 const { Actor } = foundry.documents;
@@ -173,7 +172,7 @@ export class TAFActor extends Actor {
 		if (Object.keys(attr).length > 0) {
 			setProperty(
 				data,
-				`flags.${__ID__}.convertAttributesIntoItems`,
+				`flags.taf.convertAttributesIntoItems`,
 				deepClone(attr),
 			);
 		};
@@ -201,7 +200,7 @@ export class TAFActor extends Actor {
 			});
 		};
 
-		game.settings.set(__ID__, `actorDefaultAttributes`, minifiedData);
+		game.settings.set(`taf`, `actorDefaultAttributes`, minifiedData);
 		ui.notifications.success(_loc(`taf.notifs.success.saved-default-attributes`));
 	};
 	// #endregion Static API

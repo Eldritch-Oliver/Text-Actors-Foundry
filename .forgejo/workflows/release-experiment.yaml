@@ -1,0 +1,51 @@
+on: [ workflow_dispatch ]
+env:
+  PACKAGE_NAME: "taf-experimental"
+jobs:
+  release-experiment:
+    name: "Create Experimental Release"
+    runs-on: act
+    outputs:
+      version: ${{steps.version.outputs.version}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Get version
+        id: version
+        run: cat ${{vars.MANIFEST}} | echo version=`jq -r ".version"` >> "$FORGEJO_OUTPUT"
+
+      # Compendia steps
+      - name: Build compendia
+        run: "npm run data:build"
+      - name: Remove compendia source
+        run: "rm -rf packs/**/_source"
+
+      - name: Update manifest
+        run: node scripts/src/prepareManifest.mjs
+        env:
+          EXPERIMENTAL: true
+          DOWNLOAD_URL: "${{forgejo.api_url}}/packages/${{forgejo.repository_owner}}/generic/${{env.PACKAGE_NAME}}/v${{steps.version.outputs.version}}/release.zip"
+          LATEST_URL: "${{forgejo.api_url}}/packages/${{forgejo.repository_owner}}/generic/${{env.PACKAGE_NAME}}/v${{steps.version.outputs.version}}/${{vars.MANIFEST}}"
+
+      - name: Compress files
+        run: zip -r release.zip langs module styles templates README.md assets LICENSE ${{vars.MANIFEST}}
+
+      - name: Upload manifest
+        run: node scripts/src/uploadToPackage.mjs
+        env:
+          ASSET: ${{vars.MANIFEST}}
+          VERSION: v${{steps.version.outputs.version}}
+          PACKAGE_NAME: ${{env.PACKAGE_NAME}}
+
+      - name: Upload release zip
+        run: node scripts/src/uploadToPackage.mjs
+        env:
+          ASSET: release.zip
+          VERSION: v${{steps.version.outputs.version}}
+          PACKAGE_NAME: ${{env.PACKAGE_NAME}}
